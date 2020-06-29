@@ -1,0 +1,64 @@
+---
+title: Bewährte Sicherheitsmethoden für MED-V-Vorgänge
+description: Bewährte Sicherheitsmethoden für MED-V-Vorgänge
+author: dansimp
+ms.assetid: 231e2b9a-8b49-42fe-93b5-2ef12fe17bac
+ms.reviewer: ''
+manager: dansimp
+ms.author: dansimp
+ms.pagetype: mdop, virtualization
+ms.mktglfcycl: deploy
+ms.sitesec: library
+ms.prod: w10
+ms.date: 06/16/2016
+ms.openlocfilehash: 4353a15c756dba8cf44f530c2077546e3f9288cd
+ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.translationtype: MT
+ms.contentlocale: de-DE
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "10811131"
+---
+# <span data-ttu-id="80438-103">Bewährte Sicherheitsmethoden für MED-V-Vorgänge</span><span class="sxs-lookup"><span data-stu-id="80438-103">Security Best Practices for MED-V Operations</span></span>
+
+
+<span data-ttu-id="80438-104">Als autorisierter Administrator sind Sie dafür verantwortlich, die Informationen der Benutzer zu schützen und die Sicherheit Ihrer Organisation während und nach der Bereitstellung von MED-V-Arbeitsbereichen zu gewährleisten.</span><span class="sxs-lookup"><span data-stu-id="80438-104">As an authorized administrator, you are responsible to protect the information of the users and maintain security of your organization during and after the deployment of MED-V workspaces.</span></span> <span data-ttu-id="80438-105">Bedenken Sie insbesondere die folgenden Probleme.</span><span class="sxs-lookup"><span data-stu-id="80438-105">In particular, consider the following issues.</span></span>
+
+<span data-ttu-id="80438-106">**Anpassen von Internet Explorer im MED-V-Arbeitsbereich**</span><span class="sxs-lookup"><span data-stu-id="80438-106">**Customizing Internet Explorer in the MED-V workspace**.</span></span> <span data-ttu-id="80438-107">Frühere Versionen des Windows-Betriebssystems und von Internet Explorer sind nicht so sicher wie aktuelle Versionen.</span><span class="sxs-lookup"><span data-stu-id="80438-107">Earlier versions of the Windows operating system and of Internet Explorer are not as secure as current versions.</span></span> <span data-ttu-id="80438-108">Daher ist Internet Explorer im MED-V-Arbeitsbereich so konfiguriert, dass das Browsen und andere Aktivitäten, die Sicherheitsrisiken darstellen können, verhindert werden.</span><span class="sxs-lookup"><span data-stu-id="80438-108">Therefore, Internet Explorer in the MED-V workspace is configured to prevent browsing and other activities that can pose security risks.</span></span> <span data-ttu-id="80438-109">Darüber hinaus ist die Einstellung für Internet-Sicherheitszone für Internet Explorer im MED-V-Arbeitsbereich auf die höchste Ebene festgelegt.</span><span class="sxs-lookup"><span data-stu-id="80438-109">In addition, the Internet security zone setting for Internet Explorer in the MED-V workspace is set to the highest level.</span></span> <span data-ttu-id="80438-110">Standardmäßig werden beide Konfigurationen beim Erstellen Ihres Med-v-Arbeitsbereichs Pakets im Med-v-Arbeitsbereich-Paketer eingestellt.</span><span class="sxs-lookup"><span data-stu-id="80438-110">By default, both of these configurations are set in the MED-V Workspace Packager when you create your MED-V workspace package.</span></span>
+
+<span data-ttu-id="80438-111">Durch die Verwendung von Internet Explorer Administration Kit (IEAK) oder durch Ändern der Standardeinstellungen im Med-v Workspace-Paketer können Sie Internet Explorer im Med-v-Arbeitsbereich anpassen.</span><span class="sxs-lookup"><span data-stu-id="80438-111">By using Internet Explorer Administration Kit (IEAK) or by changing the defaults in the MED-V Workspace Packager, you can customize Internet Explorer in the MED-V workspace.</span></span> <span data-ttu-id="80438-112">Beachten Sie jedoch, dass Sie, wenn Sie Internet Explorer im MED-V-Arbeitsbereich so anpassen, dass Sie nicht so sicher sind, dass Sie Ihre Organisation für die Sicherheitsrisiken verfügbar machen können, die in älteren Versionen von Internet Explorer vorhanden sind.</span><span class="sxs-lookup"><span data-stu-id="80438-112">However, realize that if you customize Internet Explorer in the MED-V workspace in such a way as to make it less secure, you can expose your organization to those security risks that are present in older versions of Internet Explorer.</span></span>
+
+<span data-ttu-id="80438-113">Aus Sicherheitsgesichtspunkten sind bewährte Methoden für die Verwaltung von Internet Explorer im MED-V-Arbeitsbereich wie folgt:</span><span class="sxs-lookup"><span data-stu-id="80438-113">From a security perspective, best practices for managing Internet Explorer in the MED-V workspace are as follows:</span></span>
+
+-   <span data-ttu-id="80438-114">Lassen Sie beim Erstellen Ihres Med-v-Arbeitsbereichs Pakets die Standardeinstellungen so festlegen, dass Internet Explorer im Med-v-Arbeitsbereich so konfiguriert ist, dass das Browsen und andere Aktivitäten, die Sicherheitsrisiken darstellen können, verhindert werden.</span><span class="sxs-lookup"><span data-stu-id="80438-114">When creating your MED-V workspace package, leave the defaults set so that Internet Explorer in the MED-V workspace is configured to prevent browsing and other activities that can pose security risks.</span></span>
+
+-   <span data-ttu-id="80438-115">Wenn Sie Ihr MED-V-Arbeitsbereichs Paket erstellen, beließen Sie die Standardeinstellungen so, dass die Sicherheitseinstellung für das Internet sicherheitsgebiet auf der höchsten Ebene verbleibt.</span><span class="sxs-lookup"><span data-stu-id="80438-115">When creating your MED-V workspace package, leave the defaults set so that the security setting for the Internet security zone remains at the highest level.</span></span>
+
+-   <span data-ttu-id="80438-116">Konfigurieren Sie Ihren Unternehmens Proxy oder Internet Explorer-Inhaltsratgeber so, dass Domänen außerhalb des Intranets Ihres Unternehmens blockiert werden.</span><span class="sxs-lookup"><span data-stu-id="80438-116">Configure your enterprise proxy or Internet Explorer Content Advisor to block domains that are outside your company’s intranet.</span></span>
+
+**<span data-ttu-id="80438-117">Konfigurieren eines MED-V-Arbeitsbereichs für alle Benutzer auf einem freigegebenen Computer</span><span class="sxs-lookup"><span data-stu-id="80438-117">Configuring a MED-V workspace for all users on a shared computer.</span></span>** <span data-ttu-id="80438-118">Wenn Sie einen MED-V-Arbeitsbereich so konfigurieren, dass alle Benutzer auf einem freigegebenen Computer darauf zugreifen können, stellen Sie fest, dass die virtuelle Gastmaschine (Virtual Machine, VHD) an einem Speicherort abgelegt wird, der allen Benutzern in diesem System Lese-und Schreibzugriff gewährt.</span><span class="sxs-lookup"><span data-stu-id="80438-118">When configuring a MED-V workspace so that it can be accessed by all users on a shared computer, realize that the guest virtual machine (VHD) is put in a location that gives Read and Write access to all users on that system.</span></span>
+
+**<span data-ttu-id="80438-119">Konfigurieren eines Proxykontos für die Domänenmitgliedschaft</span><span class="sxs-lookup"><span data-stu-id="80438-119">Configuring a proxy account for domain joining.</span></span>** <span data-ttu-id="80438-120">Wenn Sie ein Proxykonto für die Teilnahme an virtuellen Computern zur Domäne konfigurieren, müssen Sie wissen, dass es möglich ist, dass ein Endbenutzer die Anmeldeinformationen für das Proxykonto erhält.</span><span class="sxs-lookup"><span data-stu-id="80438-120">When configuring a proxy account for joining virtual machines to the domain, you must know that it is possible for an end user to obtain the proxy account credentials.</span></span> <span data-ttu-id="80438-121">Daher müssen erforderliche Vorkehrungen getroffen werden, beispielsweise das Einschränken von Konto Benutzerrechten, um zu verhindern, dass ein Endbenutzer die Anmeldeinformationen verwendet, um Schäden zu verursachen.</span><span class="sxs-lookup"><span data-stu-id="80438-121">Thus, necessary precautions must be taken, such as limiting account user rights, to prevent an end user from using the credentials for causing harm.</span></span>
+
+**<span data-ttu-id="80438-122">Sysprep-Konfiguration.</span><span class="sxs-lookup"><span data-stu-id="80438-122">Sysprep Configuration.</span></span>** <span data-ttu-id="80438-123">Obwohl die Datei "Sysprep. inf" standardmäßig verschlüsselt ist, kann Ihr Inhalt von einem bestimmten Endbenutzer entschlüsselt und gelesen werden, der sich erfolgreich beim virtuellen Computer anmelden kann.</span><span class="sxs-lookup"><span data-stu-id="80438-123">Although the Sysprep.inf file is encrypted by default, its contents can be decrypted and read by any determined end user who can successfully log on to the virtual machine.</span></span> <span data-ttu-id="80438-124">Dies wirft Sicherheitsbedenken auf, da die Datei "Sysprep. inf" zusätzlich zu einem Windows-Product Key Anmeldeinformationen enthalten kann.</span><span class="sxs-lookup"><span data-stu-id="80438-124">This raises security concerns because the Sysprep.inf file can contain credentials in addition to a Windows product key.</span></span>
+
+<span data-ttu-id="80438-125">Sie können dieses Risiko verringern, indem Sie ein Konto mit Einschränkungen für die Teilnahme an virtuellen Computern an der Domäne einrichten und die Anmeldeinformationen für dieses Konto bei der Konfiguration von Sysprep angeben.</span><span class="sxs-lookup"><span data-stu-id="80438-125">You can lessen this risk by setting up a limited account for joining virtual machines to the domain and specifying the credentials for that account when configuring Sysprep.</span></span> <span data-ttu-id="80438-126">Alternativ können Sie auch Sysprep und das erstmalige Einrichten so konfigurieren, dass Sie im **beaufsichtigten** Modus ausgeführt werden, und die Endbenutzer müssen Ihre Anmeldeinformationen für die Teilnahme am virtuellen Computer zur Domäne angeben.</span><span class="sxs-lookup"><span data-stu-id="80438-126">Alternately, you can also configure Sysprep and first time setup to run in **Attended** mode and require end users to provide their credentials for joining the virtual machine to the domain.</span></span>
+
+<span data-ttu-id="80438-127">In einem MED-V-bewährten Verfahren wird angegeben, dass FtsCompletion.exe unter einem Konto ausgeführt wird, das den Endbenutzern die Berechtigung zum Herstellen einer Verbindung mit dem Gast über den Remote Desktop Verbindung-Client (RDC) gewährt.</span><span class="sxs-lookup"><span data-stu-id="80438-127">A MED-V best practice is to specify that FtsCompletion.exe is run under an account that gives the end user rights to connect to the guest through the Remote Desktop Connection (RDC) Client.</span></span>
+
+**<span data-ttu-id="80438-128">Endbenutzer Authentifizierung.</span><span class="sxs-lookup"><span data-stu-id="80438-128">End-user authentication.</span></span>** <span data-ttu-id="80438-129">Das Aktivieren der Zwischenspeicherung von Anmeldeinformationen für Endbenutzer bietet die beste Benutzerfreundlichkeit von MED-V, schafft aber das Potenzial, dass jemand Zugriff auf die Anmeldeinformationen des Endbenutzers erhält.</span><span class="sxs-lookup"><span data-stu-id="80438-129">Enabling the caching of end-user credentials provides the best user experience of MED-V, but creates the potential that someone could gain access to the end user’s credentials.</span></span> <span data-ttu-id="80438-130">Die einzige Möglichkeit, dieses Risiko zu verringern, besteht darin, dass für den **MED-V-Arbeitsbereichs-Packager** angegeben wird, dass keine Endbenutzeranmeldeinformationen gespeichert werden.</span><span class="sxs-lookup"><span data-stu-id="80438-130">The only way to lessen this risk is by specifying on the **MED-V Workspace Packager** that end-user credentials are not stored.</span></span> <span data-ttu-id="80438-131">Weitere Informationen zur Authentifizierung von Endbenutzern finden Sie unter [Authentifizierung von MED-V-Endbenutzern](authentication-of-med-v-end-users.md).</span><span class="sxs-lookup"><span data-stu-id="80438-131">For more information about authentication of end users, see [Authentication of MED-V End Users](authentication-of-med-v-end-users.md).</span></span>
+
+## <span data-ttu-id="80438-132">Verwandte Themen</span><span class="sxs-lookup"><span data-stu-id="80438-132">Related topics</span></span>
+
+
+[<span data-ttu-id="80438-133">Problembehandlung bei Vorgängen</span><span class="sxs-lookup"><span data-stu-id="80438-133">Operations Troubleshooting</span></span>](operations-troubleshooting-medv2.md)
+
+[<span data-ttu-id="80438-134">Microsoft Enterprise Desktop Virtualization 2,0</span><span class="sxs-lookup"><span data-stu-id="80438-134">Microsoft Enterprise Desktop Virtualization 2.0</span></span>](index.md)
+
+ 
+
+ 
+
+
+
+
+
