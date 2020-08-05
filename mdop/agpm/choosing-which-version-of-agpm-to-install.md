@@ -11,12 +11,12 @@ ms.mktglfcycl: manage
 ms.sitesec: library
 ms.prod: w10
 ms.date: 04/05/2017
-ms.openlocfilehash: b09ea8161b6801c62552f1c0d0ef8455dc111e2f
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: f8a69fb323d9f47c5b906ac3abc6ec59376ee6f7
+ms.sourcegitcommit: 0a7dee11289780336d9c24ebbf27c5c1ffee441c
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10807771"
+ms.lasthandoff: 08/04/2020
+ms.locfileid: "10905602"
 ---
 # Welche Version von AGPM zur Installation auswählen
 
@@ -53,42 +53,47 @@ Tabelle 1 listet die Betriebssysteme auf, auf denen Sie AGPM 4.0 SP3 installiere
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><p>Windows Server 2016 oder Windows 10</p></td>
-<td align="left"><p>Windows Server 2016 oder Windows 10</p></td>
+<td align="left"><p>Windows Server 2019 oder Windows 10</p></td>
+<td align="left"><p>Windows Server 2019 oder Windows 10</p></td>
 <td align="left"><p>Unterstützt</p></td>
 </tr>
-<tr class="even">
+ <tr class="even">
+<td align="left"><p>Windows Server 2019 oder Windows 10</p></td>
+<td align="left"><p>Windows Server 2019 oder Windows 10</p></td>
+<td align="left"><p>Unterstützt</p></td>
+</tr>
+<tr class="edd">
 <td align="left"><p>Windows Server2012 R2</p></td>
 <td align="left"><p>Windows 10</p></td>
 <td align="left"><p>Unterstützt durch die in KB 4015786 beschriebenen Einschränkungen <a href="https://support.microsoft.com/help/4015786/known-issues-managing-a-windows-10-group-policy-client-in-windows-serv" data-raw-source="[KB 4015786](https://support.microsoft.com/help/4015786/known-issues-managing-a-windows-10-group-policy-client-in-windows-serv)"></a>
 </p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><p>Windows Server2012 R2 oder Windows 8.1</p></td>
 <td align="left"><p>Windows Server2012 R2 oder Windows 8.1</p></td>
 <td align="left"><p>Unterstützt</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><p>Windows Server2012 R2, Windows Server 2012 oder Windows 8.1</p></td>
 <td align="left"><p>Windows Server 2012 oder Windows 8,1</p></td>
 <td align="left"><p>Unterstützt, aber Richtlinieneinstellungen oder Einstellungselemente, die nur in Windows 8.1 vorhanden sind, können nicht bearbeitet werden</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><p>Windows Server2008R2 oder Windows7</p></td>
 <td align="left"><p>Windows Server2008R2 oder Windows7</p></td>
 <td align="left"><p>Unterstützt, aber Richtlinieneinstellungen oder Einstellungselemente, die nur in Windows 8.1 vorhanden sind, können nicht bearbeitet werden</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><p>Windows Server 2012, Windows Server2008R2 oder Windows7</p></td>
 <td align="left"><p>Windows Server2008 oder Windows Vista mit Service Pack 1 (SP1)</p></td>
 <td align="left"><p>Unterstützt, aber Richtlinieneinstellungen oder Einstellungselemente, die nur in Windows Server2012 R2, Windows Server 2012, Windows Server2008R2, Windows 8.1 oder Windows7 vorhanden sind, können nicht bearbeitet werden</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><p>Windows Server2008 oder Windows Vista mit SP1</p></td>
 <td align="left"><p>Windows Server 2012, Windows Server2008R2, Windows 8 oder Windows7</p></td>
 <td align="left"><p>Nicht unterstützt.</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><p>Windows Server2008 oder Windows Vista mit SP1</p></td>
 <td align="left"><p>Windows Server2008 oder Windows Vista mit SP1</p></td>
 <td align="left"><p>Unterstützt, jedoch können keine Richtlinieneinstellungen oder Einstellungselemente, die nur in Windows Server2012 R2, Windows Server 2012, Windows Server2008R2, Windows 8.1 oder Windows7 vorhanden sind, gemeldet oder bearbeitet werden</p></td>
