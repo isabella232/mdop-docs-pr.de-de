@@ -11,12 +11,12 @@ ms.mktglfcycl: manage
 ms.sitesec: library
 ms.prod: w10
 ms.date: 2/16/2018
-ms.openlocfilehash: 19da3df0976b51700e0d10c302a31421a88d17e4
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: 330ded822dd9da96a1c33eabcb31d744044dc28e
+ms.sourcegitcommit: ae34c5cb5e7979b472b257a4691142e493d5d6fe
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10804457"
+ms.lasthandoff: 09/30/2020
+ms.locfileid: "11091620"
 ---
 # Aktualisieren von MBAM 2.5 auf MBAM 2.5 SP1
 In diesem Thema wird beschrieben, wie Sie den Microsoft BitLocker-Verwaltungs-und-Überwachungs Server (MBAM) 2,5 und den MBAM-Client von 2,5 auf MBAM 2,5 SP1 aktualisieren.
@@ -24,6 +24,10 @@ In diesem Thema wird beschrieben, wie Sie den Microsoft BitLocker-Verwaltungs-un
 ### Vorbemerkungen
 #### Herunterladen der Service Version vom Mai 2019
 [Desktop Optimierungspaket](https://www.microsoft.com/download/details.aspx?id=58345)
+
+#### Herunterladen der Service Version vom Juli 2018
+[Desktop Optimierungspaket](https://www.microsoft.com/download/details.aspx?id=57157)
+
 
 #### Überprüfen der Installationsdokumentation
 Stellen Sie sicher, dass Sie über eine aktuelle Dokumentation Ihrer MBAM-Umgebung verfügen, einschließlich aller Servernamen, Datenbanknamen, Dienstkonten und deren Kennwörter.
