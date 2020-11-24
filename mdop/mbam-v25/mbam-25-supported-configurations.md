@@ -11,12 +11,12 @@ ms.mktglfcycl: manage
 ms.sitesec: library
 ms.prod: w10
 ms.date: 10/24/2018
-ms.openlocfilehash: 262cd8c259dc37b291cdaf02caf0e20b7515d38b
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: 8ed7915e33c5e4735a7c58674ed5f7d6da8e9a06
+ms.sourcegitcommit: 9087f0a1b5bd3f81a9b790d5e39fdf39c18a2411
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10810228"
+ms.lasthandoff: 11/23/2020
+ms.locfileid: "11182927"
 ---
 # Von MBAM 2.5 unterstützte Konfigurationen
 
@@ -165,6 +165,12 @@ In der folgenden Tabelle sind die Betriebssysteme aufgeführt, die für die Inst
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="left"><p>Windows Server 2019</p></td>
+<td align="left"><p>Standard oder Rechenzentrum</p></td>
+<td align="left"></td>
+<td align="left"><p>64Bit</p></td>
+</tr>
 <tr class="odd">
 <td align="left"><p>Windows Server 2016</p></td>
 <td align="left"><p>Standard oder Rechenzentrum</p></td>
@@ -349,6 +355,10 @@ Sie müssen SQL Server mit dem **SQL \ _Latin1 \ _General \ _CP1 \ _ci \ _AS** S
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left"><p>Microsoft SQL Server 2019</p></td>
+<td align="left"><p>Standard, Enterprise oder Datacenter</p></td>
+<td align="left"><p></p></td>
+<td align="left"><p>64Bit</p></td><br/><tr class="even">
 <td align="left"><p>Microsoft SQL Server 2017</p></td>
 <td align="left"><p>Standard, Enterprise oder Datacenter</p></td>
 <td align="left"><p></p></td>
@@ -377,7 +387,9 @@ Sie müssen SQL Server mit dem **SQL \ _Latin1 \ _General \ _CP1 \ _ci \ _AS** S
 </table>
 
 **Hinweis:**  
-Um SQL 2016 zu unterstützen, müssen Sie die Service Version für März 2017 für MDOP installieren https://www.microsoft.com/download/details.aspx?id=54967 und SQL 2017 unterstützen, wenn Sie die Version vom Juli 2018 für MDOP installieren müssen https://www.microsoft.com/download/details.aspx?id=57157 . Im allgemeinen bleiben Sie stets auf dem laufenden, indem Sie immer das neueste Wartungsupdate verwenden, da es auch alle Bugfixes und neuen Features enthält.
+MBAM hat einen maximal unterstützten Kompatibilitätsgrad von 140. Der Standardkompatibilitätsgrad für neue Datenbanken, die auf SQL Server 2019 erstellt wurden, ist 150, die nach der Erstellung der Datenbank mit dem Befehl ALTER DATABASE nach 140 oder niedriger geändert werden müssen. Vorhandene Datenbanken, die von SQL Server 2017 oder darunter migriert wurden, verbleiben auf dem vorherigen Kompatibilitätsgrad und müssen nicht geändert werden.
+
+Um SQL 2016 zu unterstützen, müssen Sie die Service Version für März 2017 für MDOP installieren https://www.microsoft.com/download/details.aspx?id=54967  und SQL 2017 unterstützen, wenn Sie die Version vom Juli 2018 für MDOP installieren müssen https://www.microsoft.com/download/details.aspx?id=57157 . Im allgemeinen bleiben Sie stets auf dem laufenden, indem Sie immer das neueste Wartungsupdate verwenden, da es auch alle Bugfixes und neuen Features enthält.
 
 
 ### <a href="" id="bkmk-sql-stand-alone-ramreqs"></a>SQL Server-Prozessor, RAM und Speicherplatzanforderungen – eigenständige Topologie
