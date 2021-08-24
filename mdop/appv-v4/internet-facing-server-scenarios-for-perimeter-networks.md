@@ -11,51 +11,52 @@ ms.mktglfcycl: deploy
 ms.sitesec: library
 ms.prod: w10
 ms.date: 08/30/2016
-ms.openlocfilehash: fcb04e651341fa107c358eaabbd7992d7ea155ec
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: 7415cf7a97edc646653df552723667bac8d25fdc
+ms.sourcegitcommit: 3e0500abde44d6a09c7ac8e3caf5e25929b490a4
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10806644"
+ms.lasthandoff: 08/23/2021
+ms.locfileid: "11910690"
 ---
-# Mit dem Internet verbundene Szenarien für Umkreisnetzwerke
+# <a name="internet-facing-server-scenarios-for-perimeter-networks"></a>Mit dem Internet verbundene Szenarien für Umkreisnetzwerke
 
 
-App-v 4.5 unterstützt Server Szenarien mit Internet Verbindung, bei denen Benutzer, die nicht mit dem Unternehmensnetzwerk verbunden sind oder die Verbindung mit dem Netzwerk trennen, weiterhin App-v verwenden können. Wie in der folgenden Abbildung zu sehen ist, wird nur die Verwendung von sicheren Protokollen im Internet (RTSPS und HTTPS) unterstützt.
+App-V 4.5 unterstützt Internet-bezogene Serverszenarien, in denen Benutzer, die nicht mit dem Unternehmensnetzwerk verbunden sind oder keine Verbindung mit dem Netzwerk herstellen, weiterhin App-V verwenden können. Wie in der folgenden Abbildung dargestellt, wird nur die Verwendung sicherer Protokolle im Internet (RTSPS und HTTPS) unterstützt.
 
-![App-v-Firewall-Positionierungs Diagramm](images/appvfirewalls.gif)
+![App-v-Firewall-Positionierungsdiagramm.](images/appvfirewalls.gif)
 
-Sie können eine mit dem Internet verbundene Lösung mithilfe eines ISA-Servers einrichten, in dem sich die App-V-Infrastruktur wie folgt auf dem internen Netzwerk befindet:
+Sie können eine Internetlösung mithilfe eines ISA-Servers einrichten, auf dem sich die App-V-Infrastruktur im internen Netzwerk auf folgende Weise befindet:
 
--   Erstellen Sie eine Webveröffentlichungsregel für den IIS-Server, auf dem sich die ICO-und OSD-Dateien befinden – und optional die Pakete für Streaming –, die sich im internen Netzwerk befinden. Detaillierte Anweisungen finden Sie unter <https://go.microsoft.com/fwlink/?LinkId=151982> .
+-   Erstellen Sie eine Webveröffentlichungsregel für den IIS-Server, der die ICO- und OSD-Dateien hostet , und optional die Pakete für streaming, die sich im internen Netzwerk befinden. Detaillierte Schritte finden Sie unter <https://go.microsoft.com/fwlink/?LinkId=151982> .
 
--   Erstellen Sie eine Server Veröffentlichungsregel für den App-V Web Management Server (RTSPS). Detaillierte Anweisungen finden Sie unter [https://go.microsoft.com/fwlink/?LinkId=151983&](https://go.microsoft.com/fwlink/?LinkId=151983) .
+-   Erstellen Sie eine Serververöffentlichungsregel für den App-V Web Management Server (RTSPS). Detaillierte Schritte finden Sie unter [https://go.microsoft.com/fwlink/?LinkId=151983&](https://go.microsoft.com/fwlink/?LinkId=151983) .
 
-Wie in der folgenden Abbildung dargestellt: Wenn die Infrastruktur andere Firewalls zwischen dem Client und dem ISA-Server oder zwischen dem ISA-Server und dem internen Netzwerk implementiert hat, müssen sowohl RTSPS (TCP 322) als auch HTTPS-Firewallregeln (TCP 443) erstellt werden, um den Datenfluss zu unterstützen. Wenn Firewalls zwischen dem ISA-Server und dem internen Netzwerk implementiert wurden, muss der für Domänenmitglieder erforderliche Standarddaten Verkehr zum Tunneln durch die Firewall zugelassen werden (DNS, LDAP, Kerberos, SMB/CIFS).
+Wie in der folgenden Abbildung dargestellt, müssen, wenn die Infrastruktur andere Firewalls zwischen dem Client und dem ISA-Server oder zwischen dem ISA-Server und dem internen Netzwerk implementiert hat, sowohl RTSPS -Firewallregeln (TCP 322) als auch HTTPS-Firewallregeln (TCP 443) erstellt werden, um den Datenverkehrsfluss zu unterstützen. Wenn Firewalls zwischen dem ISA-Server und dem internen Netzwerk implementiert wurden, muss der für Domänenmitglieder erforderliche Standarddatenverkehr auch zum Tunneln über die Firewall (DNS, LDAP, Kerberos, SMB/CIFS) zulässig sein.
 
-![App-v Umkreisnetzwerk-Firewall-Diagramm](images/appvperimeternetworkfirewall.gif)
+![App-v-Umkreisnetzwerkfirewalldiagramm.](images/appvperimeternetworkfirewall.gif)
 
-Da die Firewall-Lösungen von Umgebung zu Umgebung unterschiedlich sind, werden in diesem Thema die Anleitungen beschrieben, die erforderlich sind, um eine mit dem Internet verbundene App-V-Umgebung im Umkreisnetzwerk zu konfigurieren. Diese Informationen enthalten auch die empfohlenen internen Netzwerkserver.
+Da die Firewalllösungen von Umgebung zu Umgebung variieren, werden in den Anleitungen in diesem Thema der Datenverkehr beschrieben, der erforderlich wäre, um eine mit dem Internet verbundene App-V-Umgebung im Umkreisnetzwerk zu konfigurieren. Diese Informationen umfassen auch die empfohlenen internen Netzwerkserver.
 
 Platzieren Sie die folgenden Server im Umkreisnetzwerk:
 
--   App-V-Verwaltungs Server
+-   App-V-Verwaltungsserver
 
 -   IIS-Server für Veröffentlichung und Streaming
 
-**Hinweis**  Es wird empfohlen, den Verwaltungsserver und den IIS-Server auf separaten Computern zu platzieren.
+**Hinweis:**  
+Es ist eine bewährte Methode, den Verwaltungsserver und iis-Server auf separaten Computern zu platzieren.
 
  
 
 Platzieren Sie die folgenden Server im internen Netzwerk:
 
--   Content Server
+-   Inhaltsserver
 
 -   Datenspeicher (SQL Server)
 
--   Active Directory-Domänen Controller
+-   Active Directory-Domänencontroller
 
-## Verkehrsanforderungen
+## <a name="traffic-requirements"></a>Datenverkehrsanforderungen
 
 
 In den folgenden Tabellen sind die Datenverkehrsanforderungen für die Kommunikation aus dem Internet und dem Umkreisnetzwerk sowie vom Umkreisnetzwerk zum internen Netzwerk aufgeführt.
@@ -67,18 +68,18 @@ In den folgenden Tabellen sind die Datenverkehrsanforderungen für die Kommunika
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Datenverkehrsanforderungen vom Internet zu Umkreisnetzwerk</th>
+<th align="left">Datenverkehrsanforderungen vom Internet zum Umkreisnetzwerk</th>
 <th align="left">Details</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><p>RTSPS (Veröffentlichungs Aktualisierungs-und Streaming-Pakete)</p></td>
-<td align="left"><p>TCP 322 standardmäßig; Dies kann in App-V Management Server geändert werden.</p></td>
+<td align="left"><p>RTSPS (Veröffentlichung von Aktualisierungs- und Streamingpaketen)</p></td>
+<td align="left"><p>TCP 322 standardmäßig; Dies kann im App-V-Verwaltungsserver geändert werden.</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>HTTPS (Veröffentlichungs-ICO-und OSD-Dateien und Streaming-Pakete)</p></td>
-<td align="left"><p>TCP 443 standardmäßig; Dies kann in der IIS-Konfiguration geändert werden.</p></td>
+<td align="left"><p>HTTPS (Veröffentlichen von ICO- und OSD-Dateien und Streamingpaketen)</p></td>
+<td align="left"><p>TCP 443 standardmäßig; dies kann in der IIS-Konfiguration geändert werden.</p></td>
 </tr>
 </tbody>
 </table>
@@ -99,11 +100,11 @@ In den folgenden Tabellen sind die Datenverkehrsanforderungen für die Kommunika
 <tbody>
 <tr class="odd">
 <td align="left"><p>SQLServer</p></td>
-<td align="left"><p>TCP 1433 ist der Standard, kann aber in SQL Server konfiguriert werden.</p></td>
+<td align="left"><p>TCP 1433 ist die Standardeinstellung, kann aber in SQL Server konfiguriert werden.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>SMB/CIFS</p></td>
-<td align="left"><p>Wenn sich das Inhaltsverzeichnis Remote vom Verwaltungs Server oder IIS-Server befindet (empfohlen).</p></td>
+<td align="left"><p>Wenn sich das Inhaltsverzeichnis remote von den Verwaltungsservern oder IIS-Servern befindet (empfohlen).</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>Kerberos</p></td>
@@ -115,7 +116,7 @@ In den folgenden Tabellen sind die Datenverkehrsanforderungen für die Kommunika
 </tr>
 <tr class="odd">
 <td align="left"><p>DNS</p></td>
-<td align="left"><p>Für die Namensauflösung interner Ressourcen (kann mit der Verwendung der Host-Datei auf Umkreisnetzwerk Servern eliminiert werden)</p></td>
+<td align="left"><p>Für die Namensauflösung interner Ressourcen (kann durch die Verwendung der Hostdatei auf Umkreisnetzwerkservern eliminiert werden)</p></td>
 </tr>
 </tbody>
 </table>

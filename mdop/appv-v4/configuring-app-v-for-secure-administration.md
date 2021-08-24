@@ -11,34 +11,34 @@ ms.mktglfcycl: deploy
 ms.sitesec: library
 ms.prod: w10
 ms.date: 06/16/2016
-ms.openlocfilehash: de70c1df734bbf1168fd7dacf9410d3451a8a3c2
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: c95fab4b2b4f402df4ff0f82f2f346c9bd226e00
+ms.sourcegitcommit: 3e0500abde44d6a09c7ac8e3caf5e25929b490a4
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10809034"
+ms.lasthandoff: 08/23/2021
+ms.locfileid: "11910480"
 ---
-# Konfigurieren von App-V für die sichere Verwaltung
+# <a name="configuring-app-v-for-secure-administration"></a>Konfigurieren von App-V für die sichere Verwaltung
 
 
-In einer Umgebung, in der es wichtig ist, administrative Vorgänge zu sichern, ermöglicht App-v die sichere Kommunikation zwischen dem App-v-Webverwaltungs Dienst und der APP-v-Verwaltungskonsole. Da es sich bei dem Verwaltungsdienst um eine webbasierte Anwendung handelt, muss die App-V-Verwaltungs Server Anwendung auf dem Webserver gesichert werden, der den Verwaltungsdienst hostet. Wie in der folgenden Abbildung dargestellt, umfasst dieser Prozess die Verwendung von HTTPS für die Kommunikation und die Konfiguration des IIS-Servers, um nur die integrierte Windows-Authentifizierung zu ermöglichen.
+In einer Umgebung, in der das Sichern administrativer Vorgänge wichtig ist, ermöglicht App-V eine sichere Kommunikation zwischen dem App-V-Webverwaltungsdienst und der App-V-Verwaltungskonsole. Da der Verwaltungsdienst eine webbasierte Anwendung ist, muss die App-V-Verwaltungsserveranwendung auf dem Webserver gesichert werden, auf dem der Verwaltungsdienst gehostet wird. Wie in der folgenden Abbildung dargestellt, umfasst dieser Prozess die Verwendung von HTTPS für die Kommunikation und die Konfiguration des IIS-Servers, um nur Windows integrierte Authentifizierung zuzulassen.
 
-![App-v Web Service-Netzwerkkonfiguration](images/appvmgmtwebservice.gif)
+![App-v-Webdienst-Netzwerkkonfiguration.](images/appvmgmtwebservice.gif)
 
-Der App-V-Webverwaltungs Dienst wird als webbasierte Anwendung unter IIS installiert. Damit der Webverwaltungs Dienst sichere (SSL-) Verbindungen zwischen der APP-v-Verwaltungskonsole und dem Webverwaltungs Dienst unterstützt, müssen Sie den IIS-Server konfigurieren, auf dem der Webverwaltungs Dienst installiert ist, und die APP-v-Verwaltungskonsole konfigurieren.
+Der App-V-Webverwaltungsdienst wird als webbasierte Anwendung auf IIS installiert. Damit der Webverwaltungsdienst sichere (SSL)-Verbindungen zwischen der App-V-Verwaltungskonsole und dem Webverwaltungsdienst unterstützt, müssen Sie den IIS-Server konfigurieren, auf dem der Webverwaltungsdienst installiert ist, und die App-V-Verwaltungskonsole konfigurieren.
 
-## Inhalt dieses Abschnitts
+## <a name="in-this-section"></a>Inhalt dieses Abschnitts
 
 
 <a href="" id="configuring-certificates-to-support-the-app-v-web-management-service"></a>[Konfigurieren von Zertifikaten zur Unterstützung des App-V Web Management Service](configuring-certificates-to-support-the-app-v-web-management-service.md)  
-Bietet hilfreiche Informationen zum Konfigurieren von Zertifikaten zur Unterstützung von SSL-basierten Verbindungen, um die Kommunikation für den App-V Web Management Service zu sichern.
+Enthält hilfreiche Informationen zum Konfigurieren von Zertifikaten zur Unterstützung SSL-basierter Verbindungen, um die sichere Kommunikation für den App-V-Webverwaltungsdienst zu unterstützen.
 
 <a href="" id="how-to-install-and-configure-the-app-v-management-console-for-a-more-secure-environment"></a>[So installieren und konfigurieren Sie die App-V Management Console für eine sicherere Umgebung](how-to-install-and-configure-the-app-v-management-console-for-a-more-secure-environment.md)  
-Bietet eine schrittweise Anleitung zum Herstellen einer Verbindung mit einem App-V-Webverwaltungs Dienst mithilfe einer sicheren Verbindung.
+Stellt ein schrittweises Verfahren zum Herstellen einer Verbindung mit einem App-V-Webverwaltungsdienst mithilfe einer sicheren Verbindung bereit.
 
- 
+ 
 
- 
+ 
 
 
 

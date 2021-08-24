@@ -11,91 +11,92 @@ ms.mktglfcycl: manage
 ms.sitesec: library
 ms.prod: w10
 ms.date: 06/16/2016
-ms.openlocfilehash: 654de38918102a41395efe37dc593ce8f49113e4
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: 9f23a0eba923608fb6e25e44ee2843f3cde4c2dc
+ms.sourcegitcommit: 3e0500abde44d6a09c7ac8e3caf5e25929b490a4
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10810993"
+ms.lasthandoff: 08/23/2021
+ms.locfileid: "11910810"
 ---
-# Erste Schritte – Verwenden von MBAM mit dem Konfigurations-Manager
+# <a name="getting-started---using-mbam-with-configuration-manager"></a>Erste Schritte – Verwenden von MBAM mit dem Konfigurations-Manager
 
 
-Wenn Sie die Microsoft BitLocker-Verwaltung und-Überwachung (MBAM) installieren, können Sie eine Topologie auswählen, die MBAM mit Configuration Manager 2007 oder SystemCenter2012 ConfigurationManager integriert. Eine Liste der unterstützten Versionen von Configuration Manager, die von MBAM unterstützt werden, finden Sie unter [Planen der Bereitstellung von MBAM mit Configuration Manager](planning-to-deploy-mbam-with-configuration-manager-2.md). In der integrierten Topologie werden die Hardware Konformitäts-und Berichterstellungsfeatures aus MBAM entfernt, und Sie können über den Configuration Manager darauf zugreifen.
+Wenn Sie Microsoft BitLocker Administration and Monitoring (MBAM) installieren, können Sie eine Topologie auswählen, die MBAM in Configuration Manager 2007 oder System Center 2012 Configuration Manager integriert. Eine Liste der unterstützten Versionen von Configuration Manager, die MBAM unterstützt, finden Sie unter [Planning to Deploy MBAM with Configuration Manager](planning-to-deploy-mbam-with-configuration-manager-2.md). In der integrierten Topologie werden die Hardwarecompliance- und Berichterstellungsfeatures aus MBAM entfernt und über Configuration Manager aufgerufen.
 
-**Wichtig**  Windows to go wird nicht unterstützt, wenn Sie die integrierte Topologie von MBAM mit Configuration Manager 2007 installieren.
+**Wichtig**  
+Windows To Go wird nicht unterstützt, wenn Sie die integrierte Topologie von MBAM mit Configuration Manager 2007 installieren.
 
  
 
-## Verwenden von MBAM mit dem Konfigurations-Manager
+## <a name="using-mbam-with-configuration-manager"></a>Verwenden von MBAM mit dem Konfigurations-Manager
 
 
-Die Integration von MBAM basiert auf einem neuen Konfigurationspaket, das die folgenden drei Elemente in Configuration Manager 2007 oder SystemCenter2012 ConfigurationManager installiert, die in den folgenden Abschnitten ausführlich beschrieben werden:
+Die Integration von MBAM basiert auf einem neuen Configuration Pack, das die folgenden drei Elemente in Configuration Manager 2007 oder System Center 2012 Configuration Manager installiert, die in den folgenden Abschnitten ausführlich beschrieben werden:
 
-Konfigurationsdaten, die aus Konfigurationselementen und einer Konfigurationsbasislinie bestehen
+Konfigurationsdaten, die aus Konfigurationselementen und einer Konfigurationsbaseline bestehen
 
 Sammlung
 
 Berichte
 
-### Konfigurationsdaten
+### <a name="configuration-data"></a>Konfigurationsdaten
 
-Mit den Konfigurationsdaten wird eine Konfigurationsbasislinie mit dem Namen "BitLocker-Schutz" installiert, die zwei Konfigurationselemente enthält: "BitLocker-Betriebs System-Laufwerkschutz" und "BitLocker-Schutz für feste Datenlaufwerke". Die Konfigurationsbasislinie wird in der Sammlung bereitgestellt, die auch bei der Installation von MBAM erstellt wird. Die beiden Konfigurationselemente stellen die Grundlage für die Auswertung des Kompatibilitätsstatus der Clientcomputer dar. Diese Informationen werden in Configuration Manager erfasst, gespeichert und ausgewertet. Die Konfigurationselemente basieren auf den Compliance-Anforderungen für Operating System Drives (OSDs) und Fixed Data Drives (FDDs). Die erforderlichen Details für die bereitgestellten Computer werden erfasst, damit die Kompatibilität dieser Laufwerktypen ausgewertet werden kann. Standardmäßig wird der Kompatibilitätsstatus vom Konfigurations Basisplan alle 12 Stunden ausgewertet, und die Kompatibilitätsdaten werden an Configuration Manager gesendet.
+Die Konfigurationsdaten installieren eine Konfigurationsbaseline namens "BitLocker Protection", die zwei Konfigurationselemente enthält: "BitLocker Operating System Drive Protection" und "BitLocker Fixed Data Drives Protection". Die Konfigurationsbasislinie wird in der Sammlung bereitgestellt, die auch bei der Installation von MBAM erstellt wird. Die beiden Konfigurationselemente bieten die Grundlage für die Bewertung des Kompatibilitätsstatus der Clientcomputer. Diese Informationen werden in Configuration Manager erfasst, gespeichert und ausgewertet. Die Konfigurationselemente basieren auf den Complianceanforderungen für Betriebssystemlaufwerke (OSDs) und Festplattenlaufwerke (Fixed Data Drives, FDDs). Die erforderlichen Details für die bereitgestellten Computer werden gesammelt, damit die Kompatibilität für diese Laufwerkstypen ausgewertet werden kann. Standardmäßig wertet der Konfigurationsbaseline den Compliancestatus alle 12 Stunden aus und sendet die Compliancedaten an Configuration Manager.
 
-### Sammlung
+### <a name="collection"></a>Sammlung
 
-MBAM erstellt eine Sammlung, die als MBAM unterstützte Computer bezeichnet wird. Die Konfigurationsbasislinie richtet sich an Clientcomputer, die in dieser Sammlung enthalten sind. Hierbei handelt es sich um eine dynamische Sammlung, die standardmäßig alle 12 Stunden ausgeführt wird und die Mitgliedschaft bewertet. Die Mitgliedschaft basiert auf drei Kriterien:
+MBAM erstellt eine Sammlung, die als MBAM-unterstützte Computer bezeichnet wird. Der Konfigurationsbaseline ist auf Clientcomputer in dieser Sammlung ausgerichtet. Dies ist eine dynamische Sammlung, die standardmäßig alle 12 Stunden ausgeführt wird und die Mitgliedschaft auswertet. Die Mitgliedschaft basiert auf drei Kriterien:
 
--   Es handelt sich um eine unterstützte Version des Windows-Betriebssystems. Derzeit unterstützt MBAM nur Windows 7 Enterprise und Windows 7 Ultimate, Windows 8 Enterprise und Windows to go, wenn Windows to go unter Windows 8 Enterprise ausgeführt wird.
+-   Es handelt sich um eine unterstützte Version des Windows Betriebssystems. Derzeit unterstützt MBAM nur Windows 7 Enterprise und Windows 7 Ultimate, Windows 8 Enterprise und Windows To Go, wenn Windows To Go auf Windows 8 Enterprise ausgeführt wird.
 
--   Es handelt sich um einen physikalischen Computer. Virtuelle Computer werden nicht unterstützt.
+-   Es handelt sich um einen physischen Computer. Virtuelle Computer werden nicht unterstützt.
 
--   TPM (Trusted Platform Module) steht zur Verfügung. Eine kompatible Version von TPM 1,2 oder höher ist für Windows 7 erforderlich. Für Windows 8 und Windows to go ist kein TPM erforderlich.
+-   Trusted Platform Module (TPM) ist verfügbar. Für Windows 7 ist eine kompatible Version von TPM 1.2 oder höher erforderlich. Windows 8 und Windows To Go erfordern kein TPM.
 
-Die Sammlung wird für alle Computer ausgewertet und erstellt die Teilmenge der kompatiblen Computer, die die Grundlage für die Kompatibilitäts Auswertung und-Berichterstellung für die MBAM-Integration bildet.
+Die Auflistung wird für alle Computer ausgewertet und erstellt die Teilmenge kompatibler Computer, die die Grundlage für die Compliancebewertung und Berichterstellung für die MBAM-Integration bietet.
 
-### Berichte
+### <a name="reports"></a>Berichte
 
-Es gibt vier Berichte, die Sie zum Anzeigen der Kompatibilität verwenden können. Sie lauten wie folgt:
+Es gibt vier Berichte, die Sie zum Anzeigen der Compliance verwenden können. Sie lauten wie folgt:
 
--   **BitLocker Enterprise Compliance-Dashboard** – bietet IT-Administratoren drei verschiedene Ansichten von Informationen zu einem einzelnen Bericht: Kompatibilitätsstatus Verteilung, nicht kompatibel – Fehlerverteilung und Kompatibilitätsstatus Verteilung nach Laufwerks. Mit den Drilldown-Optionen im Bericht können IT-Administratoren durch die Daten klicken und eine Liste der Computer anzeigen, die dem von Ihnen ausgewählten Zustand entsprechen.
+-   **BitLocker Enterprise Compliance-Dashboard** – bietet IT-Administratoren drei verschiedene Ansichten von Informationen in einem einzigen Bericht: Compliancestatusverteilung, nicht konform – Fehlerverteilung und Compliancestatusverteilung nach Laufwerkstyp. Mithilfe von Drilldownoptionen im Bericht können IT-Administratoren durch die Daten klicken und eine Liste der Computer anzeigen, die dem von Ihnen ausgewählten Status entsprechen.
 
--   **BitLocker Enterprise Compliance Details** – ermöglicht IT-Administratoren die Anzeige von Informationen über den BitLocker-Verschlüsselungs Kompatibilitätsstatus des Unternehmens und umfasst den Kompatibilitätsstatus für jeden Computer. Mit den Drilldown-Optionen im Bericht können IT-Administratoren durch die Daten klicken und eine Liste der Computer anzeigen, die dem von Ihnen ausgewählten Zustand entsprechen.
+-   **BitLocker Enterprise Compliancedetails** – ermöglicht IT-Administratoren das Anzeigen von Informationen zum BitLocker-Verschlüsselungscompliancestatus des Unternehmens sowie den Compliancestatus für jeden Computer. Mithilfe von Drilldownoptionen im Bericht können IT-Administratoren durch die Daten klicken und eine Liste der Computer anzeigen, die dem von Ihnen ausgewählten Status entsprechen.
 
--   **BitLocker-Computer Kompatibilität** – ermöglicht es Administratoren, einen einzelnen Computer anzuzeigen und zu ermitteln, warum er mit einem bestimmten Status kompatibel oder nicht kompatibel gemeldet wurde. Der Bericht zeigt auch den Verschlüsselungsstatus der Betriebssystemlaufwerke (OSD) und fest Netzlaufwerke (FDDs) an.
+-   **BitLocker-Computercompliance** – ermöglicht IT-Administratoren, einen einzelnen Computer anzuzeigen und zu bestimmen, warum er mit einem bestimmten Status als kompatibel oder nicht kompatibel gemeldet wurde. Der Bericht zeigt auch den Verschlüsselungsstatus der Betriebssystemlaufwerke (OSD) und der Festplattenlaufwerke (Fixed Data Drives, FDDs) an.
 
--   **BitLocker Enterprise Compliance Summary** – ermöglicht IT-Administratoren, den Status der Konformität des Unternehmens mit der MBAM-Richtlinie anzuzeigen. Der Status jedes Computers wird ausgewertet, und der Bericht zeigt eine Zusammenfassung der Konformität aller Computer im Unternehmen mit der Richtlinie. Mit den Drilldown-Optionen im Bericht können IT-Administratoren durch die Daten klicken und eine Liste der Computer anzeigen, die dem von Ihnen ausgewählten Zustand entsprechen.
+-   **BitLocker Enterprise Compliancezusammenfassung** : Ermöglicht IT-Administratoren, den Status der Compliance des Unternehmens mit mbam-Richtlinie anzuzeigen. Jeder Computerstatus wird ausgewertet, und der Bericht enthält eine Zusammenfassung der Kompatibilität aller Computer im Unternehmen mit der Richtlinie. Mithilfe von Drilldownoptionen im Bericht können IT-Administratoren durch die Daten klicken und eine Liste der Computer anzeigen, die dem von Ihnen ausgewählten Status entsprechen.
 
-## Allgemeine Architektur von MBAM mit Configuration Manager
+## <a name="high-level-architecture-of-mbam-with-configuration-manager"></a>High-Level Architektur von MBAM mit Configuration Manager
 
 
-Die folgende Abbildung zeigt die MBAM-Architektur mit der Configuration Manager-Topologie. Mit dieser Konfiguration werden bis zu 200.000 MBAM-Clients in einer Produktionsumgebung unterstützt.
+Die folgende Abbildung zeigt die MBAM-Architektur mit der Configuration Manager-Topologie. Diese Konfiguration unterstützt bis zu 200.000 MBAM-Clients in einer Produktionsumgebung.
 
-![mbam-Architektur mit Configuration Manager](images/mbam2-cmserver.gif)
+![mbam-Architektur mit Konfigurations-Manager.](images/mbam2-cmserver.gif)
 
-Eine Beschreibung der Server, Datenbanken und Features dieser Architektur folgt. Die Server Features und-Datenbanken im Architektur Bild sind unter dem Computer oder Server aufgelistet, auf dem wir die Installation empfehlen.
+Es folgt eine Beschreibung der Server, Datenbanken und Features dieser Architektur. Die Serverfeatures und Datenbanken im Architekturimage sind unter dem Computer oder Server aufgeführt, auf dem sie installiert werden sollten.
 
--   **Daten Bank Server** – die **Wiederherstellungsdatenbank**, die **Überwachungsdatenbank**und die **Überwachungsberichte** werden auf einer Windows Server-und unterstützten SQLServer-Instanz installiert. Die Wiederherstellungsdatenbank speichert Wiederherstellungsdaten, die von MBAM-Clientcomputern erfasst werden. In der Überwachungsdatenbank werden Überwachungs Aktivitätsdaten gespeichert, die von Clientcomputern erfasst werden, die auf Wiederherstellungsdaten zugreifen. Die Überwachungsberichte liefern Daten zum Kompatibilitätsstatus von Clientcomputern in Ihrem Unternehmen.
+-   **Datenbankserver** **– Die Wiederherstellungsdatenbank,** **überwachungsdatenbank**und **Überwachungsberichte** werden auf einem Windows Server installiert und SQL Server Instanz unterstützt. Die Wiederherstellungsdatenbank speichert Wiederherstellungsdaten, die von MBAM-Clientcomputern gesammelt werden. Die Überwachungsdatenbank speichert Überwachungsaktivitätsdaten, die von Clientcomputern gesammelt werden, die auf Wiederherstellungsdaten zugegriffen haben. Die Überwachungsberichte enthalten Daten über den Compliancestatus von Clientcomputern in Ihrem Unternehmen.
 
--   **Primärer Configuration Manager-Standortserver** : der Configuration Manager-Server enthält die MBAM-Server Installation mit der System Center Configuration Manager-Integrations Topologie, die auf einem primären Configuration Manager-Standortserver installiert werden muss. Der Configuration Manager-Server sammelt die Hardwareinventurinformationen von Clientcomputern und wird verwendet, um die BitLocker-Kompatibilität von Clientcomputern zu melden. Wenn Sie die Installation des MBAM-Setup Servers ausführen, werden eine Sammlung und die Konfigurationsdaten auf dem primären Configuration Manager-Standortserver installiert.
+-   **Configuration Manager Primary Site Server** – Der Configuration Manager-Server enthält die MBAM-Serverinstallation mit der System Center Configuration Manager Integrationstopologie, die auf einem primären Configuration Manager-Standortserver installiert werden muss. Der Configuration Manager-Server sammelt die Hardwareinventurinformationen von Clientcomputern und wird verwendet, um die BitLocker-Kompatibilität von Clientcomputern zu melden. Wenn Sie die Installation des MBAM-Setupservers ausführen, werden eine Sammlung und die Konfigurationsdaten auf dem primären Konfigurations-Manager-Standortserver installiert.
 
--   **Verwaltungs-und Überwachungsserver** – der **Verwaltungs-und Überwachungsserver** ist auf einem Windows-Server installiert und besteht aus der Websiteverwaltung und Überwachung sowie den Überwachungs-Webdiensten. Die Websiteverwaltung und Überwachung wird verwendet, um Aktivitäten zu überwachen und auf Wiederherstellungsdaten zuzugreifen (beispielsweise BitLocker-Wiederherstellungsschlüssel). Das **Self-Service-Portal** ist auch auf dem Administrations-und Überwachungs Server installiert. Das Portal ermöglicht Endbenutzern auf Clientcomputern die unabhängige Anmeldung bei einer Website, um einen Wiederherstellungsschlüssel abzurufen, wenn Sie Ihr BitLocker-Kennwort verlieren oder vergessen. Die Überwachungsberichte sind auch auf dem Verwaltungs-und Überwachungs Server installiert.
+-   **Verwaltungs- und Überwachungsserver** – Der **Verwaltungs- und Überwachungsserver** wird auf einem Windows Server installiert und besteht aus der Verwaltungs- und Überwachungswebsite und den Überwachungsdiensten. Die Verwaltungs- und Überwachungswebsite wird verwendet, um Aktivitäten zu überwachen und auf Wiederherstellungsdaten zuzugreifen (z. B. BitLocker-Wiederherstellungsschlüssel). Das **Self-Service-Portal** wird auch auf dem Verwaltungs- und Überwachungsserver installiert. Das Portal ermöglicht Endbenutzern auf Clientcomputern die unabhängige Anmeldung bei einer Website, um einen Wiederherstellungsschlüssel zu erhalten, wenn sie ihr BitLocker-Kennwort verlieren oder vergessen. Die Überwachungsberichte werden auch auf dem Verwaltungs- und Überwachungsserver installiert.
 
--   **Verwaltungsarbeitsstation** – die **Richtlinienvorlage** besteht aus Gruppenrichtlinienobjekten, die MBAM-Implementierungs Einstellungen für die BitLocker-Laufwerkverschlüsselung definieren. Sie können die Richtlinienvorlage auf einem beliebigen Server oder auf einer Arbeitsstation installieren, Sie wird jedoch häufig auf einer Verwaltungsarbeitsstation installiert, die ein unterstützter Windows-Server oder-Clientcomputer ist. Die Workstation muss kein dedizierter Computer sein.
+-   **Verwaltungsarbeitsstation** : Die **Richtlinienvorlage** besteht aus Gruppenrichtlinienobjekten, die MBAM-Implementierungseinstellungen für die BitLocker-Laufwerkverschlüsselung definieren. Sie können die Richtlinienvorlage auf einem beliebigen Server oder jeder Arbeitsstation installieren, sie wird jedoch häufig auf einer Verwaltungsarbeitsstation installiert, die Windows Server oder Clientcomputer unterstützt wird. Die Arbeitsstation muss kein dedizierter Computer sein.
 
--   **MBAM-Client** und **Configuration Manager-Client** Computer
+-   **Computer mit MBAM-Client** und **Configuration Manager-Client**
 
     -   Der **MBAM-Client** führt die folgenden Aufgaben aus:
 
-        -   Verwendet Gruppenrichtlinienobjekte, um die BitLocker-Verschlüsselung von Clientcomputern im Unternehmen durchzusetzen.
+        -   Verwendet Gruppenrichtlinienobjekte, um die BitLocker-Verschlüsselung von Clientcomputern im Unternehmen zu erzwingen.
 
-        -   Sammelt den Wiederherstellungsschlüssel für die drei BitLocker-Datenlaufwerk Typen: Betriebssystemlaufwerke, fest Netzlaufwerke und austauschbare Datenlaufwerke (USB).
+        -   Erfasst den Wiederherstellungsschlüssel für die drei BitLocker-Datentypen: Betriebssystemlaufwerke, Festplattenlaufwerke und USB-Laufwerke (Wechseldaten).
 
-        -   Sammelt Wiederherstellungsinformationen und Computer Informationen zu den Clientcomputern.
+        -   Sammelt Wiederherstellungsinformationen und Computerinformationen zu den Clientcomputern.
 
-    -   **Configuration Manager-Client** – der Configuration Manager-Client ermöglicht es Configuration Manager, Hardware Kompatibilitätsdaten zu den Client Computern zu sammeln, und ermöglicht es Configuration Manager, Kompatibilitätsinformationen zu melden.
+    -   **Configuration Manager-Client** – Der Configuration Manager-Client ermöglicht Configuration Manager das Sammeln von Hardwarekompatibilitätsdaten über die Clientcomputer und ermöglicht Configuration Manager die Meldung von Complianceinformationen.
 
-## Verwandte Themen
+## <a name="related-topics"></a>Verwandte Themen
 
 
 [Verwenden von MBAM mit dem Konfigurations-Manager](using-mbam-with-configuration-manager.md)

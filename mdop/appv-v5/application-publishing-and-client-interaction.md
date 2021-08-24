@@ -1,6 +1,6 @@
 ---
-title: Anwendungsveröffentlichung und Clientinteraktion
-description: Anwendungsveröffentlichung und Clientinteraktion
+title: Veröffentlichen von Anwendungen und Clientinteraktionen
+description: Veröffentlichen von Anwendungen und Clientinteraktionen
 author: dansimp
 ms.assetid: c69a724a-85d1-4e2d-94a2-7ffe0b47d971
 ms.reviewer: ''
@@ -11,46 +11,46 @@ ms.mktglfcycl: deploy
 ms.sitesec: library
 ms.prod: w10
 ms.date: 08/30/2016
-ms.openlocfilehash: b6080a501a8fdd2a39876ff979aa7a2982c76bbb
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: fb648db11009d6f3331d68c5fb8ba74b578fa52c
+ms.sourcegitcommit: 3e0500abde44d6a09c7ac8e3caf5e25929b490a4
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10805951"
+ms.lasthandoff: 08/23/2021
+ms.locfileid: "11910840"
 ---
-# Anwendungsveröffentlichung und Clientinteraktion
+# <a name="application-publishing-and-client-interaction"></a>Veröffentlichen von Anwendungen und Clientinteraktionen
 
 
 Dieser Artikel enthält technische Informationen zu allgemeinen App-V-Clientvorgängen und deren Integration in das lokale Betriebssystem.
 
--   [App-V-Paketdateien, die vom Sequencer erstellt wurden](#bkmk-appv-pkg-files-list)
+-   [Vom Sequencer erstellte App-V-Paketdateien](#bkmk-appv-pkg-files-list)
 
--   [Was befindet sich in der AppV-Datei?](#bkmk-appv-file-contents)
+-   [Was ist in der Appv-Datei enthalten?](#bkmk-appv-file-contents)
 
--   [App-V-Client Datenspeicherorte](#bkmk-files-data-storage)
+-   [Speicherorte von App-V-Clientdaten](#bkmk-files-data-storage)
 
--   [Paket Registrierung](#bkmk-pkg-registry)
+-   [Paketregistrierung](#bkmk-pkg-registry)
 
--   [App-V-Paketspeicher Verhalten](#bkmk-pkg-store-behavior)
+-   [Verhalten des App-V-Paketspeichers](#bkmk-pkg-store-behavior)
 
--   [Roaming-Registrierung und Daten](#bkmk-roaming-reg-data)
+-   [Roamingregistrierung und Daten](#bkmk-roaming-reg-data)
 
--   [App-V Client Application Lifecycle Management](#bkmk-clt-app-lifecycle)
+-   [App-V-Clientanwendungslebenszyklusverwaltung](#bkmk-clt-app-lifecycle)
 
 -   [Integration von App-V-Paketen](#bkmk-integr-appv-pkgs)
 
--   [Verarbeitung dynamischer Konfigurationen](#bkmk-dynamic-config)
+-   [Dynamische Konfigurationsverarbeitung](#bkmk-dynamic-config)
 
--   [Nebeneinander angeordnete Assemblys](#bkmk-sidebyside-assemblies)
+-   [Parallele Assemblys](#bkmk-sidebyside-assemblies)
 
--   [Client Protokollierung](#bkmk-client-logging)
+-   [Clientprotokollierung](#bkmk-client-logging)
 
-Weitere Referenzinformationen finden Sie unter [Dokumentation der Microsoft Application Virtualization (App-V)-Download Seite](https://www.microsoft.com/download/details.aspx?id=27760).
+Weitere Referenzinformationen finden Sie auf der Downloadseite der [Dokumentationsressourcen von Microsoft Application Virtualization (App-V).](https://www.microsoft.com/download/details.aspx?id=27760)
 
-## <a href="" id="bkmk-appv-pkg-files-list"></a>App-V-Paketdateien, die vom Sequencer erstellt wurden
+## <a name="app-v-package-files-created-by-the-sequencer"></a><a href="" id="bkmk-appv-pkg-files-list"></a>Vom Sequencer erstellte App-V-Paketdateien
 
 
-Der Sequencer erstellt App-V-Pakete und erstellt eine virtualisierte Anwendung. Der Sequenzierungsprozess erstellt die folgenden Dateien:
+Der Sequencer erstellt App-V-Pakete und erzeugt eine virtualisierte Anwendung. Der Sequenzierungsprozess erstellt die folgenden Dateien:
 
 <table>
 <colgroup>
@@ -65,51 +65,51 @@ Der Sequencer erstellt App-V-Pakete und erstellt eine virtualisierte Anwendung. 
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><p>. AppV</p></td>
+<td align="left"><p>.appv</p></td>
 <td align="left"><ul>
-<li><p>Die primäre Paketdatei, die die erfassten Ressourcen und Zustandsinformationen aus dem Sequenz Prozess enthält.</p></li>
-<li><p>Architektur der Paketdatei, Veröffentlichungsinformationen und Registrierung in einem Token-Formular, das bei der Zustellung erneut auf einen Computer und einen bestimmten Benutzer angewendet werden kann.</p></li>
+<li><p>Die primäre Paketdatei, die die erfassten Ressourcen und Statusinformationen aus dem Sequenzierungsprozess enthält.</p></li>
+<li><p>Architektur der Paketdatei, der Veröffentlichungsinformationen und der Registrierung in einem tokenisierten Format, das bei der Übermittlung erneut auf einen Computer und einen bestimmten Benutzer angewendet werden kann.</p></li>
 </ul></td>
 </tr>
 <tr class="even">
-<td align="left"><p>. MSI</p></td>
-<td align="left"><p>Ausführbarer Bereitstellungs Wrapper, mit dem Sie AppV-Dateien manuell oder mithilfe einer Bereitstellungsplattform eines Drittanbieters bereitstellen können.</p></td>
+<td align="left"><p>.MSI</p></td>
+<td align="left"><p>Ausführbarer Bereitstellungswrapper, den Sie zum manuellen Bereitstellen von APPV-Dateien oder mithilfe einer Bereitstellungsplattform eines Drittanbieters verwenden können.</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>_DeploymentConfig.XML</p></td>
-<td align="left"><p>Datei, die verwendet wird, um die Standard Veröffentlichungs Parameter für alle Anwendungen in einem Paket anzupassen, das für alle Benutzer auf einem Computer, auf dem der App-V-Client ausgeführt wird, Global bereitgestellt wird.</p></td>
+<td align="left"><p>Datei zum Anpassen der Standardveröffentlichungsparameter für alle Anwendungen in einem Paket, das global für alle Benutzer auf einem Computer bereitgestellt wird, auf dem der App-V-Client ausgeführt wird.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>_UserConfig.XML</p></td>
-<td align="left"><p>Datei, die verwendet wird, um die Veröffentlichungs Parameter für alle Anwendungen in einem Paket anzupassen, das für einen bestimmten Benutzer auf einem Computer bereitgestellt wird, auf dem der App-V-Client ausgeführt wird.</p></td>
+<td align="left"><p>Datei zum Anpassen der Veröffentlichungsparameter für alle Anwendungen in einem Paket, das für einen bestimmten Benutzer auf einem Computer bereitgestellt wird, auf dem der App-V-Client ausgeführt wird.</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>Report.xml</p></td>
-<td align="left"><p>Zusammenfassung der Nachrichten, die sich aus dem Sequenz Prozess ergeben, einschließlich weggelassener Treiber, Dateien und Registrierungsspeicherorte.</p></td>
+<td align="left"><p>Zusammenfassung der Nachrichten, die sich aus dem Sequenzierungsprozess ergeben, einschließlich der ausgelassenen Treiber, Dateien und Registrierungsspeicherorte.</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>. CAB</p></td>
-<td align="left"><p><em>Optional: </em> Paket Beschleunigerdatei, die zum automatischen Neuaufbau eines zuvor sequenzierten virtuellen Anwendungspakets verwendet wird.</p></td>
+<td align="left"><p>.CAB</p></td>
+<td align="left"><p><em>Optional: </em> Paketbeschleunigerdatei, die verwendet wird, um ein zuvor sequenziertes virtuelles Anwendungspaket automatisch neu zu erstellen.</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>.appvt</p></td>
-<td align="left"><p><em>Optional: </em> Sequencer-Vorlagendatei zur Beibehaltung häufig wieder verwendeter Sequenzer-Einstellungen.</p></td>
+<td align="left"><p><em>Optional: </em> Die Sequencer-Vorlagendatei wird verwendet, um häufig wiederverwendete Sequencer-Einstellungen beizubehalten.</p></td>
 </tr>
 </tbody>
 </table>
 
  
 
-Informationen zur Sequenzierung finden Sie unter [Application Virtualization 5,0-Sequenzierungs Handbuch](https://www.microsoft.com/download/details.aspx?id=27760).
+Informationen zur Sequenzierung finden Sie im [Sequenzierungshandbuch für Application Virtualization 5.0.](https://www.microsoft.com/download/details.aspx?id=27760)
 
-## <a href="" id="bkmk-appv-file-contents"></a>Was befindet sich in der AppV-Datei?
+## <a name="whats-in-the-appv-file"></a><a href="" id="bkmk-appv-file-contents"></a>Was ist in der Appv-Datei enthalten?
 
 
-Bei der AppV-Datei handelt es sich um einen Container, in dem XML-und nicht-XML-Dateien zusammen in einer einzelnen Entität gespeichert werden. Diese Datei wurde aus dem AppX-Format erstellt, das auf dem OPC-Standard (Open Packaging Conventions) basiert.
+Die Appv-Datei ist ein Container, in dem XML- und Nicht-XML-Dateien in einer einzigen Entität gespeichert werden. Diese Datei basiert auf dem AppX-Format, das auf dem Open Packaging Conventions (OPC)-Standard basiert.
 
-Wenn Sie den Inhalt der AppV-Datei anzeigen möchten, erstellen Sie eine Kopie des Pakets, und benennen Sie die kopierte Datei dann in eine ZIP-Erweiterung um.
+Um den Inhalt der Appv-Datei anzuzeigen, erstellen Sie eine Kopie des Pakets, und benennen Sie die kopierte Datei in eine ZIP-Erweiterung um.
 
-Die AppV-Datei enthält die folgenden Ordner und Dateien, die beim Erstellen und Veröffentlichen einer virtuellen Anwendung verwendet werden:
+Die Appv-Datei enthält den folgenden Ordner und die folgenden Dateien, die beim Erstellen und Veröffentlichen einer virtuellen Anwendung verwendet werden:
 
 <table>
 <colgroup>
@@ -128,52 +128,52 @@ Die AppV-Datei enthält die folgenden Ordner und Dateien, die beim Erstellen und
 <tr class="odd">
 <td align="left"><p>Stamm</p></td>
 <td align="left"><p>Dateiordner</p></td>
-<td align="left"><p>Verzeichnis, das das Dateisystem für die virtualisierte Anwendung enthält, das während der Sequenzierung erfasst wird.</p></td>
+<td align="left"><p>Verzeichnis, das das Dateisystem für die virtualisierte Anwendung enthält, die während der Sequenzierung erfasst wird.</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>[Content_Types]. XML</p></td>
+<td align="left"><p>[Content_Types].xml</p></td>
 <td align="left"><p>XML-Datei</p></td>
-<td align="left"><p>Liste der Hauptinhalts Typen in der AppV-Datei (z. b. dll, exe, bin)</p></td>
+<td align="left"><p>Liste der wichtigsten Inhaltstypen in der Appv-Datei (z. B. DLL, EXE, BIN).</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>AppxBlockMap.xml</p></td>
 <td align="left"><p>XML-Datei</p></td>
-<td align="left"><p>Das Layout der AppV-Datei, in der Datei-, Block-und BlockMap-Elemente verwendet werden, die den Speicherort und die Überprüfung von Dateien im App-V-Paket ermöglichen.</p></td>
+<td align="left"><p>Layout der appv-Datei, die File-, Block- und BlockMap-Elemente verwendet, die den Speicherort und die Überprüfung von Dateien im App-V-Paket ermöglichen.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>AppxManifest.xml</p></td>
 <td align="left"><p>XML-Datei</p></td>
-<td align="left"><p>Metadaten für das Paket, das die erforderlichen Informationen zum Hinzufügen, veröffentlichen und Starten des Pakets enthält. Enthält Erweiterungspunkte (Dateitypzuordnungen und Tastenkombinationen) sowie die Namen und GUIDs, die dem Paket zugeordnet sind.</p></td>
+<td align="left"><p>Metadaten für das Paket, das die erforderlichen Informationen zum Hinzufügen, Veröffentlichen und Starten des Pakets enthält. Enthält Erweiterungspunkte (Dateitypzuordnungen und Verknüpfungen) sowie die Namen und GUIDs, die dem Paket zugeordnet sind.</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>FilesystemMetadata.xml</p></td>
 <td align="left"><p>XML-Datei</p></td>
-<td align="left"><p>Liste der Dateien, die während der Sequenzierung erfasst werden, einschließlich Attribute (z. b. Verzeichnisse, Dateien, undurchsichtige Verzeichnisse, leere Verzeichnisse sowie lange und kurze Namen).</p></td>
+<td align="left"><p>Liste der während der Sequenzierung erfassten Dateien, einschließlich Attributen (z. B. Verzeichnisse, Dateien, undurchsichtige Verzeichnisse, leere Verzeichnisse und lange und kurze Namen).</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>PackageHistory.xml</p></td>
 <td align="left"><p>XML-Datei</p></td>
-<td align="left"><p>Informationen zum Sequenzcomputer (Betriebssystemversion, Internet Explorer-Version, .NET Framework-Version) und Prozess (Upgrade, Paketversion).</p></td>
+<td align="left"><p>Informationen zum Sequenzierungscomputer (Betriebssystemversion, Internet Explorer-Version, .Net Framework-Version) und Prozess (Upgrade, Paketversion).</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Registry. dat</p></td>
+<td align="left"><p>Registry.dat</p></td>
 <td align="left"><p>DAT-Datei</p></td>
-<td align="left"><p>Registrierungsschlüssel und Werte, die während des Sequenz Prozesses für das Paket erfasst wurden.</p></td>
+<td align="left"><p>Registrierungsschlüssel und Werte, die während des Sequenzierungsprozesses für das Paket erfasst werden.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>StreamMap.xml</p></td>
 <td align="left"><p>XML-Datei</p></td>
-<td align="left"><p>Liste der Dateien für den Haupt-und Veröffentlichungs-Feature-Block. Der Veröffentlichungsfeature-Block enthält die ICO-Dateien und die erforderlichen Teile von Dateien (exe und dll) für die Veröffentlichung des Pakets. Wenn vorhanden, enthält der primäre Feature-Block Dateien, die während des Sequenz Prozesses für Streaming optimiert wurden.</p></td>
+<td align="left"><p>Liste der Dateien für den primären und Veröffentlichungsfeatureblock. Der Veröffentlichungsfeatureblock enthält die ICO-Dateien und die erforderlichen Teile von Dateien (EXE und DLL) für die Veröffentlichung des Pakets. Wenn vorhanden, enthält der primäre Featureblock Dateien, die während des Sequenzierungsprozesses für das Streaming optimiert wurden.</p></td>
 </tr>
 </tbody>
 </table>
 
  
 
-## <a href="" id="bkmk-files-data-storage"></a>App-V-Client Datenspeicherorte
+## <a name="app-v-client-data-storage-locations"></a><a href="" id="bkmk-files-data-storage"></a>Speicherorte von App-V-Clientdaten
 
 
-Der App-V-Client führt Aufgaben aus, um sicherzustellen, dass virtuelle Anwendungen ordnungsgemäß ausgeführt werden und wie lokal installierte Anwendungen funktionieren. Der Vorgang zum Öffnen und Ausführen virtueller Anwendungen erfordert eine Zuordnung aus dem virtuellen Dateisystem und der Registrierung, um sicherzustellen, dass die Anwendung über die erforderlichen Komponenten einer herkömmlichen Anwendung verfügt, die von Benutzern erwartet wird. In diesem Abschnitt werden die Ressourcen beschrieben, die für die Ausführung virtueller Anwendungen erforderlich sind, und der Ort, an dem App-V die Ressourcen speichert.
+Der App-V-Client führt Aufgaben aus, um sicherzustellen, dass virtuelle Anwendungen ordnungsgemäß ausgeführt werden und wie lokal installierte Anwendungen funktionieren. Der Vorgang zum Öffnen und Ausführen virtueller Anwendungen erfordert eine Zuordnung aus dem virtuellen Dateisystem und der Registrierung, um sicherzustellen, dass die Anwendung über die erforderlichen Komponenten einer herkömmlichen Anwendung verfügt, die von Benutzern erwartet wird. In diesem Abschnitt werden die Ressourcen beschrieben, die zum Ausführen virtueller Anwendungen erforderlich sind, und der Speicherort, an dem App-V die Objekte speichert.
 
 <table>
 <colgroup>
@@ -190,60 +190,60 @@ Der App-V-Client führt Aufgaben aus, um sicherzustellen, dass virtuelle Anwendu
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><p>Paketspeicher</p></td>
+<td align="left"><p>Paket-Store</p></td>
 <td align="left"><p>%ProgramData%\App-V</p></td>
-<td align="left"><p>Standardspeicherort für nur-Lese-Paketdateien</p></td>
+<td align="left"><p>Standardspeicherort für schreibgeschützte Paketdateien</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Computer Katalog</p></td>
+<td align="left"><p>Computerkatalog</p></td>
 <td align="left"><p>%ProgramData%\Microsoft\AppV\Client\Catalog</p></td>
 <td align="left"><p>Enthält Konfigurationsdokumente pro Computer</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Benutzer Katalog</p></td>
+<td align="left"><p>Benutzerkatalog</p></td>
 <td align="left"><p>%AppData%\Microsoft\AppV\Client\Catalog</p></td>
-<td align="left"><p>Enthält Konfigurationsdokumente pro Benutzer</p></td>
+<td align="left"><p>Enthält Benutzerkonfigurationsdokumente</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Verknüpfungs Sicherungen</p></td>
+<td align="left"><p>Verknüpfungssicherungen</p></td>
 <td align="left"><p>%AppData%\Microsoft\AppV\Client\Integration\ShortCutBackups</p></td>
-<td align="left"><p>Speichert vorherige Integrationspunkte, die die Wiederherstellung bei der Paket Veröffentlichung aktivieren</p></td>
+<td align="left"><p>Speichert vorherige Integrationspunkte, die die Wiederherstellung bei der Veröffentlichung des Pakets ermöglichen</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Roaming auf Write (Kuh) kopieren</p></td>
+<td align="left"><p>Copy on Write (SHAPES) Roaming</p></td>
 <td align="left"><p>%AppData%\Microsoft\AppV\Client\VFS</p></td>
-<td align="left"><p>Beschreibbarer Roaming-Speicherort für Paketänderungen</p></td>
+<td align="left"><p>Beschreibbarer Roamingspeicherort für Paketänderungen</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Auf Schreib (Kuh) lokal kopieren</p></td>
+<td align="left"><p>Copy on Write (VOM) Local</p></td>
 <td align="left"><p>%LocalAppData%\Microsoft\AppV\Client\VFS</p></td>
-<td align="left"><p>Beschreibbarer Speicherort für nicht-Roaming für Paketänderung</p></td>
+<td align="left"><p>Schreibbarer Nicht-Roamingspeicherort für Paketänderungen</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>Computerregistrierung</p></td>
 <td align="left"><p>HKLM\Software\Microsoft\AppV</p></td>
-<td align="left"><p>Enthält Paket Zustandsinformationen, einschließlich VReg für Computer-oder Global veröffentlichte Pakete (Machine Hive)</p></td>
+<td align="left"><p>Enthält Paketstatusinformationen, einschließlich VReg für Computer oder global veröffentlichte Pakete (Computerstruktur)</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>Benutzerregistrierung</p></td>
 <td align="left"><p>HKCU\Software\Microsoft\AppV</p></td>
-<td align="left"><p>Enthält Informationen zum Paket Zustand des Benutzers, einschließlich VReg</p></td>
+<td align="left"><p>Enthält Informationen zum Benutzerpaketstatus, einschließlich VReg</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Benutzer Registrierungsklassen</p></td>
+<td align="left"><p>Benutzerregistrierungsklassen</p></td>
 <td align="left"><p>HKCU\Software\Classes\AppV</p></td>
-<td align="left"><p>Enthält zusätzliche Informationen zum Benutzerpaket Zustand</p></td>
+<td align="left"><p>Enthält zusätzliche Informationen zum Benutzerpaketstatus</p></td>
 </tr>
 </tbody>
 </table>
 
  
 
-Weitere Details zur Tabelle finden Sie im Abschnitt unten und im gesamten Dokument.
+Weitere Details zur Tabelle finden Sie im abschnitt unten und im gesamten Dokument.
 
-### Paketspeicher
+### <a name="package-store"></a>Paketspeicher
 
-Der App-V-Client verwaltet die im Paketspeicher bereitgestellten Anwendungsressourcen. Dieser Standardspeicherort ist `%ProgramData%\App-V` , Sie können ihn aber während oder nach dem Setup konfigurieren, indem Sie den `Set-AppVClientConfiguration` PowerShell-Befehl verwenden, der die lokale Registrierung ändert ( `PackageInstallationRoot` Wert unter dem `HKLM\Software\Microsoft\AppV\Client\Streaming` Schlüssel). Der Paketspeicher muss sich im lokalen Pfad des Clientbetriebssystems befinden. Die einzelnen Pakete werden im Paketspeicher in Unterverzeichnissen gespeichert, die für Paket-GUID und Versions-GUID benannt sind.
+Der App-V-Client verwaltet die im Paketspeicher bereitgestellten Anwendungsressourcen. Dieser Standardspeicherort ist `%ProgramData%\App-V` , Aber Sie können ihn während oder nach dem Setup mithilfe des `Set-AppVClientConfiguration` PowerShell-Befehls konfigurieren, der die lokale Registrierung `PackageInstallationRoot` (Wert unter dem `HKLM\Software\Microsoft\AppV\Client\Streaming` Schlüssel) ändert. Der Paketspeicher muss sich in einem lokalen Pfad im Clientbetriebssystem befinden. Die einzelnen Pakete werden im Paketspeicher in Unterverzeichnissen gespeichert, die nach der Paket-GUID und Version-GUID benannt sind.
 
 Beispiel für einen Pfad zu einer bestimmten Anwendung:
 
@@ -251,25 +251,26 @@ Beispiel für einen Pfad zu einer bestimmten Anwendung:
 C:\ProgramData\App-V\PackGUID\VersionGUID
 ```
 
-Informationen zum Ändern des Standardspeicherorts des Paketspeichers während der Installation finden Sie unter [Bereitstellen des App-V-Clients](how-to-deploy-the-app-v-client-gb18030.md).
+Informationen zum Ändern des Standardspeicherorts des Paketspeichers während des Setups finden Sie unter [Bereitstellen des App-V-Clients.](how-to-deploy-the-app-v-client-gb18030.md)
 
-### Freigegebener Inhaltsspeicher
+### <a name="shared-content-store"></a>Freigegebene Inhalte Store
 
-Wenn der App-V-Client im freigegebenen Inhaltsspeicher Modus konfiguriert ist, werden keine Daten auf den Datenträger geschrieben, wenn ein Datenstromfehler auftritt, was bedeutet, dass für die Pakete nur minimaler lokaler Speicherplatz benötigt wird (Veröffentlichungsdaten). Die Verwendung von weniger Speicherplatz ist in VDI-Umgebungen, in denen der lokale Speicher limitiert werden kann, und das Streaming der Anwendungen von einem Hochleistungsnetzwerk Standort (wie einem SAN) vorzuziehen. Weitere Informationen zum Speichermodus für freigegebene Inhalte finden Sie unter <https://go.microsoft.com/fwlink/p/?LinkId=392750> .
+Wenn der App-V-Client im Modus "Freigegebene Inhalte Store" konfiguriert ist, werden beim Auftreten eines Datenstromfehlers keine Daten auf den Datenträger geschrieben, was bedeutet, dass die Pakete minimalen lokalen Speicherplatz (Veröffentlichungsdaten) benötigen. Die Verwendung von weniger Speicherplatz ist in VDI-Umgebungen sehr wünschenswert, in denen lokaler Speicher begrenzt werden kann, und das Streamen der Anwendungen von einem Leistungsfähigen Netzwerkstandort (z. B. san) ist vorzuziehen. Weitere Informationen zum Modus für den freigegebenen Inhaltsspeicher finden Sie unter <https://go.microsoft.com/fwlink/p/?LinkId=392750> .
 
-**Hinweis**  Der Computer und der Paketspeicher müssen sich auf einem lokalen Laufwerk befinden, auch wenn Sie für den App-V-Client freigegebene Inhaltsspeicher Konfigurationen verwenden.
+**Hinweis:**  
+Der Computer und der Paketspeicher müssen sich auf einem lokalen Laufwerk befinden, auch wenn Sie freigegebene Inhalte Store Konfigurationen für den App-V-Client verwenden.
 
  
 
-### Paket Kataloge
+### <a name="package-catalogs"></a>Paketkataloge
 
 Der App-V-Client verwaltet die folgenden beiden dateibasierten Speicherorte:
 
 -   **Kataloge (Benutzer und Computer).**
 
--   **Registrierungsspeicherorte** – hängt davon ab, wie das Paket für die Veröffentlichung vorgesehen ist. Es gibt einen Katalog (Datenspeicher) für den Computer und einen Katalog für jeden einzelnen Benutzer. Der Computer Katalog speichert globale Informationen, die für alle Benutzer oder einen beliebigen Benutzer gelten, und der Benutzer Katalog speichert Informationen, die für einen bestimmten Benutzer gelten. Der Katalog ist eine Sammlung von dynamischen Konfigurationen und Manifestdateien; Es gibt diskrete Daten für Datei und Registrierung pro Paketversion. 
+-   **Registrierungsspeicherorte** – hängt davon ab, wie das Paket für die Veröffentlichung vorgesehen ist. Es gibt einen Katalog (Datenspeicher) für den Computer und einen Katalog für jeden einzelnen Benutzer. Der Computerkatalog speichert globale Informationen, die für alle Benutzer oder einen beliebigen Benutzer gelten, und der Benutzerkatalog speichert Informationen, die für einen bestimmten Benutzer gelten. Der Katalog ist eine Sammlung dynamischer Konfigurationen und Manifestdateien. es gibt diskrete Daten für Datei und Registrierung pro Paketversion. 
 
-### Computer Katalog
+### <a name="machine-catalog"></a>Computerkatalog
 
 <table>
 <colgroup>
@@ -279,17 +280,17 @@ Der App-V-Client verwaltet die folgenden beiden dateibasierten Speicherorte:
 <tbody>
 <tr class="odd">
 <td align="left"><p>Beschreibung</p></td>
-<td align="left"><p>Speichert Paket Dokumente, die für Benutzer auf dem Computer verfügbar sind, wenn Pakete hinzugefügt und veröffentlicht werden. Wenn ein Paket jedoch zum Zeitpunkt der Veröffentlichung "Global" ist, stehen die Integrationen allen Benutzern zur Verfügung.</p>
-<p>Wenn ein Paket nicht global ist, werden die Integrationen nur für bestimmte Benutzer veröffentlicht, es gibt jedoch weiterhin globale Ressourcen, die für jeden auf dem Clientcomputer geändert und sichtbar sind (beispielsweise befindet sich das Paketverzeichnis an einem freigegebenen Datenträgerspeicherort).</p>
-<p>Wenn ein Paket für einen Benutzer auf dem Computer (Global oder nicht global) zur Verfügung steht, wird das Manifest im Computer Katalog gespeichert. Wenn ein Paket Global veröffentlicht wird, gibt es eine dynamische Konfigurationsdatei, die im Computer Katalog gespeichert ist. Daher wird festgelegt, ob ein Paket Global ist, je nachdem, ob im Computer Katalog eine Richtliniendatei (UserDeploymentConfiguration-Datei) vorhanden ist.</p></td>
+<td align="left"><p>Speichert Paketdokumente, die Benutzern auf dem Computer zur Verfügung stehen, wenn Pakete hinzugefügt und veröffentlicht werden. Wenn ein Paket jedoch zur Veröffentlichungszeit "global" ist, sind die Integrationen für alle Benutzer verfügbar.</p>
+<p>Wenn ein Paket nicht global ist, werden die Integrationen nur für bestimmte Benutzer veröffentlicht, aber es gibt weiterhin globale Ressourcen, die geändert werden und für jeden auf dem Clientcomputer sichtbar sind (z. B. befindet sich das Paketverzeichnis an einem freigegebenen Datenträgerspeicherort).</p>
+<p>Wenn ein Paket für einen Benutzer auf dem Computer verfügbar ist (global oder nicht global), wird das Manifest im Computerkatalog gespeichert. Wenn ein Paket global veröffentlicht wird, gibt es eine dynamische Konfigurationsdatei, die im Computerkatalog gespeichert ist. Daher wird die Bestimmung, ob ein Paket global ist, entsprechend der Angabe definiert, ob im Computerkatalog eine Richtliniendatei (UserDeploymentConfiguration-Datei) vorhanden ist.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>Standardspeicherort</p></td>
 <td align="left"><p><code>%programdata%\Microsoft\AppV\Client\Catalog&lt;/code&gt;</p>
-<p>Dieser Speicherort ist nicht mit dem Speicherort des Paketspeichers identisch. Der Paketspeicher ist die Goldene oder ursprüngliche Kopie der Paketdateien.</p></td>
+<p>Dieser Speicherort ist nicht identisch mit dem Speicherort des Pakets Store. Das Paket-Store ist die goldfarbene oder einmalige Kopie der Paketdateien.</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Dateien im Computer Katalog</p></td>
+<td align="left"><p>Dateien im Computerkatalog</p></td>
 <td align="left"><ul>
 <li><p>Manifest.xml</p></li>
 <li><p>DeploymentConfiguration.xml</p></li>
@@ -298,15 +299,15 @@ Der App-V-Client verwaltet die folgenden beiden dateibasierten Speicherorte:
 </ul></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Zusätzlicher Standort des Computer Katalogs, der verwendet wird, wenn das Paket zu einer Verbindungsgruppe gehört</p></td>
-<td align="left"><p>Der folgende Standort ist zusätzlich zu dem oben genannten speziellen Paketspeicherort:</p>
+<td align="left"><p>Zusätzlicher Speicherort des Computerkatalogs, der verwendet wird, wenn das Paket Teil einer Verbindungsgruppe ist</p></td>
+<td align="left"><p>Der folgende Speicherort befindet sich zusätzlich zu dem oben erwähnten spezifischen Paketspeicherort:</p>
 <p><code>%programdata%\Microsoft\AppV\Client\Catalog\PackageGroups\ConGroupGUID\ConGroupVerGUID</code></p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Zusätzliche Dateien im Computer Katalog, wenn das Paket zu einer Verbindungsgruppe gehört</p></td>
+<td align="left"><p>Zusätzliche Dateien im Computerkatalog, wenn das Paket Teil einer Verbindungsgruppe ist</p></td>
 <td align="left"><ul>
 <li><p>PackageGroupDescriptor.xml</p></li>
-<li><p>UserPackageGroupDescriptor.xml (Globally published Connection Group)</p></li>
+<li><p>UserPackageGroupDescriptor.xml (global veröffentlichte Verbindungsgruppe)</p></li>
 </ul></td>
 </tr>
 </tbody>
@@ -314,7 +315,7 @@ Der App-V-Client verwaltet die folgenden beiden dateibasierten Speicherorte:
 
  
 
-### Benutzer Katalog
+### <a name="user-catalog"></a>Benutzerkatalog
 
 <table>
 <colgroup>
@@ -324,28 +325,28 @@ Der App-V-Client verwaltet die folgenden beiden dateibasierten Speicherorte:
 <tbody>
 <tr class="odd">
 <td align="left"><p>Beschreibung</p></td>
-<td align="left"><p>Während des Veröffentlichungsprozesses erstellt. Enthält Informationen, die für die Veröffentlichung des Pakets verwendet werden, und wird auch beim Start verwendet, um sicherzustellen, dass ein Paket für einen bestimmten Benutzer bereitgestellt wird. Wird in einem Roaming-Speicherort erstellt und enthält benutzerspezifische Veröffentlichungsinformationen.</p>
-<p>Wenn ein Paket für einen Benutzer veröffentlicht wird, wird die Richtliniendatei im Benutzer Katalog gespeichert. Gleichzeitig wird eine Kopie des Manifests auch im Benutzer Katalog gespeichert. Wenn ein Paket Anspruch für einen Benutzer entfernt wird, werden die entsprechenden Paketdateien aus dem Benutzer Katalog entfernt. Wenn Sie sich den Benutzer Katalog ansehen, kann ein Administrator das vorhanden sein einer dynamischen Konfigurationsdatei anzeigen, die angibt, dass das Paket für diesen Benutzer berechtigt ist.</p>
-<p>Für Roaming-Benutzer muss sich der Benutzer Katalog an einem Roaming-oder freigegebenen Speicherort befinden, um das Legacy-App-V-Verhalten für die standardmäßige Ausrichtung von Benutzern beizubehalten. Der Anspruch und die Richtlinie sind an einen Benutzer und nicht an einen Computer gebunden, daher sollten Sie mit dem Benutzer Roaming durchlaufen, sobald er bereitgestellt wurde.</p></td>
+<td align="left"><p>Wird während des Veröffentlichungsprozesses erstellt. Enthält Informationen zum Veröffentlichen des Pakets und wird auch beim Start verwendet, um sicherzustellen, dass ein Paket für einen bestimmten Benutzer bereitgestellt wird. Erstellt an einem Roamingspeicherort und enthält benutzerspezifische Veröffentlichungsinformationen.</p>
+<p>Wenn ein Paket für einen Benutzer veröffentlicht wird, wird die Richtliniendatei im Benutzerkatalog gespeichert. Gleichzeitig wird auch eine Kopie des Manifests im Benutzerkatalog gespeichert. Wenn eine Paketberechtigung für einen Benutzer entfernt wird, werden die relevanten Paketdateien aus dem Benutzerkatalog entfernt. Beim Betrachten des Benutzerkatalogs kann ein Administrator das Vorhandensein einer Dynamischen Konfigurationsdatei anzeigen, die angibt, dass das Paket für diesen Benutzer berechtigt ist.</p>
+<p>Für Roamingbenutzer muss sich der Benutzerkatalog an einem Roaming- oder freigegebenen Speicherort befinden, um das alte App-V-Verhalten von Benutzeradressierung standardmäßig beizubehalten. Berechtigungen und Richtlinien sind an einen Benutzer und nicht an einen Computer gebunden. Daher sollten sie mit dem Benutzer roaming, sobald er bereitgestellt wurde.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>Standardspeicherort</p></td>
 <td align="left"><p><code>appdata\roaming\Microsoft\AppV\Client\Catalog\Packages\PkgGUID\VerGUID</code></p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Dateien im Benutzer Katalog</p></td>
+<td align="left"><p>Dateien im Benutzerkatalog</p></td>
 <td align="left"><ul>
 <li><p>UserManifest.xml</p></li>
 <li><p>DynamicConfiguration.xml oder UserDeploymentConfiguration.xml</p></li>
 </ul></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Zusätzlicher Speicherort des Benutzer Katalogs, der verwendet wird, wenn das Paket zu einer Verbindungsgruppe gehört</p></td>
-<td align="left"><p>Der folgende Standort ist zusätzlich zu dem oben genannten speziellen Paketspeicherort:</p>
+<td align="left"><p>Zusätzlicher Speicherort des Benutzerkatalogs, der verwendet wird, wenn das Paket Teil einer Verbindungsgruppe ist</p></td>
+<td align="left"><p>Der folgende Speicherort befindet sich zusätzlich zu dem oben erwähnten spezifischen Paketspeicherort:</p>
 <p><code>appdata\roaming\Microsoft\AppV\Client\Catalog\PackageGroups\PkgGroupGUID\PkgGroupVerGUID</code></p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Zusätzliche Datei im Computer Katalog, wenn das Paket zu einer Verbindungsgruppe gehört</p></td>
+<td align="left"><p>Zusätzliche Datei im Computerkatalog, wenn das Paket Teil einer Verbindungsgruppe ist</p></td>
 <td align="left"><p><code>UserPackageGroupDescriptor.xml</code></p></td>
 </tr>
 </tbody>
@@ -353,28 +354,28 @@ Der App-V-Client verwaltet die folgenden beiden dateibasierten Speicherorte:
 
  
 
-### Verknüpfungs Sicherungen
+### <a name="shortcut-backups"></a>Verknüpfungssicherungen
 
-Während des Veröffentlichungsprozesses unterstützt der App-V-Client alle Verknüpfungen, und Integrationspunkte für `%AppData%\Microsoft\AppV\Client\Integration\ShortCutBackups.` diese Sicherung ermöglichen die Wiederherstellung dieser Integrationspunkte in den vorherigen Versionen, wenn das Paket nicht veröffentlicht wurde.
+Während des Veröffentlichungsprozesses sichert der App-V-Client alle Verknüpfungen und Integrationspunkte `%AppData%\Microsoft\AppV\Client\Integration\ShortCutBackups.` auf Diese Sicherung ermöglicht die Wiederherstellung dieser Integrationspunkte auf die vorherigen Versionen, wenn das Paket nicht veröffentlicht wird.
 
-### Beim Schreiben von Dateien kopieren
+### <a name="copy-on-write-files"></a>Beim Schreiben von Dateien kopieren
 
-Der Paketspeicher enthält eine ursprüngliche Kopie der Paketdateien, die vom Veröffentlichungsserver gestreamt wurden. Während des normalen Betriebs einer App-V-Anwendung erfordert der Benutzer oder Dienst möglicherweise Änderungen an den Dateien. Diese Änderungen werden nicht im Paketspeicher vorgenommen, um die Möglichkeit zu erhalten, die Anwendung zu reparieren, wodurch diese Änderungen entfernt werden. Diese Speicherorte, so genannte Copy on Write (Cow), unterstützen sowohl Roaming-als auch nicht-Roaming-Speicherorte. Der Speicherort, an dem die Änderungen gespeichert werden, hängt davon ab, wo die Anwendung so programmiert wurde, dass Änderungen in einer systemeigenen Umgebung geschrieben werden.
+Das Paket Store enthält eine kopie der Paketdateien, die vom Veröffentlichungsserver gestreamt wurden. Während des normalen Betriebs einer App-V-Anwendung kann der Benutzer oder Dienst Änderungen an den Dateien erfordern. Diese Änderungen werden nicht im Paketspeicher vorgenommen, um ihre Fähigkeit zum Reparieren der Anwendung zu erhalten, wodurch diese Änderungen entfernt werden. Diese Speicherorte, die als COPY on Write (MOF) bezeichnet werden, unterstützen sowohl Roaming- als auch Nicht-Roamingspeicherorte. Der Speicherort, an dem die Änderungen gespeichert werden, hängt davon ab, wo die Anwendung so programmiert wurde, dass Änderungen in einer systemeigenen Umgebung geschrieben werden.
 
-### Kuh-Roaming
+### <a name="cow-roaming"></a>ROAMING VON 2013
 
-Der oben beschriebene Cow-Roaming-Standort speichert Änderungen an Dateien und Verzeichnissen, die auf den typischen Standort "% AppData%" oder "\\Users\\{username}\\AppData\\Roaming" ausgerichtet sind. Diese Verzeichnisse und Dateien werden dann basierend auf den Einstellungen des Betriebssystems durchlaufen.
+Der oben beschriebene SPEICHERORT FÜR DAS ROAMING speichert Änderungen an Dateien und Verzeichnissen, die auf den typischen Speicherort "%AppData% " oder "\\Users\\{username}\\AppData\\Roaming" abzielen. Diese Verzeichnisse und Dateien werden dann basierend auf den Betriebssystemeinstellungen verschoben.
 
-### Kuh lokal
+### <a name="cow-local"></a>LOKALES GEBIETSSCHEMA
 
-Der lokale Speicherort der Kuh ähnelt dem Roaming-Speicherort, aber die Verzeichnisse und Dateien werden nicht auf anderen Computern gespeichert, auch wenn Roaming-Unterstützung konfiguriert wurde. Der oben beschriebene Cow-Standort speichert Änderungen, die für typische Fenster gelten, und nicht die Position% APPDATA%. Die aufgelisteten Verzeichnisse sind unterschiedlich, es gibt jedoch zwei Speicherorte für typische Windows-Speicherorte (beispielsweise Common APPDATA und Common AppDataS). Das **S** gibt den eingeschränkten Speicherort an, wenn der virtuelle Dienst die Änderung als einen anderen erhöhten Benutzer von den angemeldeten Benutzern anfordert. Der nicht-**S** -Standort speichert benutzerbasierte Änderungen.
+Der LOKALE SPEICHERORT ähnelt dem Roamingspeicherort, aber die Verzeichnisse und Dateien werden nicht auf andere Computer übertragen, auch wenn die Roamingunterstützung konfiguriert wurde. Der oben beschriebene LOKALE SPEICHERORT SPEICHERT Änderungen, die für typische Fenster und nicht für den Speicherort %AppData% gelten. Die aufgeführten Verzeichnisse variieren, es gibt jedoch zwei Speicherorte für alle typischen Windows Speicherorte (z. B. Common AppData und Common AppDataS). S **** gibt den eingeschränkten Speicherort an, wenn der virtuelle Dienst die Änderung als einen anderen erhöhten Benutzer als die angemeldeten Benutzer anfordert. Der**Nicht-S-Speicherort** speichert benutzerbasierte Änderungen.
 
-## <a href="" id="bkmk-pkg-registry"></a>Paket Registrierung
+## <a name="package-registry"></a><a href="" id="bkmk-pkg-registry"></a>Paketregistrierung
 
 
-Bevor eine Anwendung auf die Paket Registrierungsdaten zugreifen kann, muss der App-V-Client die Paket Registrierungsdaten für die Anwendungen verfügbar machen. Der App-V-Client verwendet die echte Registrierung als Sicherungsspeicher für alle Registrierungsdaten.
+Bevor eine Anwendung auf die Paketregistrierungsdaten zugreifen kann, muss der App-V-Client die Paketregistrierungsdaten den Anwendungen zur Verfügung stellen. Der App-V-Client verwendet die echte Registrierung als Sicherungsspeicher für alle Registrierungsdaten.
 
-Wenn dem App-V-Client ein neues Paket hinzugefügt wird, eine Kopie der Registrierung. DAT-Datei aus dem Paket wird erstellt am `%ProgramData%\Microsoft\AppV\Client\VREG\{Version GUID}.dat` . Der Name der Datei ist die Versions-GUID mit dem. DAT-Erweiterung. Der Grund für diese Kopie besteht darin, sicherzustellen, dass die eigentliche Hive-Datei im Paket nie verwendet wird, wodurch das Entfernen des Pakets zu einem späteren Zeitpunkt verhindert werden kann.
+Wenn dem App-V-Client ein neues Paket hinzugefügt wird, eine Kopie der REGISTRIERUNG. DIE DAT-Datei aus dem Paket wird unter `%ProgramData%\Microsoft\AppV\Client\VREG\{Version GUID}.dat` erstellt. Der Name der Datei ist die Versions-GUID mit der . DAT-Erweiterung. Diese Kopie wird deshalb erstellt, um sicherzustellen, dass die tatsächliche Strukturdatei im Paket nie verwendet wird, was das Entfernen des Pakets zu einem späteren Zeitpunkt verhindern würde.
 
 <table>
 <colgroup>
@@ -384,72 +385,32 @@ Wenn dem App-V-Client ein neues Paket hinzugefügt wird, eine Kopie der Registri
 </colgroup>
 <tbody>
 <tr class="odd">
-<td align="left"><p><strong>Registry. dat aus dem Paketspeicher</strong></p></td>
-<td align="left"><p><strong> &gt; </strong></p></td>
-<td align="left"><p><strong>%ProgramData%\Microsoft\AppV\Client\Vreg {VersionGuid}. dat</strong></p></td>
+<td align="left"><p><strong>Registry.dat aus paket Store</strong></p></td>
+<td align="left"><p><strong> &gt; </strong></p></td>
+<td align="left"><p><strong>%ProgramData%\Microsoft\AppV\Client\Vreg{VersionGuid}.dat</strong></p></td>
 </tr>
 </tbody>
 </table>
 
  
 
-Wenn die erste Anwendung aus dem Paket auf dem Client gestartet wird, wird der Client den Inhalt aus der hivedatei wiederherstellen oder kopieren, wodurch die Paket Registrierungsdaten an einem alternativen Speicherort neu erstellt werden `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\AppV\Client\Packages\PackageGuid\Versions\VersionGuid\REGISTRY` . Die bereitgestellten Registrierungsdaten weisen zwei unterschiedliche Typen von Computer Daten und Benutzerdaten auf. Computer Daten werden für alle Benutzer auf dem Computer freigegeben. Benutzerdaten werden für jeden Benutzer an einem benutzerabhängige-Speicherort bereitgestellt `HKCU\Software\Microsoft\AppV\Client\Packages\PackageGuid\Registry\User` . Die Computer Daten werden letztendlich beim Entfernen des Pakets entfernt, und die Benutzerdaten werden bei einem Veröffentlichungsvorgang des Benutzers entfernt.
+Wenn die erste Anwendung aus dem Paket auf dem Client gestartet wird, stufet oder kopiert der Client den Inhalt aus der Strukturdatei und erstellt die Paketregistrierungsdaten an einem alternativen Speicherort `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\AppV\Client\Packages\PackageGuid\Versions\VersionGuid\REGISTRY` neu. Die mehrstufigen Registrierungsdaten haben zwei unterschiedliche Typen von Computerdaten und Benutzerdaten. Computerdaten werden für alle Benutzer auf dem Computer freigegeben. Benutzerdaten werden für jeden Benutzer an einem benutzerspezifischen Speicherort `HKCU\Software\Microsoft\AppV\Client\Packages\PackageGuid\Registry\User` aufgeführt. Die Computerdaten werden letztendlich zum Zeitpunkt der Paketentfernung entfernt, und die Benutzerdaten werden bei einem Unveröffentlichten Benutzervorgang entfernt.
 
-### Staging von Paket Registrierungen vs. Verbindungsgruppen Registrierung
+### <a name="package-registry-staging-vs-connection-group-registry-staging"></a>Staging der Paketregistrierung im Vergleich zum Staging der Verbindungsgruppenregistrierung
 
-Wenn Verbindungsgruppen vorhanden sind, gilt der vorherige Prozess der Staging der Registrierung als wahr, doch anstatt eine Strukturdatei zu verarbeiten, gibt es mehr als eine. Die Dateien werden in der Reihenfolge verarbeitet, in der Sie in der Verbindungsgruppe XML angezeigt werden, wobei der erste Writer Konflikte gewinnt.
+Wenn Verbindungsgruppen vorhanden sind, gilt der vorherige Prozess des Stagings der Registrierung, aber anstatt eine Strukturdatei zu verarbeiten, gibt es mehrere. Die Dateien werden in der Reihenfolge verarbeitet, in der sie in der Verbindungsgruppen-XML angezeigt werden, wobei der erste Writer Konflikte gewonnen hat.
 
-Die bereitgestellte Registrierung bleibt auf die gleiche Weise wie im einzelnen Paket Fall erhalten. Die bereitgestellten Benutzerregistrierungsdaten verbleibt für die Verbindungsgruppe, bis Sie deaktiviert ist. die Registrierungsdaten für ein Stagingcomputer werden beim Entfernen der Verbindungsgruppe entfernt.
+Die mehrstufige Registrierung bleibt auf die gleiche Weise erhalten wie im Fall eines einzelnen Pakets. Mehrstufige Benutzerregistrierungsdaten bleiben für die Verbindungsgruppe erhalten, bis sie deaktiviert sind. Mehrstufige Computerregistrierungsdaten werden beim Entfernen von Verbindungsgruppen entfernt.
 
-### Virtuelle Registrierung
+### <a name="virtual-registry"></a>Virtuelle Registrierung
 
-Der Zweck der virtuellen Registrierung (VREG) besteht darin, eine einzelne zusammengeführte Ansicht der Paket Registrierung und der systemeigenen Registrierung für Anwendungen bereitzustellen. Darüber hinaus bietet es die Funktion Copy-on-Write (Cow) – das heißt, dass alle Änderungen an der Registrierung aus dem Kontext eines virtuellen Prozesses an einem separaten Cow-Speicherort vorgenommen werden. Das bedeutet, dass der VREG bis zu drei getrennte Registrierungsspeicherorte in einer einzigen Ansicht basierend auf den aufgefüllten Speicherorten in der Registrierungs-Cow- &gt; Package-Native kombinieren muss &gt; . Wenn eine Anforderung für Registrierungsdaten erfolgt, findet Sie in der Reihenfolge, bis Sie die angeforderten Daten gefunden hat. Bedeutet dies, dass ein Wert, der in einem Cow-Speicherort gespeichert ist, nicht an andere Speicherorte weitergeleitet wird, wenn sich am Speicherort der Kuh keine Daten befinden, wird das Paket und dann der systemeigene Speicherort weitergeleitet, bis die entsprechenden Daten gefunden wurden.
+Der Zweck der virtuellen Registrierung (VREG) besteht darin, eine einzelne zusammengeführte Ansicht der Paketregistrierung und der systemeigenen Registrierung für Anwendungen bereitzustellen. Es bietet auch SCHREIB-/Kopierfunktion (COPY-on-Write, SCHREIBVORGÄNGE) – d. h. alle Änderungen, die aus dem Kontext eines virtuellen Prozesses an der Registrierung vorgenommen werden, werden an einem separaten ENTF-Speicherort vorgenommen. Dies bedeutet, dass die VREG bis zu drei separate Registrierungsspeicherorte in einer einzigen Ansicht kombinieren muss, basierend auf den aufgefüllten Speicherorten im REGISTRY-PAKET – &gt; &gt; systemintern. Wenn eine Anforderung für eine Registrierungsdaten gestellt wird, wird sie in der Reihenfolge gesucht, bis sie die angeforderten Daten findet. Dies bedeutet, dass ein Wert, der an einem SPEICHERORT gespeichert ist, nicht zu anderen Speicherorten fortgesetzt wird. Wenn sich jedoch keine Daten am SPEICHERORT befinden, wird der Vorgang mit dem Paket und dem systemeigenen Speicherort fortgesetzt, bis die entsprechenden Daten gefunden werden.
 
-### Registrierungsspeicherorte
+### <a name="registry-locations"></a>Registrierungsspeicherorte
 
-Je nachdem, ob das Paket einzeln oder als Teil einer Verbindungsgruppe veröffentlicht wird, gibt es zwei Speicherorte für die Paket Registrierung und zwei Verbindungsgruppen Speicherorte, an denen der App-V-Client Registrierungsinformationen speichert. Es gibt drei Cow-Speicherorte für Pakete und drei für Verbindungsgruppen, die von der VREG erstellt und verwaltet werden. Einstellungen für Pakete und Verbindungsgruppen werden nicht freigegeben:
+Es gibt zwei Paketregistrierungsspeicherorte und zwei Verbindungsgruppenspeicherorte, an denen der App-V-Client Registrierungsinformationen speichert, je nachdem, ob das Paket einzeln oder als Teil einer Verbindungsgruppe veröffentlicht wird. Es gibt drei LOCATIONS-Speicherorte für Pakete und drei für Verbindungsgruppen, die von VREG erstellt und verwaltet werden. Einstellungen für Pakete und Verbindungsgruppen werden nicht freigegeben:
 
-**Einzelnes Paket VReg:**
-
-<table>
-<colgroup>
-<col width="50%" />
-<col width="50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td align="left"><p><strong>Pfad</strong></p></td>
-<td align="left"><p><strong>Beschreibung</strong></p></td>
-</tr>
-<tr class="even">
-<td align="left"><p><strong>Kuhanzug</strong></p></td>
-<td align="left"><ul>
-<li><p>Machine Registry\Client\Packages\PkgGUID\REGISTRY (nur Elevate-Prozess kann schreiben)</p></li>
-<li><p>Benutzer Registry\Client\Packages\PkgGUID\REGISTRY (Benutzer-Roaming-alles, was unter HKCU außer Software\Classes geschrieben wurde</p></li>
-<li><p>Benutzer Registrierungs Classes\Client\Packages\PkgGUID\REGISTRY (HKCU\Software\Classes-Schreibvorgänge und HKLM für nicht erhöhten Prozess)</p></li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td align="left"><p><strong>Paket</strong></p></td>
-<td align="left"><ul>
-<li><p>Machine Registry\Client\Packages\PkgGUID\Versions\VerGuid\Registry\Machine</p></li>
-<li><p>Benutzer Registrierungs Classes\Client\Packages\PkgGUID\Versions\VerGUID\Registry</p></li>
-</ul></td>
-</tr>
-<tr class="even">
-<td align="left"><p><strong>Systemeigene</strong></p></td>
-<td align="left"><ul>
-<li><p>Registrierungsspeicherort der systemeigenen Anwendung</p></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
-
- 
-
- 
-
-**Verbindungsgruppe VReg:**
+**Single Package VReg:**
 
 <table>
 <colgroup>
@@ -462,24 +423,24 @@ Je nachdem, ob das Paket einzeln oder als Teil einer Verbindungsgruppe veröffen
 <td align="left"><p><strong>Beschreibung</strong></p></td>
 </tr>
 <tr class="even">
-<td align="left"><p><strong>Kuhanzug</strong></p></td>
+<td align="left"><p><strong>KUH</strong></p></td>
 <td align="left"><ul>
-<li><p>Machine Registry\Client\PackageGroups\GrpGUID\REGISTRY (nur Elevate-Prozess kann schreiben)</p></li>
-<li><p>Benutzer Registry\Client\PackageGroups\GrpGUID\REGISTRY (alles, was in HKCU außer Software\Classes geschrieben wurde</p></li>
-<li><p>Benutzer Registrierungs Classes\Client\PackageGroups\GrpGUID\REGISTRY</p></li>
+<li><p>Computerregistrierung\Client\Pakete\PkgGUID\REGISTRY (Nur Erhöhter Prozess kann schreiben)</p></li>
+<li><p>User Registry\Client\Packages\PkgGUID\REGISTRY (User Roaming anything written under HKCU except Software\Classes</p></li>
+<li><p>Benutzerregistrierungsklassen\Client\Pakete\PkgGUID\REGISTRY (HKCU\Software\Classes-Schreibvorgänge und HKLM für nicht erhöhten Prozess)</p></li>
 </ul></td>
 </tr>
 <tr class="odd">
 <td align="left"><p><strong>Paket</strong></p></td>
 <td align="left"><ul>
-<li><p>Machine Registry\Client\PackageGroups\GrpGUID\Versions\VerGUID\REGISTRY</p></li>
-<li><p>Benutzer Registrierungs Classes\Client\PackageGroups\GrpGUID\Versions\VerGUID\REGISTRY</p></li>
+<li><p>Computerregistrierung\Client\Pakete\PkgGUID\Versionen\VerGuid\Registry\Machine</p></li>
+<li><p>Benutzerregistrierungsklassen\Client\Pakete\PkgGUID\Versionen\VerGUID\Registry</p></li>
 </ul></td>
 </tr>
 <tr class="even">
-<td align="left"><p><strong>Systemeigene</strong></p></td>
+<td align="left"><p><strong>Ursprünglich</strong></p></td>
 <td align="left"><ul>
-<li><p>Registrierungsspeicherort der systemeigenen Anwendung</p></li>
+<li><p>Systemeigener Anwendungsregistrierungsspeicherort</p></li>
 </ul></td>
 </tr>
 </tbody>
@@ -489,50 +450,90 @@ Je nachdem, ob das Paket einzeln oder als Teil einer Verbindungsgruppe veröffen
 
  
 
-Es gibt zwei Kuh-Standorte für HKLM; erhöhte und nicht erhöhte Prozesse. Erhöhte Prozesse schreiben immer HKLM-Änderungen in die sichere Kuh unter HKLM. Nicht erhöhte Prozesse schreiben immer HKLM-Änderungen an der nicht sicheren Kuh unter HKCU\\Software\\Classes. Wenn eine Anwendung Änderungen von HKLM liest, lesen erhöhte Prozesse Änderungen aus der sicheren Kuh unter HKLM. Nicht erhöhte Lesevorgänge von beiden, begünstigt die Änderungen, die in der unsicheren Kuh zuerst vorgenommen wurden.
+**Connection Group VReg:**
 
-### Pass-Through-Tasten
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"><p><strong>Pfad</strong></p></td>
+<td align="left"><p><strong>Beschreibung</strong></p></td>
+</tr>
+<tr class="even">
+<td align="left"><p><strong>KUH</strong></p></td>
+<td align="left"><ul>
+<li><p>Computerregistrierung\Client\PackageGroups\GrpGUID\REGISTRY (nur Erhöhter Prozess kann schreiben)</p></li>
+<li><p>Benutzerregistrierung\Client\PackageGroups\GrpGUID\REGISTRY (In HKCU geschriebene Elemente außer Software\Klassen</p></li>
+<li><p>Benutzerregistrierungsklassen\Client\PackageGroups\GrpGUID\REGISTRY</p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td align="left"><p><strong>Paket</strong></p></td>
+<td align="left"><ul>
+<li><p>Computerregistrierung\Client\PackageGroups\GrpGUID\Versions\VerGUID\REGISTRY</p></li>
+<li><p>Benutzerregistrierungsklassen\Client\PackageGroups\GrpGUID\Versions\VerGUID\REGISTRY</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td align="left"><p><strong>Ursprünglich</strong></p></td>
+<td align="left"><ul>
+<li><p>Systemeigener Anwendungsregistrierungsspeicherort</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
 
-Durch Pass-Through-Tasten können Administratoren bestimmte Schlüssel so konfigurieren, dass Sie nur aus der systemeigenen Registrierung gelesen werden können, wobei die Speicherorte für Pakete und Kühe umgangen werden. Pass-Through-Speicherorte sind global auf dem Computer (nicht Paket spezifisch) und können konfiguriert werden, indem Sie den Pfad zum Schlüssel hinzufügen, der als Pass-Through für das **reg \ _MULTI \ _SZ** Wert **PassThroughPaths** des Schlüssels behandelt werden soll `HKLM\Software\Microsoft\AppV\Subsystem\VirtualRegistry` . Jede Taste, die unter diesem mehrteiligen Zeichenfolgenwert (und ihren untergeordneten Elementen) angezeigt wird, wird als Passthrough behandelt.
+ 
+
+ 
+
+Es gibt zwei LOCATIONS für HKLM; Prozesse mit erhöhten und nicht erhöhten Rechten. Prozesse mit erhöhten Rechten schreiben HKLM-Änderungen immer in den sicheren XAML-Code unter HKLM. Prozesse, die nicht über erhöhte Rechte verfügen, schreiben HKLM-Änderungen unter HKCU\\Software\\Classes immer in das nicht sichere XAML-Objekt. Wenn eine Anwendung Änderungen von HKLM liest, lesen Prozesse mit erhöhten Rechten Änderungen aus dem sicheren XAML-Element unter HKLM. Lesevorgänge mit nicht erhöhten Rechten werden von beiden gelesen, wobei zuerst die Änderungen bevorzugt werden, die in der unsicheren XAML vorgenommen wurden.
+
+### <a name="pass-through-keys"></a>Pass-Through-Schlüssel
+
+Pass-Through-Schlüssel ermöglichen es einem Administrator, bestimmte Schlüssel so zu konfigurieren, dass sie nur aus der systemeigenen Registrierung gelesen werden können, wobei die Speicherorte "Package" und "CORTANA" umgangen werden. Pass-Through-Speicherorte sind global auf dem Computer (nicht paketspezifisch) und können durch Hinzufügen des Pfads zum Schlüssel konfiguriert werden, der als Pass-Through an den **WERT REG\_MULTI\_SZ** namens **PassThroughPaths** des Schlüssels behandelt werden `HKLM\Software\Microsoft\AppV\Subsystem\VirtualRegistry` sollte. Jeder Schlüssel, der unter diesem Multizeichenfolgenwert (und deren untergeordneten Elemente) angezeigt wird, wird als Pass-Through behandelt.
 
 Die folgenden Speicherorte sind standardmäßig als Pass-Through-Speicherorte konfiguriert:
 
--   HKEY \ _CURRENT \ _User \\software\\classes\\local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel
+-   HKEY\_CURRENT\_USER\\SOFTWARE\\Classes\\Local Einstellungen\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel
 
--   HKEY \ _LOCAL \ _MACHINE \\software\\classes\\local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel
+-   HKEY\_LOCAL\_MACHINE\\SOFTWARE\\Classes\\Local Einstellungen\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel
 
--   HKEY \ _LOCAL \ _MACHINE \\software\\microsoft\\windows\\currentversion\\winevt
+-   HKEY\_LOCAL\_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WEINVT
 
--   HKEY \ _LOCAL \ _MACHINE \\system\\currentcontrolset\\services\\eventlog\\application
+-   HKEY\_LOCAL\_MACHINE\\SYSTEM\\CurrentControlSet\\services\\eventlog\\Application
 
--   HKEY \ _LOCAL \ _MACHINE \\system\\currentcontrolset\\control\\wmi\\autologger
+-   HKEY\_LOCAL\_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\WMI\\Autologger
 
--   HKEY \ _CURRENT \ _User \\software\\microsoft\\windows\\currentversion\\internet-Einstellungen
+-   HKEY\_CURRENT\_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Einstellungen
 
--   HKEY \ _LOCAL \ _MACHINE \\software\\microsoft\\windows NT\\CurrentVersion\\Perflib
+-   HKEY\_LOCAL\_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Perflib
 
--   HKEY \ _LOCAL \ _MACHINE \\software\\policies
+-   HKEY\_LOCAL\_MACHINE\\SOFTWARE\\Policies
 
--   HKEY \ _CURRENT \ _User \\software\\policies
+-   HKEY\_CURRENT\_USER\\SOFTWARE\\Policies
 
-Der Zweck von Pass-Through-Schlüsseln besteht darin, sicherzustellen, dass eine virtuelle Anwendung keine Registrierungsdaten in die VReg schreibt, die für nicht virtuelle Anwendungen für den erfolgreichen Betrieb oder die Integration erforderlich sind. Mit dem Richtlinienschlüssel wird sichergestellt, dass die vom Administrator festgelegten gruppenrichtlinienbasierten Einstellungen verwendet werden und nicht pro Paketeinstellungen. Der AppModel-Schlüssel ist für die Integration in Windows moderne UI-basierte Anwendungen erforderlich. Es wird empfohlen, dass Verwaltungen keine der standardmäßigen Pass-Through-Schlüssel ändern, aber in einigen Fällen erfordert das Hinzufügen von zusätzlichen Pass-Through-Schlüsseln möglicherweise auf Grundlage des Anwendungsverhaltens.
+Der Zweck von Pass-Through-Schlüsseln besteht darin, sicherzustellen, dass eine virtuelle Anwendung keine Registrierungsdaten in die VReg schreibt, die für nicht virtuelle Anwendungen für einen erfolgreichen Vorgang oder eine erfolgreiche Integration erforderlich sind. Der Schlüssel "Richtlinien" stellt sicher, dass gruppenrichtlinienbasierte Einstellungen, die vom Administrator festgelegt wurden, verwendet werden und nicht pro Paket. Der AppModel-Schlüssel ist für die Integration in Windows Modern UI-basierten Anwendungen erforderlich. Es wird empfohlen, dass Die Verwaltungen keine der Standardmäßigen Pass-Through-Schlüssel ändern, aber in einigen Fällen kann es aufgrund des Anwendungsverhaltens erforderlich sein, zusätzliche Pass-Through-Schlüssel hinzuzufügen.
 
-## <a href="" id="bkmk-pkg-store-behavior"></a>App-V-Paketspeicher Verhalten
+## <a name="app-v-package-store-behavior"></a><a href="" id="bkmk-pkg-store-behavior"></a>Verhalten des App-V-Paketspeichers
 
 
-App-V 5 verwaltet den Paketspeicher, also den Speicherort, an dem die erweiterten Objektdateien aus der AppV-Datei gespeichert werden. Dieser Speicherort wird standardmäßig unter%ProgramData%\\App-V gespeichert und ist in Bezug auf Speicherfunktionen nur durch freien Speicherplatz limitiert. Der Paketspeicher wird nach den GUIDs für das Paket und die Version organisiert, wie im vorherigen Abschnitt erwähnt.
+App-V 5 verwaltet die Paket-Store. Hierbei handelt es sich um den Speicherort, an dem die erweiterten Objektdateien aus der Appv-Datei gespeichert werden. Dieser Speicherort wird standardmäßig unter %ProgramData%\\App-V gespeichert und ist hinsichtlich der Speicherfunktionen nur durch freien Speicherplatz beschränkt. Der Paketspeicher wird nach den GUIDs für das Paket und die Version organisiert, wie im vorherigen Abschnitt erwähnt.
 
-### Pakete hinzufügen
+### <a name="add-packages"></a>Hinzufügen von Paketen
 
-App-v-Pakete werden beim Hinzufügen des Computers mit dem App-v-Client bereitgestellt. Der App-V-Client bietet Staging auf Abruf. Während der Veröffentlichung oder einem manuellen Add-AppVClientPackage wird die Datenstruktur im Paketspeicher (c:\\programdata\\App-V\\{PkgGUID}\\{VerGUID}) erstellt. Die im StreamMap.xml definierten Veröffentlichungs Blocks werden dem System und den Ordnern der obersten Ebene und untergeordneten Dateien hinzugefügt, um sicherzustellen, dass beim Start geeignete Anwendungsressourcen vorhanden sind.
+App-V-Pakete werden beim Hinzufügen zum Computer mit dem App-V-Client bereitgestellt. Der App-V-Client bietet Staging bei Bedarf. Während der Veröffentlichung oder eines manuellen Add-AppVClientPackage wird die Datenstruktur im Paketspeicher (c:\\programdata\\App-V\\{PkgGUID}\\{VerGUID}) erstellt. Die Paketdateien, die im im StreamMap.xml definierten Veröffentlichungsblock identifiziert werden, werden dem System hinzugefügt, und die Ordner der obersten Ebene und untergeordneten Dateien werden bereitgestellt, um sicherzustellen, dass beim Start die richtigen Anwendungsressourcen vorhanden sind.
 
-### Befestigungs Pakete
+### <a name="mounting-packages"></a>Montagepakete
 
-Pakete können explizit mit der PowerShell oder mithilfe `Mount-AppVClientPackage` der **App-V-Client-Benutzeroberfläche** geladen werden, um ein Paket herunterzuladen. Durch diesen Vorgang wird das gesamte Paket vollständig in den Paketspeicher geladen.
+Pakete können explizit mithilfe der PowerShell `Mount-AppVClientPackage` oder mithilfe der **App-V-Client-Benutzeroberfläche** geladen werden, um ein Paket herunterzuladen. Dieser Vorgang lädt das gesamte Paket vollständig in den Paketspeicher.
 
-### Streaming-Pakete
+### <a name="streaming-packages"></a>Streamingpakete
 
-Der App-V-Client kann so konfiguriert werden, dass das Standardverhalten von Streaming geändert wird. Alle Streaming-Richtlinien werden unter dem folgenden Registrierungsschlüssel gespeichert: `HKEY_LOCAL_MAcHINE\Software\Microsoft\AppV\Client\Streaming` Richtlinien werden mit dem PowerShell-Cmdlet gesetzt `Set-AppvClientConfiguration` . Die folgenden Richtlinien gelten für Streaming:
+Der App-V-Client kann so konfiguriert werden, dass das Standardverhalten des Streamings geändert wird. Alle Streamingrichtlinien werden unter dem folgenden Registrierungsschlüssel gespeichert: `HKEY_LOCAL_MAcHINE\Software\Microsoft\AppV\Client\Streaming` . Richtlinien werden mithilfe des PowerShell-Cmdlets `Set-AppvClientConfiguration` festgelegt. Die folgenden Richtlinien gelten für Streaming:
 
 <table>
 <colgroup>
@@ -548,14 +549,14 @@ Der App-V-Client kann so konfiguriert werden, dass das Standardverhalten von Str
 <tbody>
 <tr class="odd">
 <td align="left"><p>AllowHighCostLaunch</p></td>
-<td align="left"><p>Unter Windows 8 ist das Streaming über 3G-und Mobilfunknetze möglich.</p></td>
+<td align="left"><p>Auf Windows 8 ermöglicht es streaming über 3G und Mobilfunknetze</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>AutoLoad</p></td>
-<td align="left"><p>Gibt die Einstellung für den Hintergrund Ladevorgang an:</p>
-<p><strong>0 </strong> - deaktiviert</p>
-<p><strong>1 </strong> – nur zuvor verwendete Pakete</p>
-<p><strong>2 </strong> – alle Pakete</p></td>
+<td align="left"><p>Autoload</p></td>
+<td align="left"><p>Gibt die Einstellung für das Laden im Hintergrund an:</p>
+<p><strong>0 </strong> - Deaktiviert</p>
+<p><strong>1 </strong> – Nur zuvor verwendete Pakete</p>
+<p><strong>2 </strong> – Alle Pakete</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>PackageInstallationRoot</p></td>
@@ -563,11 +564,11 @@ Der App-V-Client kann so konfiguriert werden, dass das Standardverhalten von Str
 </tr>
 <tr class="even">
 <td align="left"><p>PackageSourceRoot</p></td>
-<td align="left"><p>Die Root-Überschreibung, von der Pakete gestreamt werden sollen</p></td>
+<td align="left"><p>Die Stammüberschreibung, von der Pakete gestreamt werden sollen</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>SharedContentStoreMode</p></td>
-<td align="left"><p>Ermöglicht die Verwendung des freigegebenen Inhaltsspeichers für VDI-Szenarien</p></td>
+<td align="left"><p>Ermöglicht die Verwendung freigegebener Inhalte Store für VDI-Szenarien</p></td>
 </tr>
 </tbody>
 </table>
@@ -576,60 +577,61 @@ Der App-V-Client kann so konfiguriert werden, dass das Standardverhalten von Str
 
  
 
-Diese Einstellungen wirken sich auf das Verhalten von Streaming-App-V-Paketressourcen auf den Client aus. Standardmäßig downloadet App-V nur die Ressourcen, die nach dem Herunterladen der ersten Veröffentlichungs-und primären Feature-Blöcke erforderlich sind. Es gibt drei spezifische Verhaltensweisen rund um Streaming-Pakete, die erläutert werden müssen:
+Diese Einstellungen wirken sich auf das Verhalten des Streamings von App-V-Paketressourcen auf den Client aus. Standardmäßig lädt App-V nur die Ressourcen herunter, die nach dem Herunterladen der anfänglichen Veröffentlichungs- und primären Featureblöcke erforderlich sind. Es gibt drei spezifische Verhaltensweisen in Bezug auf Streamingpakete, die erläutert werden müssen:
 
--   Hintergrund Streaming
+-   Hintergrundstreaming
 
 -   Optimiertes Streaming
 
--   Datenstromfehler
+-   Streamfehler
 
-### Hintergrund Streaming
+### <a name="background-streaming"></a>Hintergrundstreaming
 
-Das PowerShell `Get-AppvClientConfiguration` -Cmdlet kann verwendet werden, um den aktuellen Modus für das Hintergrund Streaming mit der Einstellung "automatischer Lademodus" zu ermitteln und mit dem Cmdlet "AppvClientConfiguration" oder "Registry" (HKLM\\SOFTWARE\\Microsoft\\AppV\\ClientStreaming-Schlüssel) zu ändern. "Hintergrund Streaming" ist eine Standardeinstellung, bei der die Einstellung "automatisch laden" so eingestellt ist, dass zuvor verwendete Pakete heruntergeladen werden. Das Verhalten, das auf der Standardeinstellung (Wert = 1) basiert, downloadet App-V-Datenblöcke im Hintergrund, nachdem die Anwendung gestartet wurde. Diese Einstellung kann alle zusammen (Wert = 0) oder aktiviert für alle Pakete (Wert = 2) deaktiviert werden, unabhängig davon, ob Sie gestartet wurden.
+Das PowerShell-Cmdlet `Get-AppvClientConfiguration` kann verwendet werden, um den aktuellen Modus für das Hintergrundstreaming mit der AutoLoad-Einstellung zu bestimmen und mit dem Cmdlet Set-AppvClientConfiguration oder über die Registrierung (HKLM\\SOFTWARE\\Microsoft\\AppV\\ClientStreaming-Schlüssel) zu ändern. Hintergrundstreaming ist eine Standardeinstellung, bei der die Einstellung für das automatische Laden so festgelegt ist, dass zuvor verwendete Pakete heruntergeladen werden. Das Verhalten basierend auf der Standardeinstellung (Wert =1) lädt App-V-Datenblöcke im Hintergrund herunter, nachdem die Anwendung gestartet wurde. Diese Einstellung kann für alle Pakete (Wert=0) insgesamt deaktiviert oder für alle Pakete aktiviert werden (Wert=2), unabhängig davon, ob sie gestartet wurden.
 
-### Optimiertes Streaming
+### <a name="optimized-streaming"></a>Optimiertes Streaming
 
-App-V-Pakete können während der Sequenzierung mit einem primären Feature-Block konfiguriert werden. Diese Einstellung ermöglicht es dem Sequenz Ingenieur, Startdateien für eine bestimmte Anwendung oder Anwendungen zu überwachen und die Datenblöcke im App-V-Paket für Streaming beim ersten Start einer beliebigen Anwendung im Paket zu kennzeichnen.
+App-V-Pakete können während der Sequenzierung mit einem primären Featureblock konfiguriert werden. Mit dieser Einstellung kann der Sequenzierungstechniker Startdateien für eine bestimmte Anwendung oder Anwendungen überwachen und die Datenblöcke im App-V-Paket für das Streaming beim ersten Start einer beliebigen Anwendung im Paket markieren.
 
-### Datenstromfehler
+### <a name="stream-faults"></a>Streamfehler
 
-Nach dem anfänglichen Datenstrom von Veröffentlichungsdaten und dem primären Feature-Block führen Anforderungen für zusätzliche Dateien Datenstromfehler aus. Diese Datenblöcke werden nach Bedarf in den Paketspeicher heruntergeladen. Auf diese Weise kann ein Benutzer nur einen kleinen Teil des Pakets herunterladen, was in der Regel ausreicht, um das Paket zu starten und normale Aufgaben auszuführen. Alle anderen Blöcke werden heruntergeladen, wenn ein Benutzer einen Vorgang initiiert, der Daten erfordert, die derzeit nicht im Paketspeicher enthalten sind.
+Nach dem anfänglichen Datenstrom von Veröffentlichungsdaten und dem primären Featureblock führen Anforderungen für zusätzliche Dateien Datenstromfehler aus. Diese Datenblöcke werden nach Bedarf in den Paketspeicher heruntergeladen. Dadurch kann ein Benutzer nur einen kleinen Teil des Pakets herunterladen, in der Regel genug, um das Paket zu starten und normale Aufgaben auszuführen. Alle anderen Blöcke werden heruntergeladen, wenn ein Benutzer einen Vorgang initiiert, der Daten erfordert, die sich derzeit nicht im Paketspeicher befinden.
 
-Weitere Informationen zum App-V-Paketstreaming finden Sie unter: <https://go.microsoft.com/fwlink/?LinkId=392770> .
+Weitere Informationen zum Streaming von App-V-Paketen finden Sie unter: <https://go.microsoft.com/fwlink/?LinkId=392770> .
 
-Die Sequenzierung für die Streaming-Optimierung steht unter: <https://go.microsoft.com/fwlink/?LinkId=392771> .
+Sequenzierung zur Streamingoptimierung finden Sie unter: <https://go.microsoft.com/fwlink/?LinkId=392771> .
 
-### Paketaktualisierungen
+### <a name="package-upgrades"></a>Paketupgrades
 
-App-V-Pakete erfordern eine Aktualisierung während des gesamten Lebenszyklus der Anwendung. App-V-Paketaktualisierungen ähneln dem Paket Veröffentlichungsvorgang, da jede Version in Ihrem eigenen PackageRoot-Speicherort erstellt wird: `%ProgramData%\App-V\{PkgGUID}\{newVerGUID}` . Der Upgradevorgang wird durch das Erstellen von festen Links zu identischen und gestreamten Dateien aus anderen Versionen desselben Pakets optimiert.
+App-V-Pakete müssen während des gesamten Anwendungslebenszyklus aktualisiert werden. App-V-Paketupgrades ähneln dem Paketveröffentlichungsvorgang, da jede Version an einem eigenen PackageRoot-Speicherort erstellt wird: `%ProgramData%\App-V\{PkgGUID}\{newVerGUID}` . Der Upgradevorgang wird optimiert, indem feste Links zu identischen und gestreamten Dateien aus anderen Versionen desselben Pakets erstellt werden.
 
-### Paketentfernung
+### <a name="package-removal"></a>Entfernen von Paketen
 
-Das Verhalten des App-V-Clients, wenn Pakete entfernt werden, hängt von der zum Entfernen verwendeten Methode ab. Wenn Sie eine vollständige App-V-Infrastruktur verwenden, um die Veröffentlichung der Anwendung aufzuheben, werden die Benutzer Katalogdateien (Computer Katalog für Global veröffentlichte Anwendungen) entfernt, aber der Speicherort des Paketspeichers und die Standorte für Kühe bleiben erhalten. Wenn das PowerShell `Remove-AppVClientPackge` -Cmdlet zum Entfernen eines App-V-Pakets verwendet wird, wird der Speicherort des Paketspeichers bereinigt. Beachten Sie, dass beim Aufheben der Veröffentlichung eines App-V-Pakets vom Verwaltungs Server keine Entfernungs Operation durchgeführt wird. Bei keinem Vorgang werden die Paketspeicher Paketdateien entfernt.
+Das Verhalten des App-V-Clients beim Entfernen von Paketen hängt von der Zum Entfernen verwendeten Methode ab. Unter Verwendung einer vollständigen App-V-Infrastruktur zum Aufheben der Veröffentlichung der Anwendung werden die Benutzerkatalogdateien (Computerkatalog für global veröffentlichte Anwendungen) entfernt, der Speicherort des Paketspeichers und DIEWIN-Speicherorte werden jedoch beibehalten. Wenn das `Remove-AppVClientPackge` PowerShell-Cmdlet zum Entfernen eines App-V-Pakets verwendet wird, wird der Speicherort des Paketspeichers bereinigt. Denken Sie daran, dass beim Aufheben der Veröffentlichung eines App-V-Pakets vom Verwaltungsserver kein Remove-Vorgang ausgeführt wird. Bei beiden Vorgängen werden die Paketdateien Store entfernt.
 
-## <a href="" id="bkmk-roaming-reg-data"></a>Roaming-Registrierung und Daten
+## <a name="roaming-registry-and-data"></a><a href="" id="bkmk-roaming-reg-data"></a>Roamingregistrierung und Daten
 
 
-App-V 5 ist in der Lage, in Abhängigkeit davon, wie die verwendete Anwendung geschrieben wird, beim Roaming eine nahezu native Umgebung bereitzustellen. Standardmäßig wird App-V auf der Grundlage der Roaming-Konfiguration des Betriebssystems APPDATA-Dateien durchlaufen, die am Roaming-Speicherort gespeichert sind. Andere Speicherorte für die Speicherung dateibasierter Daten werden nicht von einem Computer zu einem Computer durchlaufen, da Sie sich an Speicherorten befinden, die nicht durchlaufen werden.
+App-V 5 kann beim Roaming eine nahezu systemeigene Umgebung bereitstellen, je nachdem, wie die verwendete Anwendung geschrieben wird. Standardmäßig wird App-V appData, die am Roamingspeicherort gespeichert ist, basierend auf der Roamingkonfiguration des Betriebssystems roaminggespeichert. Andere Speicherorte für die Speicherung dateibasierter Daten werden nicht von Computer zu Computer verschoben, da sie sich an Speicherorten befinden, die nicht verschoben werden.
 
-### <a href="" id="bkmk-clt-inter-roam-reqs"></a>Roaming-Anforderungen und Datenspeicher für Benutzer Kataloge
+### <a name="roaming-requirements-and-user-catalog-data-storage"></a><a href="" id="bkmk-clt-inter-roam-reqs"></a>Roaminganforderungen und Datenspeicherung im Benutzerkatalog
 
-App-V speichert Daten, die den Zustand des Katalogs des Benutzers darstellen, in der folgenden Form:
+App-V speichert Daten, die den Status des Katalogs des Benutzers darstellen, in Form von:
 
--   Dateien unter%APPDATA%\\Microsoft\\AppV\\Client\\Catalog
+-   Dateien unter %appdata%\\Microsoft\\AppV\\Client\\Catalog
 
 -   Registrierungseinstellungen unter `HKEY_CURRENT_USER\Software\Microsoft\AppV\Client\Packages`
 
-Zusammenstellen diese Dateien und Registrierungseinstellungen den Katalog des Benutzers dar, sodass entweder beide Roaming durchgeführt werden müssen, oder dass für einen bestimmten Benutzer kein Roaming durchgeführt werden muss. App-V unterstützt kein Roaming von% APPDATA%, aber nicht das Roaming des Benutzerprofils (Registrierung) oder umgekehrt.
+Zusammen stellen diese Dateien und Registrierungseinstellungen den Katalog des Benutzers dar, sodass entweder beide verschoben werden müssen oder keines für einen bestimmten Benutzer verschoben werden muss. App-V unterstützt kein Roaming von %AppData%, aber kein Roaming des Benutzerprofils (Registrierung) oder umgekehrt.
 
-**Hinweis**  Das Cmdlet **Repair-AppvClientPackage** repariert den Veröffentlichungsstatus von Paketen nicht, wobei der App-V-Zustand des Benutzers unter `HKEY_CURRENT_USER` fehlt oder mit den Daten in% APPDATA% nicht übereinstimmt.
+**Hinweis:**  
+Das Cmdlet **Repair-AppvClientPackage** repariert nicht den Veröffentlichungsstatus von Paketen, wobei der App-V-Status des Benutzers `HKEY_CURRENT_USER` fehlt oder mit den Daten in %appdata% nicht übereinstimmen.
 
  
 
-### Registrierungsbasierte Daten
+### <a name="registry-based-data"></a>Registrierungsbasierte Daten
 
-Das App-V-Registrierungs-Roaming fällt in zwei Szenarien, wie in der folgenden Tabelle dargestellt.
+App-V-Registrierungsroaming fällt in zwei Szenarien, wie in der folgenden Tabelle dargestellt.
 
 <table>
 <colgroup>
@@ -645,24 +647,24 @@ Das App-V-Registrierungs-Roaming fällt in zwei Szenarien, wie in der folgenden 
 <tbody>
 <tr class="odd">
 <td align="left"><p>Anwendungen, die als Standardbenutzer ausgeführt werden</p></td>
-<td align="left"><p>Wenn ein Standardbenutzer eine APP-v-Anwendung startet, werden sowohl HKLM-als auch HKCU für App-v-Anwendungen in der HKCU-Struktur auf dem Computer gespeichert. Dies stellt zwei unterschiedliche Pfade dar:</p>
+<td align="left"><p>Wenn ein Standardbenutzer eine App-V-Anwendung startet, werden sowohl HKLM- als auch HKCU für App-V-Anwendungen in der HKCU-Struktur auf dem Computer gespeichert. Dies wird als zwei unterschiedliche Pfade dargestellt:</p>
 <ul>
-<li><p>HKLM: HKCU\SOFTWARE\Classes\AppV\Client\Packages {PkgGUID} \ REGISTRY\MACHINE\SOFTWARE</p></li>
-<li><p>HKCU: HKCU\SOFTWARE\Microsoft\AppV\Client\Packages {PkgGUID} \ REGISTRY\USER {Benutzer-Nr} \ Software</p></li>
+<li><p>HKLM: HKCU\SOFTWARE\Classes\AppV\Client\Packages{PkgGUID}\REGISTRY\MACHINE\SOFTWARE</p></li>
+<li><p>HKCU: HKCU\SOFTWARE\Microsoft\AppV\Client\Packages{PkgGUID}\REGISTRY\USER{UserSID}\SOFTWARE</p></li>
 </ul>
-<p>Die Speicherorte sind für das Roaming auf der Grundlage der Betriebssystemeinstellungen aktiviert.</p></td>
+<p>Die Speicherorte sind basierend auf den Betriebssystemeinstellungen für Roaming aktiviert.</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Anwendungen, die mit Elevation ausgeführt werden</p></td>
-<td align="left"><p>Wenn eine Anwendung mit Elevation gestartet wird:</p>
+<td align="left"><p>Anwendungen, die mit einer Erweiterung ausgeführt werden</p></td>
+<td align="left"><p>Wenn eine Anwendung mit einer Erweiterung gestartet wird:</p>
 <ul>
 <li><p>HKLM-Daten werden in der HKLM-Struktur auf dem lokalen Computer gespeichert.</p></li>
-<li><p>HKCU-Daten werden am Speicherort der Benutzerregistrierung gespeichert</p></li>
+<li><p>HKCU-Daten werden im Speicherort der Benutzerregistrierung gespeichert.</p></li>
 </ul>
-<p>In diesem Szenario werden diese Einstellungen nicht mit normalen Roaming-Konfigurationen des Betriebssystems durchlaufen, und die resultierenden Registrierungsschlüssel und-Werte werden an folgendem Speicherort gespeichert:</p>
+<p>In diesem Szenario werden diese Einstellungen nicht mit normalen Roamingkonfigurationen des Betriebssystems verschoben, und die resultierenden Registrierungsschlüssel und -werte werden an folgendem Speicherort gespeichert:</p>
 <ul>
-<li><p>HKLM\SOFTWARE\Microsoft\AppV\Client\Packages {PkgGUID} {Benutzer-Nr} \ REGISTRY\MACHINE\SOFTWARE</p></li>
-<li><p>HKCU\SOFTWARE\Microsoft\AppV\Client\Packages {PkgGUID} \ Registry\User {Benutzer-Nr} \ Software</p></li>
+<li><p>HKLM\SOFTWARE\Microsoft\AppV\Client\Packages{PkgGUID}{UserSID}\REGISTRY\MACHINE\SOFTWARE</p></li>
+<li><p>HKCU\SOFTWARE\Microsoft\AppV\Client\Packages{PkgGUID}\Registry\User{UserSID}\SOFTWARE</p></li>
 </ul></td>
 </tr>
 </tbody>
@@ -670,54 +672,13 @@ Das App-V-Registrierungs-Roaming fällt in zwei Szenarien, wie in der folgenden 
 
  
 
-### App-V und Ordnerumleitung
+### <a name="app-v-and-folder-redirection"></a>App-V- und Ordnerumleitung
 
-App-V 5.0 SP2 unterstützt die Ordnerumleitung des Roaming-APPDATA-Ordners (% APPDATA%). Wenn die virtuelle Umgebung gestartet wird, wird der Roaming-APPDATA-Zustand aus dem Roaming-AppData-Verzeichnis des Benutzers in den lokalen Cache kopiert. Umgekehrt wird beim Beenden der virtuellen Umgebung der lokale Cache, der dem Roaming-APPDATA eines bestimmten Benutzers zugeordnet ist, an den tatsächlichen Speicherort des Roaming-APPDATA-Verzeichnisses dieses Benutzers übertragen.
+App-V 5.0 SP2 unterstützt die Ordnerumleitung des AppData-Roamingordners (%AppData%). Wenn die virtuelle Umgebung gestartet wird, wird der AppData-Roamingstatus aus dem AppData-Roamingverzeichnis des Benutzers in den lokalen Cache kopiert. Umgekehrt wird beim Herunterfahren der virtuellen Umgebung der lokale Cache, der dem AppData-Roaming eines bestimmten Benutzers zugeordnet ist, an den tatsächlichen Speicherort des AppData-Roamingverzeichnisses dieses Benutzers übertragen.
 
-Ein typisches Paket enthält mehrere Speicherorte, die im Sicherungsspeicher des Benutzers für Einstellungen in AppData\\Local und AppData\\Roaming. zugeordnet sind. Bei diesen Speicherorten handelt es sich um die Kopie an Schreib Speicherorten, die pro Benutzer im Profil des Benutzers gespeichert werden und die zum Speichern von Änderungen an den Paket-VFS-Verzeichnissen und zum Schutz des Standardpakets VFS verwendet werden.
+Ein typisches Paket enthält mehrere Speicherorte, die im Sicherungsspeicher des Benutzers für Einstellungen in "AppData\\Local" und "AppData\\Roaming" zugeordnet sind. Bei diesen Speicherorten handelt es sich um die Speicherorte "Kopieren bei Schreiben", die pro Benutzer im Profil des Benutzers gespeichert werden und zum Speichern von Änderungen an den VFS-Paketverzeichnissen und zum Schützen des VFS-Standardpakets verwendet werden.
 
-In der folgenden Tabelle sind lokale und Roaming-Speicherorte aufgeführt, wenn die Ordnerumleitung nicht implementiert wurde.
-
-<table>
-<colgroup>
-<col width="50%" />
-<col width="50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">VFS-Verzeichnis im Paket</th>
-<th align="left">Zugeordneter Speicherort des Sicherungsspeichers</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><p>ProgramFilesX86</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID- &gt; \ProgramFilesX86</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>SystemX86</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID- &gt; \SystemX86</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>Windows</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt;</p></td>
-</tr>
-<tr class="even">
-<td align="left"><p>appv_ROOT</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \ appv_ROOT</p></td>
-</tr>
-<tr class="odd">
-<td align="left"><p>APPDATA</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; Roaming </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID- &gt; \AppData</p></td>
-</tr>
-</tbody>
-</table>
-
- 
-
- 
-
-In der folgenden Tabelle sind lokale und Roaming-Speicherorte aufgeführt, wenn die Ordnerumleitung für% APPDATA% implementiert wurde und der Standort umgeleitet wurde (in der Regel an einen Netzwerkspeicherort).
+In der folgenden Tabelle sind lokale und Roamingspeicherorte aufgeführt, wenn die Ordnerumleitung nicht implementiert wurde.
 
 <table>
 <colgroup>
@@ -733,23 +694,23 @@ In der folgenden Tabelle sind lokale und Roaming-Speicherorte aufgeführt, wenn 
 <tbody>
 <tr class="odd">
 <td align="left"><p>ProgramFilesX86</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID- &gt; \ProgramFilesX86</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \ProgramFilesX86</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>SystemX86</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID- &gt; \SystemX86</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \SystemX86</p></td>
 </tr>
 <tr class="odd">
 <td align="left"><p>Windows</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt;</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \Windows</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>appv_ROOT</p></td>
-<td align="left"><p>C:\users\jsmith\AppData &lt; Strong &gt; local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \ appv_ROOT</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \appv_ROOT</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>APPDATA</p></td>
-<td align="left"><p><strong>\Fileserver </strong> \users\jsmith\roaming\Microsoft\AppV\Client\VFS &amp; lt; GUID- &gt; \AppData</p></td>
+<td align="left"><p>Appdata</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Roaming </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \AppData</p></td>
 </tr>
 </tbody>
 </table>
@@ -758,240 +719,284 @@ In der folgenden Tabelle sind lokale und Roaming-Speicherorte aufgeführt, wenn 
 
  
 
-Der aktuelle App-v-Client-VFS-Treiber kann nicht in Netzwerkspeicherorte schreiben, sodass der APP-v-Client das vorhanden sein einer Ordnerumleitung erkennt und die Daten auf dem lokalen Laufwerk während der Veröffentlichung und beim Starten der virtuellen Umgebung kopiert. Nachdem der Benutzer die APP-v-Anwendung geschlossen hat und der APP-v-Client die virtuelle Umgebung geschlossen hat, wird der lokale Speicher des VFS-APPDATA wieder in das Netzwerk kopiert, sodass Roaming auf weiteren Computern möglich ist, in denen der Vorgang wiederholt wird. Die detaillierten Schritte der Prozesse sind:
+In der folgenden Tabelle sind lokale und Roamingspeicherorte aufgeführt, wenn die Ordnerumleitung für %AppData% implementiert wurde und der Speicherort umgeleitet wurde (in der Regel an einen Netzwerkspeicherort).
 
-1.  Während des Starts der Veröffentlichung oder virtuellen Umgebung erkennt der App-V-Client den Speicherort des APPDATA-Verzeichnisses.
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">VFS-Verzeichnis im Paket</th>
+<th align="left">Zugeordneter Speicherort des Sicherungsspeichers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p>ProgramFilesX86</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \ProgramFilesX86</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>SystemX86</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \SystemX86</p></td>
+</tr>
+<tr class="odd">
+<td align="left"><p>Windows</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \Windows</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>appv_ROOT</p></td>
+<td align="left"><p>C:\users\jsmith\AppData &lt; strong &gt; Local </strong> \Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \appv_ROOT</p></td>
+</tr>
+<tr class="odd">
+<td align="left"><p>Appdata</p></td>
+<td align="left"><p><strong>\Fileserver </strong> \users\jsmith\roaming\Microsoft\AppV\Client\VFS &amp; lt; GUID &gt; \AppData</p></td>
+</tr>
+</tbody>
+</table>
 
-2.  Wenn der Roaming-APPDATA-Pfad lokal ist oder Ino AppData\\Roaming Standort zugeordnet ist, geschieht nichts.
+ 
 
-3.  Wenn der Roaming-APPDATA-Pfad nicht lokal ist, wird das VFS-AppData-Verzeichnis dem lokalen AppData-Verzeichnis zugeordnet.
+ 
 
-Durch diesen Vorgang wird das Problem eines nicht lokalen% APPDATA% behoben, das vom App-V-Client-VFS-Treiber nicht unterstützt wird. Die in diesem neuen Speicherort gespeicherten Daten werden jedoch nicht mit der Ordnerumleitung durchlaufen. Alle Änderungen während der Ausführung der Anwendung erfolgen am lokalen APPDATA-Speicherort und müssen in den umgeleiteten Speicherort kopiert werden. Die detaillierten Schritte dieses Prozesses sind:
+Der aktuelle App-V-Client-VFS-Treiber kann nicht in Netzwerkspeicherorte schreiben, daher erkennt der App-V-Client das Vorhandensein der Ordnerumleitung und kopiert die Daten während der Veröffentlichung und beim Start der virtuellen Umgebung auf dem lokalen Laufwerk. Nachdem der Benutzer die App-V-Anwendung geschlossen und der App-V-Client die virtuelle Umgebung geschlossen hat, wird der lokale Speicher der VFS-AppData zurück in das Netzwerk kopiert, sodass Roaming auf zusätzlichen Computern ermöglicht wird, auf denen der Prozess wiederholt wird. Die detaillierten Schritte der Prozesse sind:
 
-1.  App-V-Anwendung wird heruntergefahren, wodurch die virtuelle Umgebung beendet wird.
+1.  Beim Starten der Veröffentlichung oder virtuellen Umgebung erkennt der App-V-Client den Speicherort des AppData-Verzeichnisses.
 
-2.  Der lokale Cache des Roaming-APPDATA-Speicherorts wird komprimiert und in einer ZIP-Datei gespeichert.
+2.  Wenn der AppData-Roamingpfad lokal oder ino AppData\\Roaming-Speicherort zugeordnet ist, passiert nichts.
 
-3.  Ein Zeitstempel am Ende des ZIP-Verpackungsprozesses wird verwendet, um die Datei zu benennen.
+3.  Wenn der AppData-Roamingpfad nicht lokal ist, wird das VFS-AppData-Verzeichnis dem lokalen AppData-Verzeichnis zugeordnet.
 
-4.  Der Zeitstempel wird in der Registrierung aufgezeichnet: HKEY \ _CURRENT \ _User \\software\\microsoft\\appv\\client\\packages\\ &lt; GUID &gt; \\AppDataTime als letzten bekannten APPDATA-Zeitstempel.
+Dadurch wird das Problem eines nicht lokalen %AppData%-Werts behoben, der vom App-V-Client-VFS-Treiber nicht unterstützt wird. Die an diesem neuen Speicherort gespeicherten Daten werden jedoch nicht mit der Ordnerumleitung verschoben. Alle Änderungen während der Ausführung der Anwendung erfolgen am lokalen AppData-Speicherort und müssen an den umgeleiteten Speicherort kopiert werden. Die detaillierten Schritte dieses Prozesses sind:
 
-5.  Der Ordner-Umleitungsprozess wird aufgerufen, um die ZIP-Datei auszuwerten und zu initiieren, die in das Roaming AppData-Verzeichnis hochgeladen wurde.
+1.  Die App-V-Anwendung wird heruntergefahren, wodurch die virtuelle Umgebung heruntergefahren wird.
 
-Der timestamp wird verwendet, um ein Szenario des letzten Writer-WINS-Szenarios zu ermitteln, wenn ein Konflikt vorliegt, der zum Optimieren des Downloads der Daten verwendet wird, wenn die App-V-Anwendung veröffentlicht wird oder die virtuelle Umgebung gestartet wird. Durch die Ordnerumleitung werden die Daten von allen anderen Clients zur Verfügung gestellt, die unter die unterstützende Richtlinie fallen, und der Vorgang zum Speichern der AppData\\Roaming-Daten am lokalen APPDATA-Speicherort auf dem Client wird initiiert. Die detaillierten Prozesse sind:
+2.  Der lokale Cache des AppData-Roamingspeicherorts wird komprimiert und in einer ZIP-Datei gespeichert.
+
+3.  Ein Zeitstempel am Ende des ZIP-Paketprozesses wird verwendet, um die Datei zu benennen.
+
+4.  Der Zeitstempel wird in der Registrierung aufgezeichnet: HKEY\_CURRENT\_USER\\Software\\Microsoft\\AppV\\Client\\Packages\\ &lt; GUID &gt; \\AppDataTime als letzter bekannter AppData-Zeitstempel.
+
+5.  Der Ordnerumleitungsprozess wird aufgerufen, um die ZIP-Datei auszuwerten und in das Roaming-AppData-Verzeichnis hochzuladen.
+
+Der Zeitstempel wird verwendet, um ein Szenario vom Typ "Letzter Writer hat Vorrang" zu ermitteln, wenn ein Konflikt vorliegt, und wird verwendet, um den Download der Daten zu optimieren, wenn die App-V-Anwendung veröffentlicht oder die virtuelle Umgebung gestartet wird. Die Ordnerumleitung stellt die Daten von allen anderen Clients zur Verfügung, die von der unterstützenden Richtlinie abgedeckt werden, und initiiert den Prozess zum Speichern der AppData\\Roaming-Daten am lokalen AppData-Speicherort auf dem Client. Die detaillierten Prozesse sind:
 
 1.  Der Benutzer startet die virtuelle Umgebung, indem er eine Anwendung startet.
 
-2.  Die virtuelle Umgebung der Anwendung überprüft, falls vorhanden, die neueste ZIP-Datei mit Zeitstempel.
+2.  Die virtuelle Umgebung der Anwendung prüft, ob die aktuelle ZIP-Datei mit Zeitstempel vorhanden ist.
 
-3.  Sofern vorhanden, wird die Registrierung auf den letzten bekannt geladenen Timestamp überprüft.
+3.  Die Registrierung wird ggf. auf den letzten bekannten hochgeladenen Zeitstempel überprüft.
 
-4.  Die neueste ZIP-Datei wird heruntergeladen, es sei denn, der lokale letzte bekannte Upload-Zeitstempel ist größer als oder gleich dem Timestamp aus der ZIP-Datei.
+4.  Die neueste ZIP-Datei wird heruntergeladen, es sei denn, der lokale letzte bekannte Uploadzeitstempel ist größer oder gleich dem Zeitstempel aus der ZIP-Datei.
 
-5.  Wenn der lokale letzte bekannte Upload-Zeitstempel vor der letzten ZIP-Datei im Roaming-APPDATA-Speicherort liegt, wird die ZIP-Datei in das lokale temporäre Verzeichnis im Profil des Benutzers extrahiert.
+5.  Wenn der lokale letzte bekannte Uploadzeitstempel früher als der der neuesten ZIP-Datei im Roamingspeicherort von AppData ist, wird die ZIP-Datei in das lokale temporäre Verzeichnis im Profil des Benutzers extrahiert.
 
-6.  Nachdem die ZIP-Datei erfolgreich extrahiert wurde, wird der lokale Cache des Roaming-APPDATA-Verzeichnisses umbenannt, und die neuen Daten werden in Position verschoben.
+6.  Nachdem die ZIP-Datei erfolgreich extrahiert wurde, wird der lokale Cache des Roaming-AppData-Verzeichnisses umbenannt, und die neuen Daten werden an die stelle verschoben.
 
-7.  Das umbenannte Verzeichnis wird gelöscht, und die Anwendung wird mit den zuletzt gespeicherten Roaming-APPDATA-Daten geöffnet.
+7.  Das umbenannte Verzeichnis wird gelöscht, und die Anwendung wird mit den zuletzt gespeicherten AppData-Roamingdaten geöffnet.
 
-Dadurch wird das erfolgreiche Roaming von Anwendungseinstellungen abgeschlossen, die in AppData\\Roaming-Speicherorten vorhanden sind. Die einzige andere Bedingung, die behoben werden muss, ist ein Paket Reparaturvorgang. Die Details des Prozesses lauten wie folgt:
+Dadurch wird das erfolgreiche Roaming von Anwendungseinstellungen abgeschlossen, die an AppData\\Roaming-Speicherorten vorhanden sind. Die einzige andere Bedingung, die behoben werden muss, ist ein Paketreparaturvorgang. Die Details des Prozesses sind:
 
-1.  Ermitteln Sie während der Reparatur, ob der Pfad zum Roaming-AppData-Verzeichnis des Benutzers nicht lokal ist.
+1.  Ermitteln Sie während der Reparatur, ob der Pfad zum AppData-Roamingverzeichnis des Benutzers nicht lokal ist.
 
-2.  Karte die nicht lokalen Roaming-APPDATA-Pfad Ziele werden die erwarteten Roaming-und lokalen APPDATA-Speicherorte neu erstellt.
+2.  Zuordnen der nicht lokalen AppData-Roamingpfadziele werden die erwarteten Roaming- und lokalen AppData-Speicherorte neu erstellt.
 
-3.  Löschen Sie den in der Registrierung gespeicherten Zeitstempel, falls vorhanden.
+3.  Löschen Sie ggf. den in der Registrierung gespeicherten Zeitstempel.
 
-Durch diesen Vorgang werden sowohl die lokale als auch die Netzwerkspeicherorte für APPDATA neu erstellt, und der Registrierungseintrag des Zeitstempels wird entfernt.
+Bei diesem Vorgang werden sowohl die lokalen als auch die Netzwerkspeicherorte für AppData neu erstellt und der Registrierungsdatensatz des Zeitstempels entfernt.
 
-## <a href="" id="bkmk-clt-app-lifecycle"></a>App-V Client Application Lifecycle Management
+## <a name="app-v-client-application-lifecycle-management"></a><a href="" id="bkmk-clt-app-lifecycle"></a>App-V-Clientanwendungslebenszyklusverwaltung
 
 
-In einer vollständigen APP-v-Infrastruktur werden nach der Sequenzierung von Anwendungen verwaltet und auf Benutzern oder Computern über die APP-v-Verwaltungs-und Veröffentlichungsserver veröffentlicht. In diesem Abschnitt werden die Vorgänge erläutert, die während der gemeinsamen App-v-Anwendungslebenszyklus Vorgänge (hinzufügen, veröffentlichen, starten, aktualisieren und entfernen) sowie der Datei-und Registrierungsspeicherorte auftreten, die aus der Perspektive des App-v-Clients geändert und geändert werden. Die APP-v-Client Vorgänge werden als eine Reihe von PowerShell-Befehlen ausgeführt, die auf dem Computer mit dem App-v-Client initiiert wurden.
+In einer vollständigen App-V-Infrastruktur werden Anwendungen nach der Sequenzverwaltung verwaltet und über die App-V-Verwaltungs- und Veröffentlichungsserver für Benutzer oder Computer veröffentlicht. Dieser Abschnitt beschreibt die Vorgänge, die während der allgemeinen App-V-Anwendungslebenszyklusvorgänge (Hinzufügen, Veröffentlichen, Starten, Upgrade und Entfernen) auftreten, sowie die Datei- und Registrierungsspeicherorte, die aus der Perspektive des App-V-Clients geändert und geändert werden. Die App-V-Clientvorgänge werden als eine Reihe von PowerShell-Befehlen ausgeführt, die auf dem Computer mit dem App-V-Client initiiert werden.
 
-Dieses Dokument befasst sich mit den vollständigen Infrastrukturlösungen von App V. Spezifische Informationen zur App-V-Integration in Configuration Manager 2012 finden Sie unter: <https://go.microsoft.com/fwlink/?LinkId=392773> .
+Dieses Dokument konzentriert sich auf App-V Full Infrastructure-Lösungen. Spezifische Informationen zur App-V-Integration in Configuration Manager 2012 finden Sie unter: <https://go.microsoft.com/fwlink/?LinkId=392773> .
 
-Die Aufgaben des App-V-Anwendungslebenszyklus werden bei der Benutzeranmeldung (Standardeinstellung), beim Start des Computers oder als zeitgesteuerte Vorgänge im Hintergrund ausgelöst. Die Einstellungen für die App-V-Client Vorgänge, einschließlich Veröffentlichungsserver, Aktualisierungsintervalle, Paket Skriptaktivierung und andere, werden während des Setups des Clients oder nach dem Setup mit PowerShell-Befehlen konfiguriert. Weitere Informationen finden Sie unter Vorgehensweise zum Bereitstellen des Clients auf der TechNet-Seite unter: [Bereitstellen des App-V-Clients](how-to-deploy-the-app-v-client-gb18030.md) oder verwenden der PowerShell:
+Die Lebenszyklusaufgaben der App-V-Anwendung werden bei der Benutzeranmeldung (Standard), beim Computerstart oder als zeitlich festgelegten Hintergrundvorgängen ausgelöst. Die Einstellungen für die App-V-Clientvorgänge, einschließlich Veröffentlichungsserver, Aktualisierungsintervalle, Aktivierung von Paketskripts und andere, werden während des Setups des Clients oder nach dem Setup mit PowerShell-Befehlen konfiguriert. Weitere Informationen finden Sie im Abschnitt "Bereitstellen des Clients" auf TechNet unter: [Bereitstellen des App-V-Clients](how-to-deploy-the-app-v-client-gb18030.md) oder Verwenden von PowerShell:
 
 ```powershell
 get-command *appv*
 ```
 
-### Veröffentlichungsaktualisierung
+### <a name="publishing-refresh"></a>Aktualisierung der Veröffentlichung
 
-Der Veröffentlichungs Aktualisierungsprozess umfasst mehrere kleinere Vorgänge, die auf dem App-V-Client ausgeführt werden. Da es sich bei App-V um eine Application Virtualization-Technologie und nicht um eine Vorgangs Planungstechnologie handelt, wird der Windows-Taskplaner verwendet, um den Prozess bei der Benutzeranmeldung, beim Starten des Computers und in geplanten Intervallen zu aktivieren. Die Konfiguration des Clients während des oben aufgeführten Setups ist die bevorzugte Methode beim Verteilen des Clients an eine große Gruppe von Computern mit den richtigen Einstellungen. Diese Clienteinstellungen können mit den folgenden PowerShell-Cmdlets konfiguriert werden:
+Der Veröffentlichungsaktualisierungsprozess besteht aus mehreren kleineren Vorgängen, die auf dem App-V-Client ausgeführt werden. Da App-V eine Anwendungsvirtualisierungstechnologie und keine Aufgabenplanungstechnologie ist, wird der Windows Aufgabenplaner verwendet, um den Prozess bei der Benutzeranmeldung, beim Computerstart und in geplanten Intervallen zu aktivieren. Die Konfiguration des Clients während des oben aufgeführten Setups ist die bevorzugte Methode beim Verteilen des Clients an eine große Gruppe von Computern mit den richtigen Einstellungen. Diese Clienteinstellungen können mit den folgenden PowerShell-Cmdlets konfiguriert werden:
 
--   **Add-AppVPublishingServer:** Konfiguriert den Client mit einem App-v-Veröffentlichungs Server, der APP-v-Pakete bereitstellt.
+-   **Add-AppVPublishingServer:** Konfiguriert den Client mit einem App-V-Veröffentlichungsserver, der App-V-Pakete bereitstellt.
 
--   **Satz-AppVPublishingServer:** Ändert die aktuellen Einstellungen für den App-V-Veröffentlichungs Server.
+-   **Set-AppVPublishingServer:** Ändert die aktuellen Einstellungen für den App-V-Veröffentlichungsserver.
 
--   **Satz-AppVClientConfiguration:** Ändert die aktuelle Einstellungen für den App-V-Client.
+-   **Set-AppVClientConfiguration:** Ändert die aktuellen Einstellungen für den App-V-Client.
 
--   **Sync-AppVPublishingServer:** Initiiert einen Aktualisierungsvorgang für die App-V-Veröffentlichung manuell. Dies wird auch in den geplanten Aufgaben verwendet, die während der Konfiguration des Veröffentlichungsservers erstellt wurden.
+-   **Sync-AppVPublishingServer:** Initiiert manuell einen App-V-Veröffentlichungsaktualisierungsprozess. Dies wird auch in den geplanten Aufgaben verwendet, die während der Konfiguration des Veröffentlichungsservers erstellt wurden.
 
-Im Fokus der folgenden Abschnitte finden Sie Informationen zu den Vorgängen, die in verschiedenen Phasen einer App-V-Veröffentlichungsaktualisierung ausgeführt werden. Zu den Themen gehören:
+Der Schwerpunkt der folgenden Abschnitte liegt auf den Vorgängen, die während verschiedener Phasen einer App-V-Veröffentlichungsaktualisierung auftreten. Die Themen umfassen:
 
 -   Hinzufügen eines App-V-Pakets
 
 -   Veröffentlichen eines App-V-Pakets
 
-### Hinzufügen eines App-V-Pakets
+### <a name="adding-an-app-v-package"></a>Hinzufügen eines App-V-Pakets
 
-Das Hinzufügen eines App-V-Pakets zum Client ist der erste Schritt des Veröffentlichungs Aktualisierungsprozesses. Das Endergebnis ist mit dem `Add-AppVClientPackage` Cmdlet in PowerShell identisch, mit der Ausnahme, dass der konfigurierte Veröffentlichungsserver mit Ausnahme des Veröffentlichungs Aktualisierungs Add-Vorgangs kontaktiert wird und eine Liste der Anwendungen auf höherer Ebene zurück an den Client übergibt, um detailliertere Informationen und nicht einen einzelnen Paket-Add-Vorgang abzurufen. Der Prozess wird fortgesetzt, indem der Client für Paket-oder Verbindungsgruppen Erweiterungen oder-Updates konfiguriert und dann auf die AppV-Datei zugegriffen wird. Als nächstes werden die Inhalte der AppV-Datei erweitert und auf dem lokalen Betriebssystem an den entsprechenden Speicherorten gespeichert. Im folgenden finden Sie einen detaillierten Workflow des Prozesses, vorausgesetzt, das Paket ist für das Fehler Streaming konfiguriert.
+Das Hinzufügen eines App-V-Pakets zum Client ist der erste Schritt des Veröffentlichungsaktualisierungsprozesses. Das Endergebnis entspricht dem `Add-AppVClientPackage` Cmdlet in PowerShell, außer während des Veröffentlichungsaktualisierungs-Add-In-Prozesses wird der konfigurierte Veröffentlichungsserver kontaktiert und übergibt eine allgemeine Liste von Anwendungen zurück an den Client, um detailliertere Informationen abzurufen und nicht einen einzelnen Paket-Add-Vorgang. Der Vorgang wird fortgesetzt, indem der Client für Paket- oder Verbindungsgruppen-Ergänzungen oder -Updates konfiguriert wird und dann auf die Appv-Datei zugegriffen wird. Als Nächstes wird der Inhalt der Appv-Datei erweitert und auf dem lokalen Betriebssystem an den entsprechenden Speicherorten platziert. Es folgt ein detaillierter Workflow des Prozesses, vorausgesetzt, das Paket ist für Fault Streaming konfiguriert.
 
-**Hinzufügen eines App-V-Pakets**
+**So fügen Sie ein App-V-Paket hinzu**
 
-1.  Manuelle Initiierung über PowerShell oder Task Sequenz Initiierung des Veröffentlichungs Aktualisierungsprozesses.
+1.  Manuelle Initiierung über PowerShell oder Tasksequenzinitiierung des Veröffentlichungsaktualisierungsprozesses.
 
-    1.  Der App-V-Client erstellt eine HTTP-Verbindung und fordert eine Liste der auf dem Ziel basierenden Anwendungen an. Der Veröffentlichungs Aktualisierungsprozess unterstützt die Zielgruppenadressierung von Computern oder Benutzern.
+    1.  Der App-V-Client stellt eine HTTP-Verbindung und fordert eine Liste der Anwendungen basierend auf dem Ziel an. Der Aktualisierungsprozess für die Veröffentlichung unterstützt die Ausrichtung auf Computer oder Benutzer.
 
-    2.  Der App-V-Veröffentlichungs Server verwendet die Identität des initiierenden Ziels, Benutzers oder Computers und fragt die Datenbank nach einer Liste der berechtigten Anwendungen ab. Die Liste der Anwendungen wird als XML-Antwort bereitgestellt, die der Client zum Senden zusätzlicher Anforderungen an den Server verwendet, um weitere Informationen pro Paket zu erhalten.
+    2.  Der App-V-Veröffentlichungsserver verwendet die Identität des initiierenden Ziels, Benutzers oder Computers und fragt die Datenbank nach einer Liste berechtigter Anwendungen ab. Die Liste der Anwendungen wird als XML-Antwort bereitgestellt, die der Client verwendet, um zusätzliche Anforderungen an den Server zu senden, um weitere Informationen pro Paket zu erhalten.
 
-2.  Der Veröffentlichungs-Agent auf dem App-V-Client führt alle unter serialisierten Aktionen aus.
+2.  Der Veröffentlichungs-Agent auf dem App-V-Client führt alle unten aufgeführten Aktionen serialisiert aus.
 
-    Bewerten Sie alle Verbindungsgruppen, die nicht veröffentlicht oder deaktiviert sind, da Paketversions Updates, die Teil der Verbindungsgruppe sind, nicht verarbeitet werden können.
+    Bewerten Sie alle Verbindungsgruppen, die unveröffentlicht oder deaktiviert sind, da Paketversionsupdates, die Teil der Verbindungsgruppe sind, nicht verarbeitet werden können.
 
-3.  Konfigurieren Sie die Pakete, indem Sie einen Add-oder Update-Vorgang identifizieren.
+3.  Konfigurieren Sie die Pakete durch Identifizieren eines Add- oder Update-Vorgangs.
 
-    1.  Der App-V-Client verwendet die AppX-API von Windows und greift auf die AppV-Datei vom Veröffentlichungsserver zu.
+    1.  Der App-V-Client verwendet die AppX-API aus Windows und greift über den Veröffentlichungsserver auf die AppV-Datei zu.
 
-    2.  Die Paketdatei wird geöffnet, und die AppXManifest.xml und StreamMap.xml werden in den Paketspeicher heruntergeladen.
+    2.  Die Paketdatei wird geöffnet, und die AppXManifest.xml und StreamMap.xml werden in die Paket-Store heruntergeladen.
 
-    3.  Vollständiges Streamen von Veröffentlichungs Blockdaten, die im StreamMap.xml definiert sind. Speichert die Veröffentlichungs Blockdaten im Paket Store\\PkgGUID\\VerGUID\\Root.
+    3.  Veröffentlichungsblockdaten, die im StreamMap.xml definiert sind, werden vollständig streamen. Speichert die Veröffentlichungsblockdaten im Paket Store\\PkgGUID\\VerGUID\\Root.
 
         -   Symbole: Ziele von Erweiterungspunkten.
 
-        -   Portable ausführbare Header (PE-Header): Ziele von Erweiterungspunkten, die die Basisinformationen zum Bild benötigen, auf einem Datenträger, auf den direkt zugegriffen wird, oder über Dateitypen.
+        -   Portierbare ausführbare Header (PE-Header): Ziele von Erweiterungspunkten, die die Basisinformationen über das Image enthalten, das auf dem Datenträger benötigt wird, direkt zugänglich oder über Dateitypen.
 
-        -   Skripts: Download des Skripts-Verzeichnisses zur Verwendung im gesamten Veröffentlichungsprozess.
+        -   Skripts: Laden Sie das Skriptverzeichnis für die Verwendung während des gesamten Veröffentlichungsprozesses herunter.
 
-    4.  Füllen Sie den Paketspeicher aus:
+    4.  Füllen Sie den Paketspeicher auf:
 
-        1.  Erstellen Sie Dateien mit geringer Dichte auf einem Datenträger, die das extrahierte Paket für alle aufgelisteten Verzeichnisse darstellen.
+        1.  Erstellen Sie nur wenige Dateien auf dem Datenträger, die das extrahierte Paket für alle aufgeführten Verzeichnisse darstellen.
 
-        2.  Stufen Sie Dateien und Verzeichnisse der obersten Ebene unter root ein.
+        2.  Bereitstellen von Dateien und Verzeichnissen auf oberster Ebene im Stammverzeichnis.
 
-        3.  Alle anderen Dateien werden erstellt, wenn das Verzeichnis auf dem Datenträger als "spärlich" aufgeführt und bei Bedarf gestreamt wird.
+        3.  Alle anderen Dateien werden erstellt, wenn das Verzeichnis auf dem Datenträger als spärlich aufgeführt und bei Bedarf gestreamt wird.
 
-    5.  Erstellen Sie die Einträge des Computer Katalogs. Erstellen Sie die Manifest.xml und DeploymentConfiguration.xml aus den Paketdateien (wenn keine DeploymentConfiguration.xml Datei im Paket ein Platzhalter erstellt wird).
+    5.  Erstellen Sie die Computerkatalogeinträge. Erstellen Sie die Manifest.xml und DeploymentConfiguration.xml aus den Paketdateien (wenn keine DeploymentConfiguration.xml Datei im Paket erstellt wird).
 
-    6.  Erstellen des Speicherorts des Paketspeichers in der Registrierungs-HKLM\\Software\\Microsoft\\AppV\\Client\\Packages\\PkgGUID\\Versions\\VerGUID\\Catalog
+    6.  Erstellen des Speicherorts des Paketspeichers in der Registrierung HKLM\\Software\\Microsoft\\AppV\\Client\\Packages\\PkgGUID\\Versions\\VerGUID\\Catalog
 
-    7.  Erstellen Sie die Datei "Registry. dat" aus dem Paketspeicher auf%ProgramData%\\Microsoft\\AppV\\Client\\VReg\\ {VersionGUID}. dat
+    7.  Erstellen Sie die Datei "Registry.dat" aus dem Paketspeicher in "%ProgramData%\\Microsoft\\AppV\\Client\\VReg\\{VersionGUID}.dat"
 
-    8.  Registrieren des Pakets mit dem App-V-Kernel Modus-Treiber HKLM\\Microsoft\\Software\\AppV\\MAV
+    8.  Registrieren Sie das Paket beim App-V-Kernelmodustreiber HKLM\\Microsoft\\Software\\AppV\\MAV
 
-    9.  Rufen Sie Skripting aus der AppxManifest.xml oder DeploymentConfig.xml Datei auf, um die Anzeigedauer für das Paket hinzuzufügen.
+    9.  Aufrufen von Skripts aus der AppxManifest.xml- oder DeploymentConfig.xml datei für die Paketzufügezeit.
 
-4.  Konfigurieren Sie Verbindungsgruppen durch Hinzufügen und aktivieren oder deaktivieren.
+4.  Konfigurieren Sie Verbindungsgruppen durch Hinzufügen und Aktivieren oder Deaktivieren.
 
-5.  Entfernen Sie Objekte, die nicht auf dem Ziel veröffentlicht sind (Benutzer oder Computer).
+5.  Entfernen Sie Objekte, die nicht im Ziel (Benutzer oder Computer) veröffentlicht werden.
 
-    **Hinweis**  Dadurch wird keine Paketlöschung durchgeführt, sondern es werden vielmehr Integrationspunkte für das jeweilige Ziel (Benutzer oder Computer) entfernt und Benutzer Katalogdateien (Computer Katalogdateien für Global veröffentlicht) entfernt.
-
-     
-
-6.  Aufrufen der Hintergrund Lade Montage auf der Grundlage der Clientkonfiguration.
-
-7.  Pakete, die bereits Veröffentlichungsinformationen für den Computer oder Benutzer aufweisen, werden sofort wiederhergestellt.
-
-    **Hinweis**  Diese Bedingung tritt als ein Produkt der Entfernung auf, ohne die Veröffentlichung mit Hintergrund Addition des Pakets aufzuheben.
+    **Hinweis:**  
+    Dadurch wird kein Paket gelöscht, sondern Integrationspunkte für das spezifische Ziel (Benutzer oder Computer) entfernt und Benutzerkatalogdateien (Computerkatalogdateien für global veröffentlichte Dateien) entfernt.
 
      
 
-Damit ist ein App-V-Paket zum Veröffentlichen des Aktualisierungsprozesses abgeschlossen. Im nächsten Schritt wird das Paket auf dem jeweiligen Ziel (Computer oder Benutzer) veröffentlicht.
+6.  Rufen Sie die Hintergrundlast-Montage basierend auf der Clientkonfiguration auf.
 
-![Paket zum Hinzufügen von Datei-und Registrierungsdaten](images/packageaddfileandregistrydata.png)
+7.  Pakete, die bereits über Veröffentlichungsinformationen für den Computer oder Benutzer verfügen, werden sofort wiederhergestellt.
 
-### Veröffentlichen eines App-V-Pakets
+    **Hinweis:**  
+    Diese Bedingung tritt als Produkt der Entfernung auf, ohne die Veröffentlichung mit Hintergrundzufügung des Pakets aufzuheben.
 
-Während des Veröffentlichungs Aktualisierungsvorgangs fügt der jeweilige Veröffentlichungsvorgang (Publish-AppVClientPackage) dem Benutzer Katalogeinträge hinzu, ordnet dem Benutzer den Berechtigungen zu, identifiziert den lokalen Speicher und beendet die einzelnen Integrationsschritte. Im folgenden finden Sie die detaillierten Schritte.
+     
+
+Dadurch wird ein App-V-Paket-Add des Veröffentlichungsaktualisierungsprozesses abgeschlossen. Der nächste Schritt besteht darin, das Paket im spezifischen Ziel (Computer oder Benutzer) zu veröffentlichen.
+
+![paketzufügen von Datei- und Registrierungsdaten.](images/packageaddfileandregistrydata.png)
+
+### <a name="publishing-an-app-v-package"></a>Veröffentlichen eines App-V-Pakets
+
+Während des Veröffentlichungsaktualisierungsvorgangs fügt der spezifische Veröffentlichungsvorgang (Publish-AppVClientPackage) Einträge zum Benutzerkatalog hinzu, ordnet dem Benutzer berechtigungen zu, identifiziert den lokalen Speicher und schließt alle Integrationsschritte ab. Im Folgenden finden Sie die detaillierten Schritte.
 
 **Veröffentlichen und App-V-Paket**
 
-1.  Dem Benutzer Katalog werden Paket Einträge hinzugefügt.
+1.  Paketeinträge werden dem Benutzerkatalog hinzugefügt.
 
-    1.  Benutzerorientierte Pakete: die UserDeploymentConfiguration.xml und UserManifest.xml werden auf dem Computer im Benutzer Katalog gespeichert.
+    1.  Benutzerorientierte Pakete: die UserDeploymentConfiguration.xml und UserManifest.xml werden auf dem Computer im Benutzerkatalog platziert.
 
-    2.  Maschinell ausgerichtete (globale) Pakete: die UserDeploymentConfiguration.xml wird im Computer Katalog gespeichert.
+    2.  Computerorientierte (globale) Pakete: die UserDeploymentConfiguration.xml wird im Computerkatalog platziert
 
-2.  Registrieren des Pakets mit dem Kernelmodus-Treiber für den Benutzer unter HKLM\\Software\\Microsoft\\AppV\\MAV
+2.  Registrieren des Pakets beim Kernelmodustreiber für den Benutzer unter HKLM\\Software\\Microsoft\\AppV\\MAV
 
-3.  Durchführen von Integrationsaufgaben
+3.  Ausführen von Integrationsaufgaben.
 
     1.  Erstellen Sie Erweiterungspunkte.
 
-    2.  Speichern von Sicherungsinformationen in der Registrierung und im Roaming-Profil des Benutzers (Verknüpfungs Sicherungen).
+    2.  Store Sicherungsinformationen im Registrierungs- und Roamingprofil des Benutzers (Verknüpfungssicherungen).
 
-        **Hinweis**  Dies ermöglicht das Wiederherstellen von Erweiterungspunkten, wenn das Paket nicht veröffentlicht wurde.
+        **Hinweis:**  
+        Dadurch werden Erweiterungspunkte wiederhergestellt, wenn das Paket unveröffentlicht ist.
 
          
 
-    3.  Führen Sie Skripts aus, die für die Veröffentlichungs Anzeige vorgesehen sind.
+    3.  Führen Sie Skripts aus, die für die Veröffentlichungszeit vorgesehen sind.
 
-Das Veröffentlichen eines App-V-Pakets, das Teil einer Verbindungsgruppe ist, ähnelt dem oben beschriebenen Verfahren. Für Verbindungsgruppen enthält der Pfad, in dem die spezifischen Kataloginformationen gespeichert sind, PackageGroups als untergeordnetes Element des Katalog Verzeichnisses. Weitere Informationen finden Sie in den Kataloginformationen zu Computer und Benutzern oben.
+Das Veröffentlichen eines App-V-Pakets, das Teil einer Verbindungsgruppe ist, ähnelt dem oben genannten Prozess. Für Verbindungsgruppen enthält der Pfad, in dem die spezifischen Kataloginformationen gespeichert werden, PackageGroups als untergeordnetes Element des Katalogverzeichnisses. Weitere Informationen finden Sie oben im Computer- und Benutzerkatalog.
 
-![Paketdatei-und Registrierungsdaten hinzufügen – Global](images/packageaddfileandregistrydata-global.png)
+![Paket Hinzufügen von Datei- und Registrierungsdaten – global.](images/packageaddfileandregistrydata-global.png)
 
-### Anwendungsstart
+### <a name="application-launch"></a>Starten der Anwendung
 
-Nach dem Veröffentlichungs Aktualisierungsvorgang startet der Benutzer eine App-V-Anwendung und startet Sie anschließend erneut. Der Vorgang ist sehr einfach und für einen schnellen Start mit einem mindestnetzwerkverkehr optimiert. Der App-V-Client überprüft den Pfad zu dem Benutzer Katalog für Dateien, die während der Veröffentlichung erstellt wurden. Nachdem die Rechte zum Starten des Pakets festgelegt wurden, erstellt der App-V-Client eine virtuelle Umgebung, beginnt mit dem Streaming aller erforderlichen Daten und wendet die entsprechenden Manifest-und Bereitstellungskonfigurationsdateien während der Erstellung der virtuellen Umgebung an. Bei der Erstellung und Konfiguration der virtuellen Umgebung für das jeweilige Paket und die Anwendung wird die Anwendung gestartet.
+Nach der Veröffentlichungsaktualisierung startet der Benutzer eine App-V-Anwendung und startet sie anschließend erneut. Der Prozess ist sehr einfach und für den schnellen Start mit einem Minimum an Netzwerkdatenverkehr optimiert. Der App-V-Client überprüft den Pfad zum Benutzerkatalog auf Dateien, die während der Veröffentlichung erstellt wurden. Nachdem Berechtigungen zum Starten des Pakets eingerichtet wurden, erstellt der App-V-Client eine virtuelle Umgebung, beginnt mit dem Streamen aller erforderlichen Daten und wendet die entsprechenden Manifest- und Bereitstellungskonfigurationsdateien während der Erstellung der virtuellen Umgebung an. Nachdem die virtuelle Umgebung für das jeweilige Paket und die Anwendung erstellt und konfiguriert wurde, wird die Anwendung gestartet.
 
-**Starten von App-V-Anwendungen**
+**So starten Sie App-V-Anwendungen**
 
-1.  Der Benutzer startet die Anwendung durch Klicken auf einen Verknüpfungs-oder Dateityp Aufruf.
+1.  Der Benutzer startet die Anwendung, indem er auf einen Verknüpfungs- oder Dateitypaufruf klickt.
 
-2.  Der App-V-Client überprüft die Existenz im Benutzer Katalog für die folgenden Dateien:
+2.  Der App-V-Client überprüft das Vorhandensein im Benutzerkatalog für die folgenden Dateien.
 
     -   UserDeploymentConfiguration.xml
 
     -   UserManifest.xml
 
-3.  Wenn die Dateien vorhanden sind, ist die Anwendung für diesen bestimmten Benutzer berechtigt, und die Anwendung startet den Vorgang für den Start. An diesem Punkt ist kein Netzwerkdatenverkehr vorhanden.
+3.  Wenn die Dateien vorhanden sind, ist die Anwendung für diesen bestimmten Benutzer berechtigt, und die Anwendung startet den Startvorgang. Zu diesem Zeitpunkt ist kein Netzwerkdatenverkehr vorhanden.
 
-4.  Als nächstes überprüft der APP-v-Client, ob sich der Pfad für das für den App-v-Client Dienst registrierte Paket in der Registrierung befindet.
+4.  Als Nächstes überprüft der App-V-Client, ob der Pfad für das für den App-V-Clientdienst registrierte Paket in der Registrierung gefunden wird.
 
-5.  Nachdem Sie den Pfad zum Paketspeicher gefunden haben, wird die virtuelle Umgebung erstellt. Wenn es sich um den ersten Start handelt, blockiert das primäre Feature Downloads, falls vorhanden.
+5.  Nach dem Suchen des Pfads zum Paketspeicher wird die virtuelle Umgebung erstellt. Wenn dies der erste Start ist, wird der primäre Featureblock heruntergeladen, sofern vorhanden.
 
-6.  Nach dem Download verbraucht der APP-v-Client Dienst die Konfigurationsdateien für Manifest und Bereitstellung, um die virtuelle Umgebung zu konfigurieren, und alle App-v-Subsysteme werden geladen.
+6.  Nach dem Herunterladen verwendet der App-V-Clientdienst die Manifest- und Bereitstellungskonfigurationsdateien, um die virtuelle Umgebung zu konfigurieren, und alle App-V-Subsysteme werden geladen.
 
-7.  Die Anwendung wird gestartet. Für alle fehlenden Dateien im Paketspeicher (Sparse-Dateien) streamt App-V Fehler Dateien nach Bedarf.
+7.  Die Anwendung wird gestartet. Bei fehlenden Dateien im Paketspeicher (spärliche Dateien) streamt App-V die Dateien bei Bedarf.
 
-    ![Paket zum Hinzufügen von Datei-und Registrierungsdaten strömen](images/packageaddfileandregistrydata-stream.png)
+    ![Paket Hinzufügen von Datei- und Registrierungsdaten – Datenstrom.](images/packageaddfileandregistrydata-stream.png)
 
-### Aktualisieren eines App-V-Pakets
+### <a name="upgrading-an-app-v-package"></a>Aktualisieren eines App-V-Pakets
 
-Das Upgrade des App-v 5-Pakets unterscheidet sich von den älteren Versionen von App-v. App-V unterstützt mehrere Versionen desselben Pakets auf einem Computer, der für verschiedene Benutzer berechtigt ist. Paketversionen können jederzeit hinzugefügt werden, wenn der Paketspeicher und die Kataloge mit den neuen Ressourcen aktualisiert werden. Der einzige für das Hinzufügen neuer Versionsressourcen spezifischer Prozess ist die Speicheroptimierung. Während eines Upgrades werden nur die neuen Dateien zum neuen Versionsspeicher Standort hinzugefügt, und es werden harte Links für unveränderte Dateien erstellt. Dadurch wird der Gesamtspeicher reduziert, indem die Datei nur auf einem Datenträger gespeichert und dann in alle Ordner mit einem Dateispeicherort Eintrag auf dem Datenträger projiziert wird. Die speziellen Details zum Upgrade eines App-V-Pakets lauten wie folgt:
+Der App-V 5-Paketupgradeprozess unterscheidet sich von den älteren Versionen von App-V. App-V unterstützt mehrere Versionen desselben Pakets auf einem Computer, der für unterschiedliche Benutzer berechtigt ist. Paketversionen können jederzeit hinzugefügt werden, wenn der Paketspeicher und Kataloge mit den neuen Ressourcen aktualisiert werden. Der einzige spezifische Prozess für das Hinzufügen neuer Versionsressourcen ist die Speicheroptimierung. Während eines Upgrades werden nur die neuen Dateien zum speicherort der neuen Version hinzugefügt, und hardlinks werden für unveränderte Dateien erstellt. Dadurch wird der Gesamtspeicher reduziert, indem die Datei nur an einem Datenträgerspeicherort dargestellt und dann in alle Ordner mit einem Dateispeicherorteintrag auf dem Datenträger projiziert wird. Die spezifischen Details zum Aktualisieren eines App-V-Pakets sind wie folgt:
 
-**Aktualisieren eines App-V-Pakets**
+**So aktualisieren Sie ein App-V-Paket**
 
-1.  Der APP-v-Client führt eine Veröffentlichungsaktualisierung durch und ermittelt eine neuere Version eines App-v-Pakets.
+1.  Der App-V-Client führt eine Veröffentlichungsaktualisierung durch und ermittelt eine neuere Version eines App-V-Pakets.
 
-2.  Paket Einträge werden dem entsprechenden Katalog für die neue Version hinzugefügt.
+2.  Paketeinträge werden dem entsprechenden Katalog für die neue Version hinzugefügt.
 
-    1.  Benutzerorientierte Pakete: die UserDeploymentConfiguration.xml und UserManifest.xml werden auf dem Computer im Benutzer Katalog unter appdata\\roaming\\Microsoft\\AppV\\Client\\Catalog\\Packages\\PkgGUID\\VerGUID
+    1.  Benutzerorientierte Pakete: die UserDeploymentConfiguration.xml und UserManifest.xml werden auf dem Computer im Benutzerkatalog unter "appdata\\roaming\\Microsoft\\AppV\\Client\\Catalog\\Packages\\PkgGUID\\VerGUID" platziert.
 
-    2.  Maschinell ausgerichtete (globale) Pakete: die UserDeploymentConfiguration.xml wird im Computer Katalog unter%ProgramData%\\Microsoft\\AppV\\Client\\Catalog\\Packages\\PkgGUID\\VerGUID gespeichert.
+    2.  Computerorientierte (globale) Pakete: die UserDeploymentConfiguration.xml wird im Computerkatalog unter %programdata%\\Microsoft\\AppV\\Client\\Catalog\\Packages\\PkgGUID\\VerGUID platziert.
 
-3.  Registrieren des Pakets mit dem Kernelmodus-Treiber für den Benutzer unter HKLM\\Software\\Microsoft\\AppV\\MAV
+3.  Registrieren des Pakets beim Kernelmodustreiber für den Benutzer unter HKLM\\Software\\Microsoft\\AppV\\MAV
 
-4.  Durchführen von Integrationsaufgaben
+4.  Ausführen von Integrationsaufgaben.
 
-    -   Integrieren Sie Erweiterungspunkte (EP) aus den Manifesten und dynamischen Konfigurationsdateien.
+    -   Integrieren Sie Erweiterungspunkte (EP) aus den Manifestdateien und dynamischen Konfigurationsdateien.
 
-    1.  Dateibasierte EP-Daten werden im AppData-Ordner unter Verwendung von Abzweigungspunkten aus dem Paketspeicher gespeichert.
+    1.  Dateibasierte EP-Daten werden im Ordner "AppData" unter Verwendung von Verknüpfungspunkten aus dem Paketspeicher gespeichert.
 
-    2.  Version 1 EPS ist bereits vorhanden, wenn eine neue Version verfügbar ist.
+    2.  EPs der Version 1 sind bereits vorhanden, wenn eine neue Version verfügbar wird.
 
-    3.  Die Erweiterungspunkte werden in Maschinen-oder Benutzer Katalogen für neuere oder aktualisierte Erweiterungspunkte auf den Standort Version 2 umgeschaltet.
+    3.  Die Erweiterungspunkte werden auf den Speicherort der Version 2 in Computer- oder Benutzerkatalogen für neuere oder aktualisierte Erweiterungspunkte umgestellt.
 
-5.  Führen Sie Skripts aus, die für die Veröffentlichungs Anzeige vorgesehen sind.
+5.  Führen Sie Skripts aus, die für die Veröffentlichungszeit vorgesehen sind.
 
-6.  Installieren Sie nebeneinander angeordnete Assemblys nach Bedarf.
+6.  Installieren Sie bei Bedarf Assemblys nebeneinander.
 
-### Aktualisieren eines in-use-App-V-Pakets
+### <a name="upgrading-an-in-use-app-v-package"></a>Aktualisieren eines verwendeten App-V-Pakets
 
-**Ab App-V 5 SP2**: Wenn Sie versuchen, ein Paket zu aktualisieren, das von einem Endbenutzer verwendet wird, wird die Aktualisierungsaufgabe in einem ausstehenden Zustand gespeichert. Das Upgrade wird später entsprechend den folgenden Regeln ausgeführt:
+**Ab App-V 5 SP2:** Wenn Sie versuchen, ein Paket zu aktualisieren, das von einem Endbenutzer verwendet wird, wird die Upgradeaufgabe in den Status "Ausstehend" versetzt. Das Upgrade wird später gemäß den folgenden Regeln ausgeführt:
 
 <table>
 <colgroup>
@@ -1006,19 +1011,19 @@ Das Upgrade des App-v 5-Pakets unterscheidet sich von den älteren Versionen von
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><p>Benutzerbasierte Aufgaben, beispielsweise die Veröffentlichung eines Pakets für einen Benutzer</p></td>
-<td align="left"><p>Die ausstehende Aufgabe wird ausgeführt, nachdem sich der Benutzer abgemeldet hat und sich dann wieder anmeldet.</p></td>
+<td align="left"><p>Benutzerbasierte Aufgabe, z. B. veröffentlichen eines Pakets für einen Benutzer</p></td>
+<td align="left"><p>Die ausstehende Aufgabe wird ausgeführt, nachdem sich der Benutzer abgemeldet und dann wieder angemeldet hat.</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Global basierender Vorgang, beispielsweise Aktivieren einer Verbindungsgruppe Global</p></td>
-<td align="left"><p>Die ausstehende Aufgabe wird ausgeführt, wenn der Computer heruntergefahren und neu gestartet wird.</p></td>
+<td align="left"><p>Global basierte Aufgabe, z. B. globales Aktivieren einer Verbindungsgruppe</p></td>
+<td align="left"><p>Die ausstehende Aufgabe wird ausgeführt, wenn der Computer heruntergefahren und dann neu gestartet wird.</p></td>
 </tr>
 </tbody>
 </table>
 
  
 
-Wenn eine Aufgabe in einem ausstehenden Zustand befindet, generiert der App-V-Client auch einen Registrierungsschlüssel für die ausstehende Aufgabe wie folgt:
+Wenn eine Aufgabe in den Zustand "Ausstehend" versetzt wird, generiert der App-V-Client auch wie folgt einen Registrierungsschlüssel für die ausstehende Aufgabe:
 
 <table>
 <colgroup>
@@ -1027,18 +1032,18 @@ Wenn eine Aufgabe in einem ausstehenden Zustand befindet, generiert der App-V-Cl
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Benutzerbasierter oder Global basierter Vorgang</th>
-<th align="left">Ort, an dem der Registrierungsschlüssel generiert wird</th>
+<th align="left">Benutzerbasierte oder global basierte Aufgabe</th>
+<th align="left">Wo der Registrierungsschlüssel generiert wird</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left"><p>Benutzerbasierte Aufgaben</p></td>
-<td align="left"><p>KEY_CURRENT_USER \software\microsoft\appv\client\pendingtasks</p></td>
+<td align="left"><p>KEY_CURRENT_USER\Software\Microsoft\AppV\Client\PendingTasks</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>Global basierte Aufgaben</p></td>
-<td align="left"><p>HKEY_LOCAL_MACHINE \software\microsoft\appv\client\pendingtasks</p></td>
+<td align="left"><p>HKEY_LOCAL_MACHINE\Software\Microsoft\AppV\Client\PendingTasks</p></td>
 </tr>
 </tbody>
 </table>
@@ -1061,11 +1066,11 @@ Die folgenden Vorgänge müssen abgeschlossen sein, bevor Benutzer die neuere Ve
 <tbody>
 <tr class="odd">
 <td align="left"><p>Hinzufügen des Pakets zum Computer</p></td>
-<td align="left"><p>Diese Aufgabe ist Computer spezifisch, und Sie können Sie jederzeit durchführen, indem Sie die Schritte im Abschnitt Paket hinzufügen oben ausführen.</p></td>
+<td align="left"><p>Diese Aufgabe ist computerspezifisch, und Sie können sie jederzeit ausführen, indem Sie die Schritte im Abschnitt "Paket hinzufügen" oben ausführen.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>Veröffentlichen des Pakets</p></td>
-<td align="left"><p>Weitere Informationen finden Sie im Abschnitt Paket Veröffentlichung oben unter Schritte. Dieser Vorgang erfordert, dass Sie Erweiterungspunkte auf dem System aktualisieren. Endbenutzer können die Anwendung nicht verwenden, wenn Sie diese Aufgabe ausführen.</p></td>
+<td align="left"><p>Schritte finden Sie oben im Abschnitt "Paketveröffentlichung". Für diesen Prozess müssen Sie Erweiterungspunkte auf dem System aktualisieren. Endbenutzer können die Anwendung nicht verwenden, wenn Sie diese Aufgabe ausführen.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1087,69 +1092,69 @@ Verwenden Sie die folgenden Beispielszenarien als Leitfaden zum Aktualisieren vo
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><p>Das App-V-Paket wird nicht verwendet, wenn Sie versuchen, ein Upgrade durchzuführen.</p></td>
-<td align="left"><p>Keine der folgenden Komponenten des Pakets kann verwendet werden: virtuelle Anwendung, com-Server oder Shell-Erweiterungen.</p>
-<p>Der Administrator veröffentlicht eine neuere Version des Pakets, und das Upgrade funktioniert, wenn eine Komponente oder Anwendung innerhalb des Pakets das nächste Mal gestartet wird. Die neue Version des Pakets wird gestreamt und ausgeführt. In diesem Szenario wurde in App-v 5 SP2 aus früheren Versionen von App-v 5 nichts geändert.</p></td>
+<td align="left"><p>App-V-Paket wird beim Upgrade nicht verwendet</p></td>
+<td align="left"><p>Keine der folgenden Komponenten des Pakets kann verwendet werden: virtuelle Anwendung, COM-Server oder Shell-Erweiterungen.</p>
+<p>Der Administrator veröffentlicht eine neuere Version des Pakets, und das Upgrade funktioniert beim nächsten Start einer Komponente oder Anwendung innerhalb des Pakets. Die neue Version des Pakets wird gestreamt und ausgeführt. In diesem Szenario in App-V 5 SP2 hat sich gegenüber früheren Versionen von App-V 5 nichts geändert.</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Das App-V-Paket wird verwendet, wenn der Administrator eine neuere Version des Pakets veröffentlicht.</p></td>
-<td align="left"><p>Der Aktualisierungsvorgang wird vom App-V-Client auf Ausstehend festgesetzt, was bedeutet, dass er in die Warteschlange gestellt und später ausgeführt wird, wenn das Paket nicht verwendet wird.</p>
-<p>Wenn die Paketanwendung verwendet wird, fährt der Benutzer die virtuelle Anwendung herunter, nach der das Upgrade ausgeführt werden kann.</p>
-<p>Wenn das Paket über Shell-Erweiterungen (Office 2013) verfügt, die vom Windows-Explorer dauerhaft geladen werden, kann der Benutzer nicht angemeldet werden. Benutzer müssen sich ab-und wieder anmelden, um das App-V-PaketUpgrade zu initiieren.</p></td>
+<td align="left"><p>App-V-Paket wird verwendet, wenn der Administrator eine neuere Version des Pakets veröffentlicht</p></td>
+<td align="left"><p>Der Upgradevorgang wird vom App-V-Client auf "Ausstehend" festgelegt, d. h., er wird in die Warteschlange eingereiht und später ausgeführt, wenn das Paket nicht verwendet wird.</p>
+<p>Wenn die Paketanwendung verwendet wird, beendet der Benutzer die virtuelle Anwendung, nach der das Upgrade erfolgen kann.</p>
+<p>Wenn das Paket Shellerweiterungen (Office 2013) aufweist, die dauerhaft von Windows Explorer geladen werden, kann der Benutzer nicht angemeldet werden. Benutzer müssen sich abmelden und sich erneut anmelden, um das App-V-Paketupgrade zu initiieren.</p></td>
 </tr>
 </tbody>
 </table>
 
  
 
-### Global vs User Publishing
+### <a name="global-vs-user-publishing"></a>Globale Veröffentlichung im Vergleich zur Veröffentlichung durch Benutzer
 
-App-V-Pakete können auf eine von zwei Arten veröffentlicht werden. Benutzer, der ein App-v-Paket für einen bestimmten Benutzer oder eine Gruppe von Benutzern und Global anrechtet, das das App-v-Paket für alle Benutzer des Computers zum gesamten Computer berechtigt. Nachdem ein PaketUpgrade vorangestellt wurde und das App-V-Paket nicht verwendet wird, sollten Sie die beiden Arten der Veröffentlichung in Frage stellen:
+App-V-Pakete können auf zwei Arten veröffentlicht werden: Benutzer, der ein App-V-Paket an einen bestimmten Benutzer oder eine Gruppe von Benutzern ausgibt, und global, wodurch das App-V-Paket für alle Benutzer des Computers auf dem gesamten Computer bereitgestellt wird. Nachdem ein Paketupgrade erstellt wurde und das App-V-Paket nicht verwendet wird, sollten Sie die beiden Arten der Veröffentlichung in Betracht ziehen:
 
--   **Global veröffentlicht**: die Anwendung wird auf einem Computer veröffentlicht. alle Benutzer auf diesem Computer können Sie verwenden. Das Upgrade wird durchgeführt, wenn der App-V-Client Dienst gestartet wird, was effektiv einen Neustart des Computers bedeutet.
+-   **Global veröffentlicht:** Die Anwendung wird auf einem Computer veröffentlicht; Alle Benutzer auf diesem Computer können es verwenden. Das Upgrade erfolgt, wenn der App-V-Clientdienst gestartet wird. Dies bedeutet, dass ein Computer neu gestartet wird.
 
--   **Benutzer veröffentlicht**: die Anwendung wird für einen Benutzer veröffentlicht. Wenn auf dem Computer mehrere Benutzer vorhanden sind, kann die Anwendung in einer Teilmenge der Benutzer veröffentlicht werden. Das Upgrade erfolgt, wenn sich der Benutzer anmeldet oder wenn er erneut veröffentlicht wird (regelmäßige Aktualisierung und Auswertung der ConfigMgr-Richtlinie oder regelmäßige Veröffentlichung/Aktualisierung von App-V oder explizit über PowerShell-Befehle).
+-   **Benutzer veröffentlicht:** Die Anwendung wird für einen Benutzer veröffentlicht. Wenn mehrere Benutzer auf dem Computer vorhanden sind, kann die Anwendung für eine Teilmenge der Benutzer veröffentlicht werden. Das Upgrade erfolgt, wenn sich der Benutzer anmeldet oder erneut veröffentlicht wird (in regelmäßigen Abständen, Aktualisierung und Auswertung der ConfigMgr-Richtlinie, regelmäßige Veröffentlichung/Aktualisierung von App-V oder explizit über PowerShell-Befehle).
 
-### Entfernen eines App-V-Pakets
+### <a name="removing-an-app-v-package"></a>Entfernen eines App-V-Pakets
 
-Das Entfernen von App-V-Anwendungen in einer vollständigen Infrastruktur ist eine Veröffentlichungsoperation, bei der keine Paketentfernung durchgeführt wird. Der Prozess ist derselbe wie der obige Veröffentlichungsprozess, doch anstelle des Hinzufügens des Entfernungsprozesses werden die Änderungen, die für App-V-Pakete vorgenommen wurden, umgekehrt.
+Das Entfernen von App-V-Anwendungen in einer vollständigen Infrastruktur ist ein Unveröffentlichter Vorgang und führt keine Paketentfernung durch. Der Vorgang ist identisch mit dem Veröffentlichungsprozess oben, aber anstatt den Entfernungsprozess hinzuzufügen, werden die Änderungen rückgängig gemacht, die für App-V-Pakete vorgenommen wurden.
 
-### Reparieren eines App-V-Pakets
+### <a name="repairing-an-app-v-package"></a>Reparieren eines App-V-Pakets
 
-Der Reparaturvorgang ist sehr einfach, kann sich aber auf viele Speicherorte auf dem Computer auswirken. Die zuvor erwähnten Exemplare auf Write (Cow)-Speicherorten werden entfernt, und Erweiterungspunkte werden deintegriert und dann wieder integriert. Überprüfen Sie die Position der Cow-Daten Platzierungen, indem Sie überprüfen, wo Sie in der Registrierung registriert sind. Dieser Vorgang erfolgt automatisch, und es gibt keine andere administrative Steuerung als das Initiieren eines Reparaturvorgangs über die App-V-Client Konsole oder über PowerShell (Repair-AppVClientPackage).
+Der Reparaturvorgang ist sehr einfach, kann sich jedoch auf viele Positionen auf dem Computer auswirken. Die zuvor erwähnten SPEICHERORTE (Copy on Write) werden entfernt, und Erweiterungspunkte werden deintegriert und dann erneut integriert. Überprüfen Sie die SPEICHERORTE für DIE PLATZIERUNG VON DATEN, indem Sie überprüfen, wo sie in der Registrierung registriert sind. Dieser Vorgang wird automatisch ausgeführt, und es gibt keine andere administrative Kontrolle als das Initiieren eines Reparaturvorgangs über die App-V-Clientkonsole oder über PowerShell (Repair-AppVClientPackage).
 
-## <a href="" id="bkmk-integr-appv-pkgs"></a>Integration von App-V-Paketen
+## <a name="integration-of-app-v-packages"></a><a href="" id="bkmk-integr-appv-pkgs"></a>Integration von App-V-Paketen
 
 
-Die App-V-Client-und-Paketarchitektur bietet beim Hinzufügen und Veröffentlichen von Paketen eine spezifische Integration in das lokale Betriebssystem. Drei Dateien definieren die Integrations-oder Erweiterungspunkte für ein App-V-Paket:
+Der App-V-Client und die Paketarchitektur bieten eine spezifische Integration in das lokale Betriebssystem während des Hinzufügens und Veröffentlichens von Paketen. Drei Dateien definieren die Integrations- oder Erweiterungspunkte für ein App-V-Paket:
 
--   AppXManifest.xml: innerhalb des Pakets mit Fall Back Kopien gespeichert, die im Paketspeicher und im Benutzerprofilgespeichert sind. Enthält die während des Sequenz Prozesses erstellten Optionen.
+-   AppXManifest.xml: Gespeichert innerhalb des Pakets mit Fallbackkopien, die im Paketspeicher und im Benutzerprofil gespeichert sind. Enthält die Optionen, die während des Sequenzierungsprozesses erstellt wurden.
 
--   DeploymentConfig.xml: enthält Konfigurationsinformationen zu Erweiterungspunkten für Computer-und benutzerbasierte Integrationen.
+-   DeploymentConfig.xml: Stellt Konfigurationsinformationen von computer- und benutzerbasierten Integrationserweiterungspunkten bereit.
 
--   UserConfig.xml: eine Teilmenge der Deploymentconfig.xml, die nur benutzerbasierte Konfigurationen bereitstellt und nur auf benutzerbasierte Erweiterungspunkte ausgerichtet ist.
+-   UserConfig.xml: Eine Teilmenge der Deploymentconfig.xml, die nur benutzerbasierte Konfigurationen bereitstellt und nur auf benutzerbasierte Erweiterungspunkte ausgerichtet ist.
 
-### Regeln für die Integration
+### <a name="rules-of-integration"></a>Integrationsregeln
 
-Wenn App-v-Anwendungen auf einem Computer mit dem App-v-Client veröffentlicht werden, finden einige spezifische Aktionen statt, wie in der folgenden Liste beschrieben:
+Wenn App-V-Anwendungen auf einem Computer mit dem App-V-Client veröffentlicht werden, werden einige spezifische Aktionen ausgeführt, wie in der folgenden Liste beschrieben:
 
--   Global Publishing: Verknüpfungen werden im Profilspeicherort alle Benutzer gespeichert, und andere Erweiterungspunkte werden in der Registrierung in der HKLM-Struktur gespeichert.
+-   Globale Veröffentlichung: Verknüpfungen werden am Profilspeicherort "Alle Benutzer" und andere Erweiterungspunkte in der Registrierung in der HKLM-Struktur gespeichert.
 
--   Benutzer Veröffentlichung: Verknüpfungen werden im aktuellen Benutzerkontoprofil gespeichert, und andere Erweiterungspunkte werden in der Registrierung in der HKCU-Struktur gespeichert.
+-   Benutzerveröffentlichung: Verknüpfungen werden im aktuellen Benutzerkontoprofil und andere Erweiterungspunkte in der Registrierung in der HKCU-Struktur gespeichert.
 
--   Sicherung und Wiederherstellung: vorhandene systemeigene Anwendungsdaten und Registrierung (wie FTA-Registrierungen) werden während der Veröffentlichung gesichert.
+-   Sicherung und Wiederherstellung: Vorhandene systemeigene Anwendungsdaten und Registrierungen (z. B. FTA-Registrierungen) werden während der Veröffentlichung gesichert.
 
-    1.  App-v-Pakete erhalten den Besitz auf der Grundlage des letzten integrierten Pakets, in dem der Besitz an die neueste veröffentlichte App-v-Anwendung übergeben wird.
+    1.  App-V-Pakete erhalten den Besitz basierend auf dem letzten integrierten Paket, bei dem der Besitz an die neueste veröffentlichte App-V-Anwendung übergeben wird.
 
-    2.  Besitzer Übertragungen von einem App-v-Paket zu einem anderen, wenn das besitzende App-v-Paket nicht veröffentlicht wurde. Dadurch wird keine Wiederherstellung der Daten oder der Registrierung initiiert.
+    2.  Besitzübertragungen von einem App-V-Paket zu einem anderen, wenn das besitzende App-V-Paket unveröffentlicht wird. Dadurch wird keine Wiederherstellung der Daten oder der Registrierung initiiert.
 
-    3.  Wiederherstellen der gesicherten Daten, wenn das letzte Paket unveröffentlicht oder auf einer Basis für die Erweiterung entfernt wurde.
+    3.  Stellen Sie die gesicherten Daten wieder her, wenn das letzte Paket unveröffentlicht oder pro Erweiterungspunkt entfernt wurde.
 
-### Erweiterungspunkte
+### <a name="extension-points"></a>Erweiterungspunkte
 
-Die App-V-Veröffentlichungsdateien (Manifest und dynamische Konfiguration) bieten mehrere Erweiterungspunkte, mit denen die Anwendung in das lokale Betriebssystem integriert werden kann. Diese Erweiterungspunkte führen typische Anwendungs Installationsaufgaben aus, beispielsweise das Platzieren von Verknüpfungen, das Erstellen von Dateitypzuordnungen und das Registrieren von Komponenten. Da es sich um virtualisierte Anwendungen handelt, die nicht auf die gleiche Weise wie eine herkömmliche Anwendung installiert sind, gibt es einige Unterschiede. Im folgenden finden Sie eine Liste der in diesem Abschnitt behandelten Erweiterungspunkte:
+Die App-V-Veröffentlichungsdateien (Manifest und dynamische Konfiguration) bieten mehrere Erweiterungspunkte, mit denen die Anwendung in das lokale Betriebssystem integriert werden kann. Diese Erweiterungspunkte führen typische Anwendungsinstallationsaufgaben durch, z. B. das Platzieren von Verknüpfungen, das Erstellen von Dateitypzuordnungen und das Registrieren von Komponenten. Da es sich hierbei um virtualisierte Anwendungen handelt, die nicht auf die gleiche Weise wie eine herkömmliche Anwendung installiert werden, gibt es einige Unterschiede. Nachfolgend finden Sie eine Liste der Erweiterungspunkte, die in diesem Abschnitt behandelt werden:
 
--   Kombinationen
+-   Tastenkombinationen
 
 -   Dateitypzuordnungen
 
@@ -1157,21 +1162,21 @@ Die App-V-Veröffentlichungsdateien (Manifest und dynamische Konfiguration) biet
 
 -   COM
 
--   Software-Clients
+-   Softwareclients
 
 -   Anwendungsfunktionen
 
--   URL-Protokoll Handler
+-   URL-Protokollhandler
 
 -   AppPath
 
 -   Virtuelle Anwendung
 
-### Kombinationen
+### <a name="shortcuts"></a>Tastenkombinationen
 
-Die Abkürzung ist eines der grundlegenden Elemente der Integration mit dem Betriebssystem und ist die Schnittstelle für die direkte Benutzereinführung einer App-V-Anwendung. Beim Veröffentlichen und Aufheben der Veröffentlichung von App-V-Anwendungen.
+Die Abkürzung ist eines der grundlegenden Elemente der Integration in das Betriebssystem und die Schnittstelle für den direkten Benutzerstart einer App-V-Anwendung. Während der Veröffentlichung und Aufhebung der Veröffentlichung von App-V-Anwendungen.
 
-In den XML-Dateien des paketmanifests und der Dynamic Configuration-XML-Datei befindet sich der Pfad zu einer bestimmten ausführbaren Anwendung in einem Abschnitt ähnlich der folgenden:
+Aus dem Paketmanifest und den XML-Dateien der dynamischen Konfiguration kann der Pfad zu einer bestimmten ausführbaren Anwendung in einem Abschnitt wie dem folgenden gefunden werden:
 
 ```xml
 <Extension Category="AppV.Shortcut">
@@ -1187,11 +1192,11 @@ In den XML-Dateien des paketmanifests und der Dynamic Configuration-XML-Datei be
         </Extension>
 ```
 
-Wie bereits erwähnt, werden die App-V-Tastenkombinationen standardmäßig im Profil des Benutzers basierend auf dem Aktualisierungsvorgang gespeichert. Im Profil "alle Benutzer" werden die Tastenkombinationen für globale Aktualisierung platziert, und die Benutzeraktualisierung speichert Sie im Profil des jeweiligen Benutzers. Die tatsächliche ausführbare Datei wird im Paketspeicher gespeichert. Der Speicherort der ICO-Datei ist eine Token-Position im App-V-Paket.
+Wie bereits erwähnt, werden die App-V-Verknüpfungen basierend auf dem Aktualisierungsvorgang standardmäßig im Profil des Benutzers platziert. Die globale Aktualisierung platziert Verknüpfungen im Profil "Alle Benutzer", und die Benutzeraktualisierung speichert sie im Profil des jeweiligen Benutzers. Die eigentliche ausführbare Datei wird im Paket-Store gespeichert. Der Speicherort der ICO-Datei ist ein tokenisierter Speicherort im App-V-Paket.
 
-### Dateitypzuordnungen
+### <a name="file-type-associations"></a>Dateitypzuordnungen
 
-Der APP-v-Client verwaltet die lokalen Dateitypzuordnungen während der Veröffentlichung, wodurch Benutzern die Verwendung von Dateityp aufrufen oder das Öffnen einer Datei mit einer speziell registrierten Erweiterung (DOCX) ermöglicht wird, um eine App-V-Anwendung zu starten. Dateitypzuordnungen sind in den Manifest-und dynamischen Konfigurationsdateien vorhanden, wie im folgenden Beispiel dargestellt:
+Der App-V-Client verwaltet die Dateitypzuordnungen des lokalen Betriebssystems während der Veröffentlichung, sodass Benutzer Dateitypaufrufe verwenden oder eine Datei mit einer speziell registrierten Erweiterung (.docx) öffnen können, um eine App-V-Anwendung zu starten. Dateitypzuordnungen sind in den Manifestdateien und dynamischen Konfigurationsdateien vorhanden, wie im folgenden Beispiel dargestellt:
 
 ```xml
 <Extension Category="AppV.FileTypeAssociation">
@@ -1230,25 +1235,26 @@ Der APP-v-Client verwaltet die lokalen Dateitypzuordnungen während der Veröffe
         </Extension>
 ```
 
-**Hinweis**  In diesem Beispiel:
+**Hinweis:**  
+Für dieses Beispiel gilt Folgendes:
 
 -   `<Name>.xdp</Name>` ist die Erweiterung
 
--   `<Name>AcroExch.XDPDoc</Name>` der ProgID-Wert (der auf die benachbarte ProgID zeigt)
+-   `<Name>AcroExch.XDPDoc</Name>` ist der ProgId-Wert (der auf die angrenzende ProgId verweist)
 
--   `<CommandLine>"[{AppVPackageRoot}]\Reader\AcroRd32.exe" "%1"</CommandLine>` ist die Befehlszeile, die auf die ausführbare Anwendung verweist.
+-   `<CommandLine>"[{AppVPackageRoot}]\Reader\AcroRd32.exe" "%1"</CommandLine>` ist die Befehlszeile, die auf die ausführbare Datei der Anwendung verweist
 
  
 
-### -Shell-Erweiterungen
+### <a name="shell-extensions"></a>-Shell-Erweiterungen
 
-Shell-Erweiterungen werden während des Sequenz Prozesses automatisch in das Paket eingebettet. Wenn das Paket Global veröffentlicht wird, gibt die Shell-Erweiterung Benutzern dieselbe Funktionalität wie bei der lokalen Installation der Anwendung. Die Anwendung erfordert keine zusätzliche Einrichtung oder Konfiguration auf dem Client, um die Shell-Erweiterungsfunktion zu aktivieren.
+Shell-Erweiterungen werden während des Sequenzierungsprozesses automatisch in das Paket eingebettet. Wenn das Paket global veröffentlicht wird, bietet die Shellerweiterung Benutzern die gleiche Funktionalität, als ob die Anwendung lokal installiert wäre. Die Anwendung erfordert keine zusätzliche Einrichtung oder Konfiguration auf dem Client, um die Shell-Erweiterungsfunktionalität zu aktivieren.
 
-**Voraussetzungen für die Verwendung von Shell-Erweiterungen:**
+**Anforderungen für die Verwendung von Shell-Erweiterungen:**
 
--   Pakete, die eingebettete Shell-Erweiterungen enthalten, müssen global veröffentlicht werden.
+-   Pakete, die eingebettete Shellerweiterungen enthalten, müssen global veröffentlicht werden.
 
--   Die "Bitanzahl" der Anwendung, des Sequencers und des App-V-Clients müssen übereinstimmen, oder die Shell-Erweiterungen funktionieren nicht. Beispiel:
+-   Die Bitanzahl der Anwendung, sequencer und des App-V-Clients muss übereinstimmen, andernfalls funktionieren die Shell-Erweiterungen nicht. Zum Beispiel:
 
     -   Die Version der Anwendung ist 64-Bit.
 
@@ -1256,7 +1262,7 @@ Shell-Erweiterungen werden während des Sequenz Prozesses automatisch in das Pak
 
     -   Das Paket wird an einen 64-Bit-App-V-Clientcomputer übermittelt.
 
-In der folgenden Tabelle werden die unterstützten Shell-Erweiterungen angezeigt.
+In der folgenden Tabelle werden die unterstützten Shellerweiterungen angezeigt.
 
 <table>
 <colgroup>
@@ -1271,55 +1277,55 @@ In der folgenden Tabelle werden die unterstützten Shell-Erweiterungen angezeigt
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><p>Kontextmenü Handler</p></td>
-<td align="left"><p>Fügt dem Kontextmenü Menüelemente hinzu. Sie wird aufgerufen, bevor das Kontextmenü angezeigt wird.</p></td>
+<td align="left"><p>Kontextmenühandler</p></td>
+<td align="left"><p>Fügt dem Kontextmenü Menüelemente hinzu. Er wird aufgerufen, bevor das Kontextmenü angezeigt wird.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>Drag & Drop-Handler</p></td>
-<td align="left"><p>Steuert die Aktion beim Klicken mit der rechten Maustaste auf Drag & Drop und ändert das angezeigte Kontextmenü.</p></td>
+<td align="left"><p>Steuert die Aktion beim Klicken per Drag & Drop mit der rechten Maustaste und ändert das angezeigte Kontextmenü.</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Ablegen eines Ziel Handlers</p></td>
-<td align="left"><p>Steuert die Aktion, nachdem ein Datenobjekt gezogen und über ein Ablageziel wie eine Datei abgelegt wurde.</p></td>
+<td align="left"><p>Drop-Zielhandler</p></td>
+<td align="left"><p>Steuert die Aktion, nachdem ein Datenobjekt über ein Drop-Ziel wie eine Datei gezogen und abgelegt wurde.</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Datenobjekt-Handler</p></td>
-<td align="left"><p>Steuert die Aktion, nachdem eine Datei in die Zwischenablage kopiert oder über ein Ablageziel gezogen und abgelegt wurde. Sie kann dem Ablageziel zusätzliche Zwischenablageformate zur Verfügung stellen.</p></td>
+<td align="left"><p>Datenobjekthandler</p></td>
+<td align="left"><p>Steuert die Aktion, nachdem eine Datei in die Zwischenablage kopiert oder über ein Drop-Ziel gezogen und abgelegt wurde. Es kann zusätzliche Zwischenablageformate für das Dropziel bereitstellen.</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Eigenschaftentabellen-Handler</p></td>
-<td align="left"><p>Ersetzt oder fügt Seiten in das DialogfeldEigenschaften Fenster eines Objekts ein.</p></td>
+<td align="left"><p>Eigenschaftenblatthandler</p></td>
+<td align="left"><p>Ersetzt oder fügt Dem Eigenschaftenfenster-Dialogfeld eines Objekts Seiten hinzu.</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Infotipp-Handler</p></td>
-<td align="left"><p>Ermöglicht das Abrufen von Flags und Infotipp-Informationen für ein Element und das Anzeigen des Elements in einer Popup-QuickInfo beim Mauszeiger.</p></td>
+<td align="left"><p>Infotip-Handler</p></td>
+<td align="left"><p>Ermöglicht das Abrufen von Flags und Infotip-Informationen für ein Element und das Anzeigen in einer Popup-QuickInfo beim Mauszeigen.</p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Spalten Handler</p></td>
-<td align="left"><p>Ermöglicht das Erstellen und Anzeigen benutzerdefinierter Spalten in der Windows-Explorer- <em> Detailansicht </em> . Sie kann zum Erweitern von Sortierung und Gruppierung verwendet werden.</p></td>
+<td align="left"><p>Spaltenhandler</p></td>
+<td align="left"><p>Ermöglicht das Erstellen und Anzeigen benutzerdefinierter Spalten in Windows <em> Explorer-Detailansicht. </em> Es kann verwendet werden, um die Sortierung und Gruppierung zu erweitern.</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>Vorschauhandler</p></td>
-<td align="left"><p>Ermöglicht das Anzeigen einer Vorschau einer Datei im Vorschaubereich von Windows-Explorer.</p></td>
+<td align="left"><p>Ermöglicht die Anzeige einer Vorschau einer Datei im Windows Explorer-Vorschaubereich.</p></td>
 </tr>
 </tbody>
 </table>
 
  
 
-### COM
+### <a name="com"></a>COM
 
-Der App-V-Client unterstützt Veröffentlichungs Anwendungen mit Unterstützung für com-Integration und-Virtualisierung. Die com-Integration ermöglicht es dem App-V-Client, com-Objekte auf dem lokalen Betriebssystem und die Virtualisierung der Objekte zu registrieren. Für die Zwecke dieses Dokuments erfordert die Integration von COM-Objekten zusätzliche Details.
+Der App-V-Client unterstützt Veröffentlichungsanwendungen mit Unterstützung für COM-Integration und Virtualisierung. Die COM-Integration ermöglicht dem App-V-Client das Registrieren von COM-Objekten im lokalen Betriebssystem und die Virtualisierung der Objekte. Für die Zwecke dieses Dokuments erfordert die Integration von COM-Objekten zusätzliche Details.
 
-App-V unterstützt das Registrieren von COM-Objekten aus dem Paket auf dem lokalen Betriebssystem mit zwei Prozesstypen: Out-of-Process-und in-Process-Prozesse. Das Registrieren von COM-Objekten erfolgt mit einer oder einer Kombination mehrerer Betriebsmodi für ein bestimmtes App-V-Paket, das aus, isoliert und integriert umfasst. Der integrierte Modus ist entweder für den Out-of-Process-oder in-Process-Typ konfiguriert. Die Konfiguration von com-Modi und-Typen erfolgt mit dynamischen Konfigurationsdateien (deploymentconfig.xml oder userconfig.xml).
+App-V unterstützt das Registrieren von COM-Objekten aus dem Paket beim lokalen Betriebssystem mit zwei Prozesstypen: Out-of-Process und In-Process. Das Registrieren von COM-Objekten erfolgt mit einem oder einer Kombination aus mehreren Betriebsmodi für ein bestimmtes App-V-Paket, das ausgeschaltet, isoliert und integriert ist. Der integrierte Modus ist für den Out-of-Process- oder In-Process-Typ konfiguriert. Die Konfiguration von COM-Modi und -Typen erfolgt mit dynamischen Konfigurationsdateien (deploymentconfig.xml oder userconfig.xml).
 
 Details zur App-V-Integration finden Sie unter: <https://go.microsoft.com/fwlink/?LinkId=392834> .
 
-### Software-Clients und Anwendungsfunktionen
+### <a name="software-clients-and-application-capabilities"></a>Softwareclients und Anwendungsfunktionen
 
-App-V unterstützt bestimmte Software-Clients und Erweiterungspunkte für Anwendungsfunktionen, mit denen virtualisierte Anwendungen beim Software-Client des Betriebssystems registriert werden können. Dadurch können Benutzer Standard Programme für Vorgänge wie e-Mail, Chat und Media Player auswählen. Dieser Vorgang wird in der Systemsteuerung mit dem festgelegten Programm Zugriffs-und Computer Standard durchgeführt und während der Sequenzierung in den Manifest-oder Dynamic Configuration-Dateien konfiguriert. Anwendungsfunktionen werden nur unterstützt, wenn die App-V-Anwendungen Global veröffentlicht werden.
+App-V unterstützt bestimmte Softwareclients und Anwendungsfunktionalitätserweiterungspunkte, mit denen virtualisierte Anwendungen beim Softwareclient des Betriebssystems registriert werden können. Dadurch können Benutzer Standardprogramme für Vorgänge wie E-Mail, Chat und Media Player auswählen. Dieser Vorgang wird in der Systemsteuerung mit "Programmzugriff festlegen" und "Computerstandardeinstellungen" ausgeführt und während der Sequenzierung in den Manifestdateien oder dynamischen Konfigurationsdateien konfiguriert. Anwendungsfunktionen werden nur unterstützt, wenn die App-V-Anwendungen global veröffentlicht werden.
 
-Beispiel für die Software Clientregistrierung eines App-V-basierten e-Mail-Clients.
+Beispiel für die Softwareclientregistrierung eines App-V-basierten Mailclients.
 
 ```xml
     <SoftwareClients Enabled="true">
@@ -1361,37 +1367,38 @@ Beispiel für die Software Clientregistrierung eines App-V-basierten e-Mail-Clie
     </SoftwareClients>
 ```
 
-**Hinweis**  In diesem Beispiel:
+**Hinweis:**  
+Für dieses Beispiel gilt Folgendes:
 
--   `<ClientConfiguration EmailEnabled="true" />` ist die Gesamteinstellung für Software Clients zum Integrieren von e-Mail-Clients
+-   `<ClientConfiguration EmailEnabled="true" />` ist die allgemeine Einstellung für Softwareclients zum Integrieren von E-Mail-Clients
 
--   `<EMail MakeDefault="true">` ist die Kennzeichnung, um einen bestimmten e-Mail-Client als Standard-e-Mail-Client einzurichten
+-   `<EMail MakeDefault="true">` ist das Flag, um einen bestimmten E-Mail-Client als Standard-E-Mail-Client festzulegen.
 
 -   `<MAPILibrary>[{ProgramFilesX86}]\Mozilla Thunderbird\mozMapi32_InUse.dll</MAPILibrary>` ist die MAPI-DLL-Registrierung
 
  
 
-### URL-Protokollhandler
+### <a name="url-protocol-handler"></a>URL-Protokollhandler
 
-Anwendungen werden nicht immer ausdrücklich als virtualisierte Anwendungen bezeichnet, die den Dateityp Aufruf verwenden. In einer Anwendung, die das Einbetten eines mailto:-Links in ein Dokument oder eine Webseite unterstützt, klickt der Benutzer beispielsweise auf einen mailto:-Link und erwartet, dass er seinen registrierten e-Mail-Client erhält. App-V unterstützt URL-Protokollhandler, die pro Paket mit dem lokalen Betriebssystem registriert werden können. Während der Sequenzierung werden die URL-Protokollhandler automatisch dem Paket hinzugefügt.
+Anwendungen werden nicht immer spezifisch als virtualisierte Anwendungen bezeichnet, die einen Dateitypaufruf verwenden. Beispielsweise klickt der Benutzer in einer Anwendung, die das Einbetten eines Mailto:-Links in ein Dokument oder eine Webseite unterstützt, auf einen Mailto:-Link und erwartet, dass er den registrierten E-Mail-Client abruft. App-V unterstützt URL-Protokollhandler, die pro Paket mit dem lokalen Betriebssystem registriert werden können. Während der Sequenzierung werden die URL-Protokollhandler automatisch zum Paket hinzugefügt.
 
-In Situationen, in denen es mehr als eine Anwendung gibt, die den spezifischen URL-Protokollhandler registrieren kann, können die dynamischen Konfigurationsdateien verwendet werden, um das Verhalten zu ändern und dieses Feature für eine Anwendung zu unterdrücken oder zu deaktivieren, die nicht die primäre Anwendung sein sollte, die gestartet werden soll.
+In Situationen, in denen mehrere Anwendungen vorhanden sind, die den spezifischen URL-Protokollhandler registrieren können, können die dynamischen Konfigurationsdateien verwendet werden, um das Verhalten zu ändern und dieses Feature für eine Anwendung zu unterdrücken oder zu deaktivieren, die nicht die primäre gestartete Anwendung sein sollte.
 
-### AppPath
+### <a name="apppath"></a>AppPath
 
-Der AppPath-Erweiterungspunkt unterstützt das direkte Aufrufen von App-V-Anwendungen aus dem Betriebssystem. Dies erfolgt in der Regel über den Startbildschirm, je nach Betriebssystem, wodurch Administratoren den Zugriff auf App-V-Anwendungen über Betriebssystembefehle oder Skripts ermöglichen können, ohne den spezifischen Pfad zur ausführbaren Datei aufzurufen. Sie vermeidet daher die Änderung der Umgebungsvariablen "System Path" auf allen Systemen, wie Sie während der Veröffentlichung ausgeführt wird.
+Der AppPath-Erweiterungspunkt unterstützt das direkte Aufrufen von App-V-Anwendungen über das Betriebssystem. Dies erfolgt in der Regel über den Start- oder Ausführungsbildschirm, je nach Betriebssystem, wodurch Administratoren über Betriebssystembefehle oder Skripts Zugriff auf App-V-Anwendungen gewähren können, ohne den spezifischen Pfad zur ausführbaren Datei aufzurufen. Es wird daher vermieden, die Systempfad-Umgebungsvariable auf allen Systemen zu ändern, da sie während der Veröffentlichung erreicht wird.
 
-Der AppPath-Erweiterungspunkt wird entweder im Manifest oder in den dynamischen Konfigurationsdateien konfiguriert und während der Veröffentlichung für den Benutzer in der Registrierung auf dem lokalen Computer gespeichert. Weitere Informationen zur AppPath-Überprüfung finden Sie unter: <https://go.microsoft.com/fwlink/?LinkId=392835> .
+Der AppPath-Erweiterungspunkt wird entweder im Manifest oder in den dynamischen Konfigurationsdateien konfiguriert und während der Veröffentlichung für den Benutzer in der Registrierung auf dem lokalen Computer gespeichert. Weitere Informationen zu AppPath finden Sie unter: <https://go.microsoft.com/fwlink/?LinkId=392835> .
 
-### Virtuelle Anwendung
+### <a name="virtual-application"></a>Virtuelle Anwendung
 
-Dieses Subsystem stellt eine Liste der während der Sequenzierung erfassten Anwendungen bereit, die normalerweise von anderen App-V-Komponenten verwendet werden. Die Integration von Erweiterungspunkten, die zu einer bestimmten Anwendung gehören, kann mit dynamischen Konfigurationsdateien deaktiviert werden. Wenn ein Paket beispielsweise zwei Anwendungen enthält, ist es möglich, alle Erweiterungspunkte zu deaktivieren, die zu einer Anwendung gehören, damit nur Erweiterungspunkte anderer Anwendungen integriert werden können.
+Dieses Subsystem enthält eine Liste der Anwendungen, die während der Sequenzierung erfasst werden und in der Regel von anderen App-V-Komponenten genutzt werden. Die Integration von Erweiterungspunkten, die zu einer bestimmten Anwendung gehören, kann mithilfe dynamischer Konfigurationsdateien deaktiviert werden. Wenn ein Paket beispielsweise zwei Anwendungen enthält, ist es möglich, alle Erweiterungspunkte zu deaktivieren, die zu einer Anwendung gehören, um nur die Integration von Erweiterungspunkten einer anderen Anwendung zu ermöglichen.
 
-### Erweiterungspunkt Regeln
+### <a name="extension-point-rules"></a>Erweiterungspunktregeln
 
-Die oben beschriebenen Erweiterungspunkte sind in das Betriebssystem integriert, je nachdem, wie die Pakete veröffentlicht wurden. Bei der globalen Veröffentlichung werden Erweiterungspunkte an öffentlichen Speicherorten platziert, an denen die Benutzer Veröffentlichung Erweiterungspunkte an Benutzerspeicherorten platziert. Beispiel: eine auf dem Desktop erstellte und Global veröffentlichte Verknüpfung führt zu den Dateidaten für die Verknüpfung (%Public%\\Desktop) und den Registrierungsdaten (HKLM\\Software\\Classes). Die gleiche Verknüpfung hätte Dateidaten (%USERPROFILE%\\Desktop) und Registrierungsdaten (HKCU\\Software\\Classes).
+Die oben beschriebenen Erweiterungspunkte sind basierend auf der Veröffentlichung der Pakete in das Betriebssystem integriert. Globale Veröffentlichung platziert Erweiterungspunkte an öffentlichen Computerspeicherorten, an denen Benutzerveröffentlichung Erweiterungspunkte an Benutzerspeicherorten platziert. Beispielsweise führt eine Verknüpfung, die auf dem Desktop erstellt und global veröffentlicht wird, zu den Dateidaten für die Verknüpfung (%Public%\\Desktop) und den Registrierungsdaten (HKLM\\Software\\Classes). Dieselbe Verknüpfung würde Dateidaten (%UserProfile%\\Desktop) und Registrierungsdaten (HKCU\\Software\\Classes) aufweisen.
 
-Erweiterungspunkte werden nicht alle auf die gleiche Weise veröffentlicht, wobei für einige Erweiterungspunkte eine globale Veröffentlichung erforderlich ist und andere eine Sequenzierung des jeweiligen Betriebssystems und der Architektur erfordern, in der Sie zugestellt werden. Nachfolgend finden Sie eine Tabelle, in der diese beiden Schlüssel Regeln beschrieben werden.
+Erweiterungspunkte werden nicht alle auf die gleiche Weise veröffentlicht, wobei einige Erweiterungspunkte eine globale Veröffentlichung erfordern und andere Sequenzierung auf dem spezifischen Betriebssystem und der Architektur, in der sie bereitgestellt werden, erforderlich sind. Nachfolgend finden Sie eine Tabelle, in der diese beiden wichtigsten Regeln beschrieben werden.
 
 <table>
 <colgroup>
@@ -1402,8 +1409,8 @@ Erweiterungspunkte werden nicht alle auf die gleiche Weise veröffentlicht, wobe
 <thead>
 <tr class="header">
 <th align="left">Virtuelle Erweiterung</th>
-<th align="left">Erfordert eine Ziel-OS-Sequenzierung</th>
-<th align="left">Erfordert globales publizieren</th>
+<th align="left">Erfordert die Zielbetriebssystemsequenzierung</th>
+<th align="left">Erfordert globale Veröffentlichung</th>
 </tr>
 </thead>
 <tbody>
@@ -1433,7 +1440,7 @@ Erweiterungspunkte werden nicht alle auf die gleiche Weise veröffentlicht, wobe
 <td align="left"><p></p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Software-Client</p></td>
+<td align="left"><p>Softwareclient</p></td>
 <td align="left"><p>X</p></td>
 <td align="left"><p></p></td>
 </tr>
@@ -1443,7 +1450,7 @@ Erweiterungspunkte werden nicht alle auf die gleiche Weise veröffentlicht, wobe
 <td align="left"><p>X</p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Kontextmenü Handler</p></td>
+<td align="left"><p>Kontextmenühandler</p></td>
 <td align="left"><p>X</p></td>
 <td align="left"><p>X</p></td>
 </tr>
@@ -1453,22 +1460,22 @@ Erweiterungspunkte werden nicht alle auf die gleiche Weise veröffentlicht, wobe
 <td align="left"><p></p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Datenobjekt-Handler</p></td>
+<td align="left"><p>Data-Objekthandler</p></td>
 <td align="left"><p>X</p></td>
 <td align="left"><p></p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Eigenschaftentabellen-Handler</p></td>
+<td align="left"><p>Eigenschaftenblatthandler</p></td>
 <td align="left"><p>X</p></td>
 <td align="left"><p></p></td>
 </tr>
 <tr class="even">
-<td align="left"><p>Infotipp-Handler</p></td>
+<td align="left"><p>Infotip-Handler</p></td>
 <td align="left"><p>X</p></td>
 <td align="left"><p></p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Spalten Handler</p></td>
+<td align="left"><p>Spaltenhandler</p></td>
 <td align="left"><p>X</p></td>
 <td align="left"><p></p></td>
 </tr>
@@ -1478,7 +1485,7 @@ Erweiterungspunkte werden nicht alle auf die gleiche Weise veröffentlicht, wobe
 <td align="left"><p></p></td>
 </tr>
 <tr class="odd">
-<td align="left"><p>Browser Helper-Objekt</p></td>
+<td align="left"><p>Browserhilfsobjekt</p></td>
 <td align="left"><p>X</p></td>
 <td align="left"><p>X</p></td>
 </tr>
@@ -1492,18 +1499,18 @@ Erweiterungspunkte werden nicht alle auf die gleiche Weise veröffentlicht, wobe
 
  
 
-## <a href="" id="bkmk-dynamic-config"></a>Verarbeitung dynamischer Konfigurationen
+## <a name="dynamic-configuration-processing"></a><a href="" id="bkmk-dynamic-config"></a>Dynamische Konfigurationsverarbeitung
 
 
-Das Bereitstellen von App-V-Paketen auf einem Computer oder Benutzer ist sehr einfach. Da Organisationen AppV-Anwendungen jedoch über Unternehmensgrenzen hinweg sowie über geografische und politische Grenzen hinweg bereitstellen, ist die Möglichkeit, eine Anwendung einmal mit einem Satz von Einstellungen zu sequenzieren, unmöglich. App-V wurde für dieses Szenario entwickelt, da es bestimmte Einstellungen und Konfigurationen während der Sequenzierung in der Manifestdatei erfasst, aber auch Änderungen mit dynamischen Konfigurationsdateien unterstützt.
+Das Bereitstellen von App-V-Paketen auf einem Computer oder Benutzer ist sehr einfach. Da Organisationen AppV-Anwendungen jedoch über Geschäftsbereiche und geografische und politische Grenzen hinweg bereitstellen, ist die Möglichkeit, eine Anwendung einmal mit einer Reihe von Einstellungen abzufolgen, unmöglich. App-V wurde für dieses Szenario entwickelt, da es bestimmte Einstellungen und Konfigurationen während der Sequenzierung in der Manifestdatei erfasst, aber auch Änderungen mit Dynamischen Konfigurationsdateien unterstützt.
 
-Mit der dynamischen App-V-Konfiguration können Sie eine Richtlinie für ein Paket entweder auf Computerebene oder auf Benutzerebene angeben. Mit den Dynamic Configuration-Dateien können Sequenzierungs Ingenieure die Konfiguration eines Pakets nach der Reihenfolge ändern, um die Anforderungen einzelner Benutzer-oder Computergruppen zu erfüllen. In einigen Fällen kann es notwendig sein, Änderungen an der Anwendung vorzunehmen, um die richtige Funktionalität innerhalb der App-V-Umgebung bereitzustellen. Beispielsweise kann es erforderlich sein, Änderungen an den \ _ \ * config.xml-Dateien vorzunehmen, damit bestimmte Aktionen während der Ausführung der Anwendung zu einem bestimmten Zeitpunkt ausgeführt werden können, wie das Deaktivieren einer mailto-Erweiterung, um zu verhindern, dass eine virtualisierte Anwendung diese Erweiterung aus einer anderen Anwendung überschreibt.
+Die dynamische App-V-Konfiguration ermöglicht das Angeben einer Richtlinie für ein Paket auf Computerebene oder auf Benutzerebene. Die Dynamic Configuration-Dateien ermöglichen Sequenzierungstechnikern das Ändern der Konfiguration eines Pakets nach der Sequenzierung, um die Anforderungen einzelner Benutzergruppen oder Computer zu erfüllen. In einigen Fällen kann es erforderlich sein, Änderungen an der Anwendung vorzunehmen, um die richtigen Funktionen in der App-V-Umgebung bereitzustellen. Beispielsweise kann es erforderlich sein, Änderungen an den \_\*-config.xml-Dateien vorzunehmen, damit bestimmte Aktionen zu einem bestimmten Zeitpunkt während der Ausführung der Anwendung ausgeführt werden können, z. B. das Deaktivieren einer Mailto-Erweiterung, um zu verhindern, dass eine virtualisierte Anwendung diese Erweiterung aus einer anderen Anwendung überschreibt.
 
-App-V-Pakete enthalten die Manifestdatei innerhalb der AppV-Paketdatei, die für Sequenz Vorgänge repräsentativ ist und die Richtlinie der Wahl ist, wenn einem bestimmten Paket keine dynamischen Konfigurationsdateien zugewiesen werden. Nach der Sequenzierung können die dynamischen Konfigurationsdateien geändert werden, um die Veröffentlichung einer Anwendung für verschiedene Desktops oder Benutzer mit unterschiedlichen Erweiterungspunkten zu ermöglichen. Die beiden dynamischen Konfigurationsdateien sind die Dynamic Deployment Configuration (DDC)-und Dynamic User Configuration (Duc)-Dateien. In diesem Abschnitt wird die Kombination der Manifest-und Dynamic Configuration-Dateien behandelt.
+App-V-Pakete enthalten die Manifestdatei in der Appv-Paketdatei, die für Sequenzierungsvorgänge repräsentativ ist und die Richtlinie ihrer Wahl ist, es sei denn, einem bestimmten Paket sind Dynamische Konfigurationsdateien zugewiesen. Nach der Sequenzierung können die Dateien der dynamischen Konfiguration geändert werden, um die Veröffentlichung einer Anwendung auf verschiedenen Desktops oder Benutzern mit unterschiedlichen Erweiterungspunkten zu ermöglichen. Die beiden Dynamic Configuration Files sind die Dynamic Deployment Configuration (DDC)- und dynamic User Configuration (DUC)-Dateien. In diesem Abschnitt liegt der Schwerpunkt auf der Kombination von Manifestdateien und dynamischen Konfigurationsdateien.
 
-### Beispiel für dynamische Konfigurationsdateien
+### <a name="example-for-dynamic-configuration-files"></a>Beispiel für dynamische Konfigurationsdateien
 
-Das folgende Beispiel zeigt die Kombination aus Manifest, Bereitstellungskonfiguration und Benutzerkonfigurationsdateien nach der Veröffentlichung und im normalen Betrieb. Diese Beispiele sind verkürzte Beispiele für die einzelnen Dateien. Der Zweck besteht darin, die Kombination der Dateien nur anzuzeigen und keine vollständige Beschreibung der in den einzelnen Dateien verfügbaren spezifischen Kategorien zu sein. Weitere Informationen finden Sie im App-V 5-Sequenzierungs Handbuch unter: <https://go.microsoft.com/fwlink/?LinkID=269810>
+Das folgende Beispiel zeigt die Kombination der Dateien "Manifest", "Bereitstellungskonfiguration" und "Benutzerkonfiguration" nach der Veröffentlichung und während des normalen Betriebs. Diese Beispiele sind abgekürzte Beispiele für jede der Dateien. Der Zweck besteht darin, nur die Kombination der Dateien anzuzeigen und keine vollständige Beschreibung der spezifischen Kategorien zu sein, die in den einzelnen Dateien verfügbar sind. Weitere Informationen hierzu im App-V 5-Sequenzierungshandbuch: <https://go.microsoft.com/fwlink/?LinkID=269810>
 
 **Manifest**
 
@@ -1571,49 +1578,51 @@ Das folgende Beispiel zeigt die Kombination aus Manifest, Bereitstellungskonfigu
      </Subsystems>
 ```
 
-## <a href="" id="bkmk-sidebyside-assemblies"></a>Nebeneinander angeordnete Assemblys
+## <a name="side-by-side-assemblies"></a><a href="" id="bkmk-sidebyside-assemblies"></a>Parallele Assemblys
 
 
-App-V unterstützt das automatische Verpacken von nebeneinander angeordneten (SxS)-Assemblys während der Sequenzierung und Bereitstellung auf dem Client während der Veröffentlichung virtueller Anwendungen. App-V 5 SP2 unterstützt das Aufzeichnen von SxS-Assemblys während der Sequenzierung für Assemblys, die auf dem Sequenzcomputer nicht vorhanden sind. Und für Assemblys, bestehend aus Visual C++ (Version 8 und neuer) und/oder MSXML-Laufzeit, erkennt und erfasst der Sequencer diese Abhängigkeiten automatisch, selbst wenn Sie während der Überwachung nicht installiert wurden. Das Feature für nebeneinander angeordnete Assemblys entfernt die Einschränkungen früherer Versionen von App-v, wobei der APP-v-Sequenzer keine bereits auf der Sequenzierungs Arbeitsstation vorhandenen Assemblys erfasst und die Assemblys privatisiert hat, die auf eine Bit-Version pro Paket beschränkt sind. Dieses Verhalten hat dazu geführt, dass App-V-Anwendungen für Clients fehlen, die die erforderlichen SxS-Assemblys aufweisen, wodurch Anwendungsstart Fehler verursacht wurden. Dieser zwang den Verpackungsprozess, zu dokumentieren und sicherzustellen, dass alle für Pakete erforderlichen Assemblys lokal auf dem Clientbetriebssystem des Benutzers installiert wurden, um die Unterstützung für die virtuellen Anwendungen zu gewährleisten. Auf der Grundlage der Anzahl der Assemblys und der fehlenden Anwendungsdokumentation für die erforderlichen Abhängigkeiten war diese Aufgabe sowohl eine Herausforderung für die Verwaltung als auch die Implementierung.
+App-V unterstützt das automatische Verpacken von Parallelassemblys (Side-by-Side, SxS) während der Sequenzierung und Bereitstellung auf dem Client während der Veröffentlichung virtueller Anwendungen. App-V 5 SP2 unterstützt die Erfassung von SxS-Assemblys während der Sequenzierung für Assemblys, die nicht auf dem Sequenzierungscomputer vorhanden sind. Und für Assemblys, die aus Visual C++ (Version 8 und höher) und/oder MSXML Laufzeit bestehen, erkennt und erfasst der Sequencer diese Abhängigkeiten automatisch, auch wenn sie während der Überwachung nicht installiert wurden. Das Feature "Parallele Assemblys" entfernt die Einschränkungen früherer Versionen von App-V, bei denen der App-V Sequencer keine Assemblys erfasst hat, die bereits auf der Sequenzierungsarbeitsstation vorhanden sind, und die Assemblys zu privatisieren, die auf eine Bitversion pro Paket beschränkt sind. Dieses Verhalten führte dazu, dass bereitgestellte App-V-Anwendungen für Clients die erforderlichen SxS-Assemblys fehlten, was zu Anwendungsstartfehlern führte. Dadurch musste der Verpackungsvorgang dokumentiert werden und dann sichergestellt werden, dass alle für Pakete erforderlichen Assemblys lokal auf dem Clientbetriebssystem des Benutzers installiert wurden, um die Unterstützung für die virtuellen Anwendungen sicherzustellen. Basierend auf der Anzahl der Assemblys und der fehlenden Anwendungsdokumentation für die erforderlichen Abhängigkeiten war diese Aufgabe sowohl eine Verwaltungs- als auch eine Implementierungsaufgabe.
 
-Die Unterstützung von nebeneinander angeordneten Assemblys in App-V bietet die folgenden Features.
+Die Unterstützung der Parallelassembly in App-V bietet die folgenden Features.
 
--   Automatische Erfassung von SxS-Assemblierungen während der Sequenzierung, unabhängig davon, ob die Assembly bereits auf der Sequenzierungs Arbeitsstation installiert war.
+-   Automatische Erfassung der SxS-Assembly während der Sequenzierung, unabhängig davon, ob die Assembly bereits auf der Sequenzierungsarbeitsstation installiert war.
 
--   Der App-V-Client installiert erforderliche SxS-Assemblys automatisch zur Veröffentlichungszeit auf dem Clientcomputer, wenn diese nicht vorhanden sind.
+-   Der App-V-Client installiert die erforderlichen SxS-Assemblys automatisch zum Zeitpunkt der Veröffentlichung auf dem Clientcomputer, wenn sie nicht vorhanden sind.
 
--   Der Sequencer meldet die VC-Laufzeitabhängigkeit in Sequencer-Berichterstattungsmechanismus.
+-   Der Sequencer meldet die VC-Laufzeitabhängigkeit im Sequencer-Berichterstellungsmechanismus.
 
--   Der Sequencer ermöglicht die Entscheidung, die Assemblys, die bereits auf dem Sequencer installiert sind, nicht zu verpacken, wodurch Szenarien unterstützt werden, in denen die Assemblys zuvor auf den Zielcomputern installiert wurden.
+-   Der Sequencer ermöglicht das Nichtpaketieren der Assemblys, die bereits auf dem Sequencer installiert sind, und unterstützt Szenarien, in denen die Assemblys zuvor auf den Zielcomputern installiert wurden.
 
-### Automatisches Veröffentlichen von SxS-Assemblys
+### <a name="automatic-publishing-of-sxs-assemblies"></a>Automatische Veröffentlichung von SxS-Assemblys
 
-Während der Veröffentlichung eines App-v-Pakets mit SxS-Assemblys überprüft der APP-v-Client, ob die Assembly auf dem Computer vorhanden ist. Wenn die Assembly nicht vorhanden ist, stellt der Client die Assembly auf dem Computer bereit. Pakete, die Bestandteil von Verbindungsgruppen sind, basieren auf den nebeneinander angeordneten Baugruppen Installationen, die Bestandteil der Basispakete sind, da die Verbindungsgruppe keine Informationen zur Assemblierungs Installation enthält.
+Während der Veröffentlichung eines App-V-Pakets mit SxS-Assemblys überprüft der App-V-Client, ob die Assembly auf dem Computer vorhanden ist. Wenn die Assembly nicht vorhanden ist, stellt der Client die Assembly auf dem Computer bereit. Pakete, die Teil von Verbindungsgruppen sind, basieren auf den Parallelassemblyinstallationen, die Teil der Basispakete sind, da die Verbindungsgruppe keine Informationen zur Assemblyinstallation enthält.
 
-**Hinweis**  Beim Aufheben der Veröffentlichung oder beim Entfernen eines Pakets mit einer Assembly werden die Assemblys für dieses Paket nicht entfernt.
+**Hinweis:**  
+Wenn Sie die Veröffentlichung eines Pakets mit einer Assembly aufheben oder entfernen, werden die Assemblys für dieses Paket nicht entfernt.
 
  
 
-## <a href="" id="bkmk-client-logging"></a>Client Protokollierung
+## <a name="client-logging"></a><a href="" id="bkmk-client-logging"></a>Clientprotokollierung
 
 
-Der App-V-Client protokolliert Informationen im Windows-Ereignisprotokoll im standardmäßigen etw-Format. Die spezifischen App-V-Ereignisse finden Sie in der Ereignisanzeige unter Anwendungen und Dienste Logs\\Microsoft\\AppV\\Client.
+Der App-V-Client protokolliert Informationen im etw-Standardformat im Windows-Ereignisprotokoll. Die spezifischen App-V-Ereignisse finden Sie in der Ereignisanzeige unter "Anwendungs- und Dienstprotokolle\\Microsoft\\AppV\\Client".
 
-**Hinweis**  In App-V 5,0 SP3 wurden einige Protokolle konsolidiert und an den folgenden Speicherort verschoben:
+**Hinweis:**  
+In App-V 5.0 SP3 wurden einige Protokolle konsolidiert und an den folgenden Speicherort verschoben:
 
 `Event logs/Applications and Services Logs/Microsoft/AppV/ServiceLog`
 
-Eine Liste der verschobenen Protokolle finden Sie unter [Informationen zu App-V 5,0 SP3](about-app-v-50-sp3.md#bkmk-event-logs-moved).
+Eine Liste der verschobenen Protokolle finden Sie unter ["Informationen zu App-V 5.0 SP3".](about-app-v-50-sp3.md#bkmk-event-logs-moved)
 
  
 
-Nachfolgend werden drei spezifische Kategorien von Ereignissen aufgezeichnet.
+Es gibt drei spezifische Kategorien von Ereignissen, die unten beschrieben werden.
 
-**Administrator**: protokolliert Ereignisse für Konfigurationen, die auf den App-V-Client angewendet werden, und enthält die primären Warnungen und Fehler.
+**Administrator:** Protokolliert Ereignisse für Konfigurationen, die auf den App-V-Client angewendet werden, und enthält die primären Warnungen und Fehler.
 
-**Betriebsbereit**: protokolliert die allgemeine App-v-Ausführung und-Verwendung einzelner Komponenten und erstellt ein Überwachungsprotokoll der APP-v-Vorgänge, die auf dem App-v-Client abgeschlossen wurden.
+**Betriebsbereit:** Protokolliert die allgemeine App-V-Ausführung und Die Verwendung einzelner Komponenten, die ein Überwachungsprotokoll der App-V-Vorgänge erstellen, die auf dem App-V-Client abgeschlossen wurden.
 
-**Virtuelle Anwendung**: protokolliert die Einführung virtueller Anwendungen und die Verwendung von Virtualisierungs-Subsysteme.
+**Virtuelle Anwendung:** Protokolliert das Starten virtueller Anwendungen und die Verwendung von Virtualisierungssubsystemen.
 
 
 

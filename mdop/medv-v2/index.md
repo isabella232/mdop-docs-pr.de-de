@@ -1,6 +1,6 @@
 ---
-title: Microsoft Enterprise Desktop Virtualization 2,0
-description: Microsoft Enterprise Desktop Virtualization 2,0
+title: Microsoft Enterprise Desktop Virtualization 2.0
+description: Microsoft Enterprise Desktop Virtualization 2.0
 author: dansimp
 ms.assetid: 84109be0-4613-42e9-85fc-fcda8de6e4c4
 ms.pagetype: mdop, virtualization
@@ -8,25 +8,25 @@ ms.mktglfcycl: deploy
 ms.sitesec: library
 ms.prod: w10
 ms.date: 08/30/2016
-ms.openlocfilehash: d2f11376cc7cd4009e149d8c10355461f86e5705
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: cd030bb2770ea5e617eb4debac925ffb514d646f
+ms.sourcegitcommit: 3e0500abde44d6a09c7ac8e3caf5e25929b490a4
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10795805"
+ms.lasthandoff: 08/23/2021
+ms.locfileid: "11910430"
 ---
-# Microsoft Enterprise Desktop Virtualization 2,0
+# <a name="microsoft-enterprise-desktop-virtualization-20"></a>Microsoft Enterprise Desktop Virtualization 2.0
 
 
-![Med-v-Logo](images/med-v2logo.gif)
+![med-v logotype.](images/med-v2logo.gif)
 
-Willkommen bei Microsoft Enterprise Desktop Virtualization (MED-V) 2,0. MED-V 2,0 verwendet Windows Virtual PC, um eine Unternehmenslösung für die Desktop-Virtualisierung bereitzustellen. Mithilfe von MED-V können Sie Windows Virtual PC-Images auf einem beliebigen Windows-basierten Desktop, auf dem Windows 7 Professional, Enterprise oder Windows 7 Ultimate ausgeführt wird, problemlos erstellen, bereitstellen und verwalten.
+Willkommen bei Microsoft Enterprise Desktop Virtualization (MED-V) 2.0. MED-V 2.0 verwendet Windows virtuellen PC, um eine Unternehmenslösung für die Desktopvirtualisierung bereitzustellen. Mithilfe von MED-V können Sie ganz einfach Unternehmensimages Windows virtuellen PCs auf jedem Windows-basierten Desktop erstellen, bereitstellen und verwalten, auf dem Windows 7 Professional, Enterprise oder Windows 7 Ultimate ausgeführt wird.
 
-MED-V ist eine integrale Komponente des Microsoft-Desktop Optimierungs Pakets, einer dynamischen Lösung, die Software Assurance-Kunden zur Verfügung steht, die dazu beiträgt, die Kosten für die Software Installation zu verringern, die Bereitstellung von Anwendungen als Dienste zu ermöglichen und Unternehmen beim Verwalten und Steuern von Unternehmens Desktop-Umgebungen
+MED-V ist ein integraler Bestandteil des Microsoft Desktop Optimization Packs, einer dynamischen Lösung, die Software Assurance-Kunden zur Verfügung steht, die softwareinstallationskosten reduziert, die Bereitstellung von Anwendungen als Dienste ermöglicht und die Verwaltung und Steuerung von Desktopumgebungen in Unternehmen unterstützt.
 
-Weitere Informationen zum Durchführen von MED-V-Aufgaben finden Sie in den folgenden Abschnitten.
+Weitere Informationen zum Ausführen MED-V Aufgaben finden Sie in den folgenden Abschnitten.
 
-## Inhalt dieses Abschnitts
+## <a name="in-this-section"></a>Inhalt dieses Abschnitts
 
 
 [Erste Schritte mit MED-V](getting-started-with-med-vmedv2.md)
@@ -43,16 +43,16 @@ Weitere Informationen zum Durchführen von MED-V-Aufgaben finden Sie in den folg
 
 [Technische Referenz für MED-V](technical-reference-for-med-v.md)
 
-## Verweis
+## <a name="reference"></a>Verweis
 
 
-Weitere Informationen zu med-V finden Sie unter
+Weitere Informationen zu MED-V finden Sie unter
 
-[Microsoft Windows Enterprise: verbessern virtueller PCs mit MED-V](https://go.microsoft.com/fwlink/?LinkId=195917) ( https://go.microsoft.com/fwlink/?LinkId=195917) .
+[Microsoft Windows Enterprise: Verbessern virtueller PCs mit MED-V](https://go.microsoft.com/fwlink/?LinkId=195917) ( https://go.microsoft.com/fwlink/?LinkId=195917) .
 
- 
+ 
 
- 
+ 
 
 
 

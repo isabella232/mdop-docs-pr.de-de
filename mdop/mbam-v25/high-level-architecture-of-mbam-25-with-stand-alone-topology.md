@@ -11,28 +11,29 @@ ms.mktglfcycl: manage
 ms.sitesec: library
 ms.prod: w10
 ms.date: 08/30/2016
-ms.openlocfilehash: 75e878e24b4675f2f2f574791d0f06ecadd0196d
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: 9ec9b1e4391fde3083564f34b5f89d1c5bd174f7
+ms.sourcegitcommit: 3e0500abde44d6a09c7ac8e3caf5e25929b490a4
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10811827"
+ms.lasthandoff: 08/23/2021
+ms.locfileid: "11910670"
 ---
-# High-Level-Architektur von MBAM 2.5 mit eigenständiger Topologie
+# <a name="high-level-architecture-of-mbam-25-with-stand-alone-topology"></a>High-Level-Architektur von MBAM 2.5 mit eigenständiger Topologie
 
 
-In diesem Thema wird die empfohlene Architektur für die Bereitstellung von Microsoft BitLocker-Verwaltung und-Überwachung (MBAM) mit der eigenständigen Configuration Manager-Topologie beschrieben. In dieser Topologie wird MBAM als eigenständiges Produkt bereitgestellt. Sie können MBAM auch mit der Configuration Manager-Integrations Topologie bereitstellen, die MBAM mit Configuration Manager integriert. Weitere Informationen finden Sie unter [Architektur auf höherer Ebene in MBAM 2,5 mit der Configuration Manager-Integrations Topologie](high-level-architecture-of-mbam-25-with-configuration-manager-integration-topology.md).
+In diesem Thema wird die empfohlene Architektur für die Bereitstellung von Microsoft BitLocker Administration and Monitoring (MBAM) mit der eigenständigen Configuration Manager-Topologie beschrieben. In dieser Topologie wird MBAM als eigenständiges Produkt bereitgestellt. Alternativ können Sie MBAM mit der Configuration Manager-Integrationstopologie bereitstellen, die MBAM in Configuration Manager integriert. Weitere Informationen finden Sie unter ["High-Level Architecture of MBAM 2.5 with Configuration Manager Integration Topology".](high-level-architecture-of-mbam-25-with-configuration-manager-integration-topology.md)
 
-Eine Liste der unterstützten Versionen der in diesem Thema erwähnten Software finden Sie unter [unterstützte MBAM 2,5-Konfigurationen](mbam-25-supported-configurations.md).
+Eine Liste der unterstützten Versionen der in diesem Thema erwähnten Software finden Sie unter ["Unterstützte Konfigurationen für MBAM 2.5".](mbam-25-supported-configurations.md)
 
-**Hinweis**  Wir empfehlen, nur in Testumgebungen eine Architektur mit einem Server zu verwenden.
+**Hinweis:**  
+Es wird empfohlen, nur in Testumgebungen eine Architektur mit einem einzelnen Server zu verwenden.
 
  
 
-## Empfohlene Anzahl von Servern und unterstützte Anzahl von Clients
+## <a name="recommended-number-of-servers-and-supported-number-of-clients"></a>Empfohlene Anzahl von Servern und unterstützte Anzahl von Clients
 
 
-Die empfohlene Anzahl von Servern und unterstützten Clients in einer Produktionsumgebung lautet wie folgt:
+Die empfohlene Anzahl von Servern und die unterstützte Anzahl von Clients in einer Produktionsumgebung lautet wie folgt:
 
 <table>
 <colgroup>
@@ -49,69 +50,70 @@ Die empfohlene Anzahl von Servern und unterstützten Clients in einer Produktion
 <tr class="odd">
 <td align="left"><p>Anzahl der Server und anderer Computer</p></td>
 <td align="left"><p>Zwei Server</p>
-<p>Eine Workstation</p></td>
+<p>Eine Arbeitsstation</p></td>
 </tr>
 <tr class="even">
 <td align="left"><p>Anzahl der unterstützten Clientcomputer</p></td>
-<td align="left"><p>500.000</p></td>
+<td align="left"><p>500,000</p></td>
 </tr>
 </tbody>
 </table>
 
  
 
-## Empfohlene MBAM-Architektur auf höherer Ebene mit der eigenständigen Topologie
+## <a name="recommended-mbam-high-level-architecture-with-the-stand-alone-topology"></a>Empfohlene allgemeine MBAM-Architektur mit der eigenständigen Topologie
 
 
-Das folgende Diagramm und die folgende Tabelle beschreiben die empfohlene Architektur für zwei Server auf hoher Ebene für MBAM mit der eigenständigen Topologie. MBAM Multi-Forest-Bereitstellungen erfordern eine unidirektionale oder bidirektionale Vertrauensstellung. Unidirektionale Vertrauensstellungen setzen voraus, dass die Server Domäne der Clientdomäne vertraut.
+Im folgenden Diagramm und in der folgenden Tabelle wird die empfohlene allgemeine Zwei-Server-Architektur für MBAM mit der eigenständigen Topologie beschrieben. MBAM-Bereitstellungen mit mehreren Gesamtstrukturen erfordern eine unidirektionale oder bidirektionale Vertrauensstellung. Unidirektionale Vertrauensstellungen erfordern, dass die Serverdomäne der Clientdomäne vertraut.
 
-![mbam2](images/mbam2-5-2servers.png)
+![mbam2.](images/mbam2-5-2servers.png)
 
-Server Features zum Konfigurieren auf diesem Server Beschreibungsdaten Bankserver
+Serverfeatures, die auf diesem Server für die Beschreibungsdatenbank konfiguriert werden sollen
 
-Konformitäts-und Überwachungsdatenbank
+Compliance- und Überwachungsdatenbank
 
-Dieses Feature ist auf einem Server konfiguriert, auf dem Windows Server ausgeführt wird, und die SQL Server-Instanz unterstützt.
+Dieses Feature ist auf einem Server mit Windows Server konfiguriert und wird SQL Server Instanz unterstützt.
 
-Die **Compliance-und Überwachungsdatenbank** speichert Kompatibilitätsdaten, die hauptsächlich für Berichte verwendet werden, die von SQL Server Reporting Services gehostet werden.
+Die **Compliance- und Überwachungsdatenbank** speichert Compliancedaten, die in erster Linie für Berichte verwendet werden, die SQL Server Reporting Services Hosts.
 
 Wiederherstellungsdatenbank
 
-Dieses Feature ist auf einem Server konfiguriert, auf dem Windows Server ausgeführt wird, und die SQL Server-Instanz unterstützt.
+Dieses Feature ist auf einem Server mit Windows Server konfiguriert und wird SQL Server Instanz unterstützt.
 
-Die **Wiederherstellungsdatenbank** speichert Wiederherstellungsdaten, die von MBAM-Clientcomputern erfasst werden.
+Die **Wiederherstellungsdatenbank** speichert Wiederherstellungsdaten, die von MBAM-Clientcomputern gesammelt werden.
 
 Berichte
 
-Dieses Feature ist auf einem Server konfiguriert, auf dem Windows Server ausgeführt wird, und die SQL Server-Instanz unterstützt.
+Dieses Feature ist auf einem Server mit Windows Server konfiguriert und wird SQL Server Instanz unterstützt.
 
-In den **Berichten** werden Wiederherstellungs Überwachungs-und Kompatibilitätsstatus Daten zu den Clientcomputern in Ihrem Unternehmen bereitgestellt. Sie können auf die Berichte über die Website Verwaltung und Überwachung oder direkt in SQL Server Reporting Services zugreifen.
+Die **Berichte** enthalten Wiederherstellungsüberwachungs- und Compliancestatusdaten zu den Clientcomputern in Ihrem Unternehmen. Sie können über die Verwaltungs- und Überwachungswebsite oder direkt über SQL Server Reporting Services auf die Berichte zugreifen.
 
-Verwaltungs-und Überwachungs Server
+Verwaltungs- und Überwachungsserver
 
-Website "Verwaltung und Überwachung"
+Verwaltungs- und Überwachungswebsite
 
-Dieses Feature ist auf einem Computer mit Windows Server konfiguriert.
+Dieses Feature wird auf einem Computer konfiguriert, auf dem Windows Server ausgeführt wird.
 
-Die **Website Verwaltung und Überwachung** wird verwendet, um Folgendes zu tun:
+Die **Verwaltungs- und Überwachungswebsite** wird für Folgendes verwendet:
 
--   Helfen Sie den Endbenutzern beim wieder Zugriff auf Ihre Computer, wenn Sie gesperrt sind. (Dieser Bereich der Website wird im Allgemeinen als Help Desk bezeichnet.)
+-   Helfen Sie Endbenutzern, den Zugriff auf ihre Computer wiederzuerlangen, wenn sie gesperrt sind. (Dieser Bereich der Website wird häufig als Helpdesk bezeichnet.)
 
--   Anzeigen von Berichten, die den Kompatibilitätsstatus und die Wiederherstellungs Aktivität für Clientcomputer anzeigen
+-   Anzeigen von Berichten, die den Compliancestatus und die Wiederherstellungsaktivität für Clientcomputer anzeigen.
 
-Self-Service-Portal
+Self-Service Portal
 
-Dieses Feature ist auf einem Computer mit Windows Server konfiguriert.
+Dieses Feature wird auf einem Computer konfiguriert, auf dem Windows Server ausgeführt wird.
 
-Das **Self-Service-Portal** ist eine Website, auf der sich Endbenutzer auf Clientcomputern selbstständig an einer Website anmelden können, um einen Wiederherstellungsschlüssel abzurufen, wenn Sie Ihr BitLocker-Kennwort verlieren oder vergessen.
+Das **Self-Service-Portal** ist eine Website, mit der sich Endbenutzer auf Clientcomputern unabhängig bei einer Website anmelden können, um einen Wiederherstellungsschlüssel zu erhalten, wenn sie ihr BitLocker-Kennwort verlieren oder vergessen.
 
 Überwachen von Webdiensten für diese Website
 
-Dieses Feature ist auf einem Computer mit Windows Server konfiguriert.
+Dieses Feature wird auf einem Computer konfiguriert, auf dem Windows Server ausgeführt wird.
 
-Die **Überwachungs-Webdienste** werden vom MBAM-Client und den Websites verwendet, um mit der Datenbank zu kommunizieren.
+Die **Überwachungswebdienste** werden vom MBAM-Client und den Websites für die Kommunikation mit der Datenbank verwendet.
 
-**Wichtig**  Der Monitoring Web Service steht in der Microsoft BitLocker-Verwaltung und-Überwachung (MBAM) 2,5 SP1 nicht mehr zur Verfügung, da die MBAM-Websites direkt mit der Wiederherstellungsdatenbank kommunizieren.
+**Wichtig**  
+Der Überwachungswebdienst ist in Microsoft BitLocker Administration and Monitoring (MBAM) 2.5 SP1 nicht mehr verfügbar, da die MBAM-Websites direkt mit der Wiederherstellungsdatenbank kommunizieren.
 
  
 
@@ -119,27 +121,27 @@ Verwaltungsarbeitsstation
 
 MBAM-Gruppenrichtlinienvorlagen
 
--   Bei den MBAM-Gruppenrichtlinienvorlagen handelt es sich um Gruppenrichtlinieneinstellungen, die Implementierungs Einstellungen für MBAM definieren, mit denen Sie die BitLocker-Laufwerkverschlüsselung verwalten können.
+-   Die MBAM-Gruppenrichtlinienvorlagen sind Gruppenrichtlinieneinstellungen, die Implementierungseinstellungen für MBAM definieren, mit denen Sie die BitLocker-Laufwerkverschlüsselung verwalten können.
 
--   Bevor Sie MBAM ausführen, müssen Sie die Gruppenrichtlinienvorlagen herunterladen, indem Sie [MDOP Gruppenrichtlinien (ADMX)-Vorlagen abrufen](https://go.microsoft.com/fwlink/p/?LinkId=393941) und auf einen Server oder eine Workstation kopieren, auf dem ein unterstütztes Windows-Server-oder Windows-Betriebssystem ausgeführt wird.
+-   Bevor Sie MBAM ausführen, müssen Sie die Gruppenrichtlinienvorlagen von Vorlagen zum Abrufen von [MDOP-Gruppenrichtlinien (ADMX)](https://go.microsoft.com/fwlink/p/?LinkId=393941) herunterladen und auf einen Server oder eine Arbeitsstation kopieren, auf dem ein unterstützter Windows Server oder Windows Betriebssystem ausgeführt wird.
 
--   Die Workstation muss kein dedizierter Computer sein.
+-   Die Arbeitsstation muss kein dedizierter Computer sein.
 
 MBAM-Client und Configuration Manager-Clientcomputer
 
-MBAM-Client Software
+MBAM-Clientsoftware
 
 Der MBAM-Client:
 
--   Verwendet Gruppenrichtlinienobjekte, um die BitLocker-Laufwerkverschlüsselung auf Clientcomputern im Unternehmen durchzusetzen.
+-   Verwendet Gruppenrichtlinienobjekte, um die BitLocker-Laufwerkverschlüsselung auf Clientcomputern im Unternehmen zu erzwingen.
 
--   Sammelt den BitLocker-Wiederherstellungsschlüssel für drei Datenlaufwerk Typen: Betriebssystemlaufwerke, fest Netzlaufwerke und Wechseldatenträger (USB)-Datenlaufwerke.
+-   Erfasst den Bitlocker-Wiederherstellungsschlüssel für drei Datentypen: Betriebssystemlaufwerke, Festplattenlaufwerke und USB-Datenlaufwerke(Removable).
 
--   Sammelt Wiederherstellungsinformationen und Computer Informationen zu den Clientcomputern.
+-   Sammelt Wiederherstellungsinformationen und Computerinformationen zu den Clientcomputern.
 
 
 
-## Verwandte Themen
+## <a name="related-topics"></a>Verwandte Themen
 
 
 [Erste Schritte mit MBAM 2.5](getting-started-with-mbam-25.md)
@@ -150,9 +152,9 @@ Der MBAM-Client:
 
  
 
-## Sie haben einen Vorschlag für MBAM?
-- [Hier](http://mbam.uservoice.com/forums/268571-microsoft-bitlocker-administration-and-monitoring)können Sie Vorschläge hinzufügen oder abstimmen. 
-- Bei MBAM-Problemen verwenden Sie das [MBAM TechNet-Forum](https://social.technet.microsoft.com/Forums/home?forum=mdopmbam). 
+## <a name="got-a-suggestion-for-mbam"></a>Haben Sie einen Vorschlag für MBAM?
+- Hier können Sie [Vorschläge](http://mbam.uservoice.com/forums/268571-microsoft-bitlocker-administration-and-monitoring)hinzufügen oder abstimmen. 
+- Verwenden Sie für MBAM-Probleme das [MBAM TechNet-Forum.](https://social.technet.microsoft.com/Forums/home?forum=mdopmbam) 
 
 
 

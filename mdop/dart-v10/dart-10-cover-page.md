@@ -11,38 +11,38 @@ ms.mktglfcycl: support
 ms.sitesec: library
 ms.prod: w10
 ms.date: 06/16/2016
-ms.openlocfilehash: 0e5ff1069d8be5ec1cd87d4db64e6b8f114c91b3
-ms.sourcegitcommit: 354664bc527d93f80687cd2eba70d1eea024c7c3
+ms.openlocfilehash: 6b7f5e1b906f22146016c9c485b02b39edbf083c
+ms.sourcegitcommit: 3e0500abde44d6a09c7ac8e3caf5e25929b490a4
 ms.translationtype: MT
 ms.contentlocale: de-DE
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "10804772"
+ms.lasthandoff: 08/23/2021
+ms.locfileid: "11910650"
 ---
-# DaRT 10
+# <a name="dart-10"></a>DaRT 10
 
 
-![mbam-Logo](images/mbam-logo-sm.gif)
+![mbam logo.](images/mbam-logo-sm.gif)
 
-## <a href="" id="administrator-s-guide-for--product-name-"></a>Administrator Handbuch für den &lt; Produktnamen&gt;
+## <a name="administrators-guide-for-ltproduct-namegt"></a><a href="" id="administrator-s-guide-for--product-name-"></a>Administratorhandbuch für &lt; Produktnamen&gt;
 
 
-Veröffentlicht: Veröffentlichungs * &lt; Datum &gt; *
+Veröffentlicht: * &lt; Veröffentlichungsdatum &gt; *
 
-*Fügen Sie hier eine Übersicht über die Zusammenfassung des Produkts hinzu.*
+*Fügen Sie hier eine Zusammenfassung des Produkts ein.*
 
-In diesem Leitfaden wird beschrieben, wie Sie den * &lt; Produkt &gt; Namen*installieren und verwenden. Dieser Leitfaden richtet sich an Administratoren und IT-Mitarbeiter.
+In diesem Handbuch wird beschrieben, wie * &lt; Sie den Produktnamen &gt; *installieren und verwenden. Dieses Handbuch richtet sich an Administratoren und IT-Mitarbeiter.
 
-Die aktuellste Dokumentation zu * &lt; Product Name &gt; *finden Sie auf der Startseite " *Link einfügen* ".
+Die aktuellste Dokumentation zum * &lt; Produktnamen &gt; *finden Sie auf der Startseite unter dem *Link "Einfügen".*
 
-Die Versionshinweise für den * &lt; Produktnamen &gt; *finden Sie unter *Einfügen eines Links*.
+Die Versionshinweise für * &lt; den Produktnamen &gt; *finden Sie unter *"Link einfügen" hier.*
 
-### Feedback senden
+### <a name="feedback"></a>Feedback senden
 
 Senden Sie Vorschläge und Kommentare zu diesem Dokument an <mdopdocs@microsoft.com> .
 
- 
+ 
 
- 
+ 
 
 
 
